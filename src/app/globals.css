@@ -1,0 +1,73 @@
+
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --fm-bg: #08080d;
+    --fm-surface: #111118;
+    --fm-card: #15151e;
+    --fm-border: #1c1c2a;
+    --fm-text: #eaeaef;
+    --fm-muted: #6b6b80;
+    --fm-accent: #6C5CE7;
+    --fm-accent-light: #a29bfe;
+    --fm-accent-glow: rgba(108, 92, 231, 0.25);
+    --fm-teal: #00CEC9;
+    --fm-teal-glow: rgba(0, 206, 201, 0.15);
+    --fm-success: #00CEC9;
+    --fm-warning: #fdcb6e;
+    --fm-danger: #ff6b6b;
+    --fm-pink: #fd79a8;
+  }
+
+  [data-theme="light"] {
+    --fm-bg: #f5f5f7;
+    --fm-surface: #ffffff;
+    --fm-card: #f0f0f3;
+    --fm-border: #e0e0e6;
+    --fm-text: #1a1a2e;
+    --fm-muted: #8888a0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: 'Outfit', sans-serif;
+    background-color: var(--fm-bg) !important;
+    color: var(--fm-text);
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  input:focus {
+    outline: none;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--fm-border);
+  border-radius: 3px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(20px, -30px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 10px var(--fm-accent-glow); }
+  50% { box-shadow: 0 0 25px var(--fm-accent-glow); }
+}
