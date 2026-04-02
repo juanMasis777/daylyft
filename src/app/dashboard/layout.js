@@ -1,39 +1,170 @@
+import { useState, useEffect } from "react";
+import { useTheme } from "@/context/ThemeContext";
+import { supabase } from "@/lib/supabase";
 
-
-import { ThemeProvider } from "@/context/ThemeContext";
-
-export const metadata = {
-  title: "FlowMind — AI Copilot for Productivity",
-  description: "Your AI copilot that organizes your day, learns your patterns, and helps you achieve more.",
-  manifest: "/manifest.json",
-  themeColor: "#6C5CE7",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "FlowMind",
-  },
-};
-
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  themeColor: "#6C5CE7",
-};
-
-export default function RootLayout({ children }) {
+function Logo() {
   return (
-    <html lang="en">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
-        <link rel="apple-touch-icon" href="/icon-192.png" />
-      </head>
-      <body>
-        <ThemeProvider>{children}</ThemeProvider>
-      </body>
-    </html>
+    <div style={{ width: 32, height: 32, borderRadius: 9, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <svg width={16} height={16} viewBox="0 0 24 24" fill="none">
+        <circle cx="8" cy="8" r="3" fill="white" />
+        <circle cx="16" cy="14" r="3" fill="white" />
+        <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      </svg>
+    </div>
+  );
+}
+
+const navItems = [
+  { id: "dashboard", label: "Home", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg> },
+  { id: "tasks", label: "Tasks", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 12l2 2 4-4" /></svg> },
+  { id: "calendar", label: "Calendar", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg> },
+  { id: "analytics", label: "Analytics", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg> },
+  { id: "team", label: "Team", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg> },
+  { id: "zen", label: "Zen", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /><line x1="9" y1="9" x2="9.01" y2="9" /><line x1="15" y1="9" x2="15.01" y2="9" /></svg> },
+  { id: "chat", label: "Ask Kai", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg> },
+  { id: "settings", label: "Settings", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg> },
+];
+
+export default function DashboardLayout({ children }) {
+  const [activeNav, setActiveNav] = useState("dashboard");
+  const { theme, toggleTheme } = useTheme();
+  const [isMobile, setIsMobile] = useState(false);
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const checkSize = () => setIsMobile(window.innerWidth < 768);
+    checkSize();
+    window.addEventListener("resize", checkSize);
+    return () => window.removeEventListener("resize", checkSize);
+  }, []);
+
+  useEffect(() => {
+    const checkUser = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        window.location.href = "/login";
+        return;
+      }
+      setUser(session.user);
+      setLoading(false);
+    };
+    checkUser();
+  }, []);
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    window.location.href = "/login";
+  };
+
+  const navigate = (id) => {
+    setActiveNav(id);
+    const routes = {
+      dashboard: "/dashboard",
+      tasks: "/dashboard/tasks",
+      analytics: "/dashboard/analytics",
+      zen: "/dashboard/zen",
+      calendar: "/dashboard/calendar",
+      team: "/dashboard/team",
+      chat: "/dashboard/chat",
+      settings: "/dashboard/settings",
+    };
+    window.location.href = routes[id] || "/dashboard";
+  };
+
+  if (loading) {
+    return (
+      <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--fm-bg)" }}>
+        <div style={{ textAlign: "center" }}>
+          <Logo />
+          <p style={{ color: "var(--fm-muted)", fontSize: 14, marginTop: 12 }}>Loading FlowMind...</p>
+        </div>
+      </div>
+    );
+  }
+
+  const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User";
+  const userInitials = userName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
+
+  return (
+    <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
+      {!isMobile && (
+        <div style={{ width: 220, background: "var(--fm-surface)", borderRight: "1px solid var(--fm-border)", display: "flex", flexDirection: "column", padding: "20px 12px", flexShrink: 0 }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 8px", marginBottom: 28 }}>
+            <Logo />
+            <div>
+              <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>FlowMind</div>
+              <div style={{ fontSize: 9, color: "var(--fm-muted)", fontWeight: 500, letterSpacing: "0.08em" }}>AI COPILOT</div>
+            </div>
+          </div>
+
+          <nav style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1 }}>
+            {navItems.map((item) => (
+              <button key={item.id} onClick={() => navigate(item.id)} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: activeNav === item.id ? "rgba(108,92,231,0.1)" : "transparent", border: activeNav === item.id ? "1px solid rgba(108,92,231,0.15)" : "1px solid transparent", borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500, color: activeNav === item.id ? "var(--fm-accent-light)" : "var(--fm-muted)", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left" }}>
+                {item.icon}
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: "transparent", border: "1px solid transparent", borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500, color: "var(--fm-danger)", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left", marginBottom: 10 }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg>
+            Log out
+          </button>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: 12, background: "var(--fm-card)", borderRadius: 12, border: "1px solid var(--fm-border)" }}>
+            <div style={{ width: 34, height: 34, borderRadius: 9, background: "linear-gradient(135deg, #fd79a8, #e84393)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>{userInitials}</div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-text)" }}>{userName}</div>
+              <div style={{ fontSize: 10, color: "var(--fm-accent-light)" }}>Free plan</div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <div style={{ flex: 1, overflowY: "auto", background: "var(--fm-bg)", paddingBottom: isMobile ? 70 : 0 }}>
+        <div style={{ padding: isMobile ? "16px 16px" : "20px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--fm-border)" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+            {isMobile && <Logo />}
+            <div>
+              <div style={{ fontSize: isMobile ? 17 : 20, fontWeight: 700, color: "var(--fm-text)" }}>
+                {isMobile ? `Hi, ${userName.split(" ")[0]}` : `Good morning, ${userName.split(" ")[0]}`}
+              </div>
+              <div style={{ fontSize: isMobile ? 11 : 13, color: "var(--fm-muted)" }}>
+                {new Date().toLocaleDateString("en-US", { weekday: "long", month: "long", day: "numeric", year: "numeric" })}
+              </div>
+            </div>
+          </div>
+          <div style={{ display: "flex", gap: 8 }}>
+            <div onClick={toggleTheme} style={{ width: 38, height: 38, borderRadius: 10, border: "1px solid var(--fm-border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--fm-muted)", cursor: "pointer" }}>
+              {theme === "dark" ? (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5" /><line x1="12" y1="1" x2="12" y2="3" /><line x1="12" y1="21" x2="12" y2="23" /><line x1="4.22" y1="4.22" x2="5.64" y2="5.64" /><line x1="18.36" y1="18.36" x2="19.78" y2="19.78" /><line x1="1" y1="12" x2="3" y2="12" /><line x1="21" y1="12" x2="23" y2="12" /><line x1="4.22" y1="19.78" x2="5.64" y2="18.36" /><line x1="18.36" y1="5.64" x2="19.78" y2="4.22" /></svg>
+              ) : (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
+              )}
+            </div>
+            <div style={{ width: 38, height: 38, borderRadius: 10, border: "1px solid var(--fm-border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--fm-muted)", cursor: "pointer", position: "relative" }}>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" /><path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
+              <div style={{ position: "absolute", top: 7, right: 7, width: 7, height: 7, borderRadius: "50%", background: "var(--fm-danger)" }} />
+            </div>
+            {isMobile && (
+              <div style={{ width: 38, height: 38, borderRadius: 10, background: "linear-gradient(135deg, #fd79a8, #e84393)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>{userInitials}</div>
+            )}
+          </div>
+        </div>
+        <div style={{ padding: isMobile ? "16px" : "24px 28px" }}>{children}</div>
+      </div>
+
+      {isMobile && (
+        <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "var(--fm-surface)", borderTop: "1px solid var(--fm-border)", display: "flex", justifyContent: "space-around", alignItems: "center", padding: "8px 0 12px", zIndex: 100 }}>
+          {navItems.slice(0, 5).map((item) => (
+            <button key={item.id} onClick={() => navigate(item.id)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, background: "none", border: "none", cursor: "pointer", color: activeNav === item.id ? "var(--fm-accent-light)" : "var(--fm-muted)", fontFamily: "Outfit, sans-serif", fontSize: 10, fontWeight: 500, padding: "4px 12px" }}>
+              {item.icon}
+              {item.label}
+            </button>
+          ))}
+        </div>
+      )}
+    </div>
   );
 }
