@@ -1,138 +1,165 @@
 "use client";
 
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+
 export default function AnalyticsPage() {
-const weekData = [
-{ day: "Mon", hours: 6.2, tasks: 8 },
-{ day: "Tue", hours: 7.5, tasks: 11 },
-{ day: "Wed", hours: 5.1, tasks: 7 },
-{ day: "Thu", hours: 8.0, tasks: 12 },
-{ day: "Fri", hours: 6.8, tasks: 9 },
-{ day: "Sat", hours: 3.2, tasks: 4 },
-{ day: "Sun", hours: 1.8, tasks: 2 },
-];
-const maxH = 8;
+const [tasks, setTasks] = useState([]);
+const [loading, setLoading] = useState(true);
+
+useEffect(() => {
+const loadData = async () => {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) return;
+
+    const { data } = await supabase
+    .from("tasks")
+    .select("*")
+    .eq("user_id", session.user.id)
+    .order("created_at", { ascending: false });
+
+    if (data) setTasks(data);
+    setLoading(false);
+};
+loadData();
+}, []);
+
+const totalTasks = tasks.length;
+const completedTasks = tasks.filter((t) => t.completed).length;
+const pendingTasks = totalTasks - completedTasks;
+const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+
+const highPriority = tasks.filter((t) => t.priority === "high").length;
+const mediumPriority = tasks.filter((t) => t.priority === "medium").length;
+const lowPriority = tasks.filter((t) => t.priority === "low").length;
+
+const categories = {};
+tasks.forEach((t) => {
+categories[t.category] = (categories[t.category] || 0) + 1;
+});
+
+const completedHigh = tasks.filter((t) => t.priority === "high" && t.completed).length;
+const completedMed = tasks.filter((t) => t.priority === "medium" && t.completed).length;
+const completedLow = tasks.filter((t) => t.priority === "low" && t.completed).length;
+
+if (loading) {
+return <div style={{ padding: 40, textAlign: "center", color: "var(--fm-muted)" }}>Loading analytics...</div>;
+}
 
 return (
 <div style={{ animation: "fadeIn 0.5s ease" }}>
-    <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: "0 0 4px" }}>Analytics</h2>
-    <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "0 0 24px" }}>Kai analyzes your patterns to optimize performance</p>
+    <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: 0, marginBottom: 4 }}>Analytics</h2>
+    <p style={{ fontSize: 13, color: "var(--fm-muted)", marginBottom: 20 }}>Your productivity insights based on real data</p>
 
-    {/* AI Insight */}
-    <div
-    style={{
-        background: "linear-gradient(135deg, rgba(0,206,201,0.08), rgba(85,239,196,0.04))",
-        border: "1px solid rgba(0,206,201,0.15)",
-        borderRadius: 14,
-        padding: 18,
-        marginBottom: 24,
-    }}
-    >
-    <div style={{ display: "flex", alignItems: "center", gap: 6, marginBottom: 8 }}>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="#00CEC9">
-        <path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" />
-        </svg>
-        <span style={{ color: "var(--fm-teal)", fontSize: 12, fontWeight: 600 }}>Kai's insight</span>
+    {/* Main Stats */}
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 10, marginBottom: 20 }}>
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16 }}>
+        <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Total tasks</div>
+        <div style={{ fontSize: 28, fontWeight: 700, color: "var(--fm-text)" }}>{totalTasks}</div>
     </div>
-    <p style={{ color: "var(--fm-text)", fontSize: 13, lineHeight: 1.6, margin: 0 }}>
-        Your productivity increases 34% when creative tasks are scheduled before 11am. 
-        Thursdays are your peak day — you completed 12 tasks last Thursday. I recommend 
-        moving important meetings to Thursdays for maximum impact.
-    </p>
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16 }}>
+        <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Completed</div>
+        <div style={{ fontSize: 28, fontWeight: 700, color: "var(--fm-success)" }}>{completedTasks}</div>
+    </div>
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16 }}>
+        <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Pending</div>
+        <div style={{ fontSize: 28, fontWeight: 700, color: "var(--fm-warning)" }}>{pendingTasks}</div>
+    </div>
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16 }}>
+        <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Completion rate</div>
+        <div style={{ fontSize: 28, fontWeight: 700, color: "var(--fm-accent-light)" }}>{completionRate}%</div>
+    </div>
     </div>
 
-    {/* Weekly Chart */}
-    <div
-    style={{
-        background: "var(--fm-card)",
-        border: "1px solid var(--fm-border)",
-        borderRadius: 14,
-        padding: 20,
-        marginBottom: 20,
-    }}
-    >
-    <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 20 }}>
-        Productive hours this week
-    </div>
-    <div style={{ display: "flex", alignItems: "flex-end", gap: 10, height: 160 }}>
-        {weekData.map((d, i) => (
-        <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-            <span style={{ fontSize: 11, color: "var(--fm-accent-light)", fontWeight: 500 }}>{d.hours}h</span>
-            <div
-            style={{
-                width: "100%",
-                maxWidth: 36,
-                borderRadius: 6,
-                height: `${(d.hours / maxH) * 120}px`,
-                background: i === 3
-                ? "linear-gradient(135deg, #6C5CE7, #a29bfe)"
-                : `rgba(108,92,231,${0.15 + (d.hours / maxH) * 0.35})`,
-                transition: "height 0.5s ease",
-            }}
-            />
-            <span style={{ fontSize: 12, color: "var(--fm-muted)" }}>{d.day}</span>
+    {/* Completion Bar */}
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 20, marginBottom: 16 }}>
+    <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 12 }}>Overall progress</div>
+    <div style={{ background: "var(--fm-card)", borderRadius: 8, height: 24, overflow: "hidden", marginBottom: 8 }}>
+        <div style={{ width: `${completionRate}%`, height: "100%", background: "linear-gradient(135deg, #6C5CE7, #00CEC9)", borderRadius: 8, transition: "width 0.5s ease", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        {completionRate > 10 && <span style={{ fontSize: 11, color: "#fff", fontWeight: 600 }}>{completionRate}%</span>}
         </div>
-        ))}
+    </div>
+    <div style={{ fontSize: 12, color: "var(--fm-muted)" }}>
+        {completionRate === 100 ? "All tasks completed! Amazing work!" : completionRate > 70 ? "Great progress! Almost there!" : completionRate > 40 ? "Keep going, you're making progress!" : totalTasks === 0 ? "Add some tasks to see your progress" : "Just getting started — you've got this!"}
     </div>
     </div>
 
-    {/* Stats grid */}
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 12, marginBottom: 24 }}>
-    {[
-        { label: "Best time", value: "8-11 AM", color: "var(--fm-accent)" },
-        { label: "Best day", value: "Thursday", color: "var(--fm-teal)" },
-        { label: "Tasks/week", value: "53 avg", color: "var(--fm-warning)" },
-        { label: "Focus ratio", value: "68%", color: "var(--fm-pink)" },
-    ].map((item, i) => (
-        <div
-        key={i}
-        style={{
-            background: "var(--fm-card)",
-            border: "1px solid var(--fm-border)",
-            borderRadius: 12,
-            padding: 16,
-        }}
-        >
-        <div style={{ fontSize: 12, color: "var(--fm-muted)", marginBottom: 6 }}>{item.label}</div>
-        <div style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)" }}>{item.value}</div>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+    {/* Priority Breakdown */}
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 20 }}>
+        <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 16 }}>By priority</div>
+
+        <div style={{ marginBottom: 14 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 12, color: "#ff6b6b" }}>High priority</span>
+            <span style={{ fontSize: 12, color: "var(--fm-muted)" }}>{completedHigh}/{highPriority}</span>
         </div>
-    ))}
+        <div style={{ background: "var(--fm-card)", borderRadius: 6, height: 8, overflow: "hidden" }}>
+            <div style={{ width: highPriority > 0 ? `${(completedHigh / highPriority) * 100}%` : "0%", height: "100%", background: "#ff6b6b", borderRadius: 6 }} />
+        </div>
+        </div>
+
+        <div style={{ marginBottom: 14 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 12, color: "#fdcb6e" }}>Medium priority</span>
+            <span style={{ fontSize: 12, color: "var(--fm-muted)" }}>{completedMed}/{mediumPriority}</span>
+        </div>
+        <div style={{ background: "var(--fm-card)", borderRadius: 6, height: 8, overflow: "hidden" }}>
+            <div style={{ width: mediumPriority > 0 ? `${(completedMed / mediumPriority) * 100}%` : "0%", height: "100%", background: "#fdcb6e", borderRadius: 6 }} />
+        </div>
+        </div>
+
+        <div>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+            <span style={{ fontSize: 12, color: "#00CEC9" }}>Low priority</span>
+            <span style={{ fontSize: 12, color: "var(--fm-muted)" }}>{completedLow}/{lowPriority}</span>
+        </div>
+        <div style={{ background: "var(--fm-card)", borderRadius: 6, height: 8, overflow: "hidden" }}>
+            <div style={{ width: lowPriority > 0 ? `${(completedLow / lowPriority) * 100}%` : "0%", height: "100%", background: "#00CEC9", borderRadius: 6 }} />
+        </div>
+        </div>
     </div>
 
-    {/* Productivity DNA preview */}
-    <div
-    style={{
-        background: "linear-gradient(135deg, rgba(108,92,231,0.1), rgba(162,155,254,0.05))",
-        border: "1px solid rgba(108,92,231,0.2)",
-        borderRadius: 14,
-        padding: 20,
-        textAlign: "center",
-    }}
-    >
-    <div style={{ fontSize: 16, fontWeight: 600, color: "var(--fm-text)", marginBottom: 6 }}>
-        Your Productivity DNA
+    {/* Category Breakdown */}
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 20 }}>
+        <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 16 }}>By category</div>
+
+        {Object.keys(categories).length === 0 ? (
+        <div style={{ fontSize: 13, color: "var(--fm-muted)", textAlign: "center", padding: 20 }}>No data yet. Add tasks to see category breakdown.</div>
+        ) : (
+        Object.entries(categories).map(([cat, count]) => (
+            <div key={cat} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "8px 0", borderBottom: "1px solid var(--fm-border)" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 8, height: 8, borderRadius: "50%", background: "var(--fm-accent)" }} />
+                <span style={{ fontSize: 13, color: "var(--fm-text)", textTransform: "capitalize" }}>{cat}</span>
+            </div>
+            <span style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-accent-light)" }}>{count} task{count !== 1 ? "s" : ""}</span>
+            </div>
+        ))
+        )}
     </div>
-    <div style={{ fontSize: 28, fontWeight: 800, color: "var(--fm-accent)", marginBottom: 4 }}>
-        The Deep Diver
     </div>
-    <p style={{ fontSize: 13, color: "var(--fm-muted)", marginBottom: 16, maxWidth: 400, margin: "0 auto 16px" }}>
-        You excel at long, focused work sessions. Your ideal block is 2.5 hours 
-        of uninterrupted time. You're in the top 15% of FlowMind users for deep focus.
-    </p>
-    <button
-        style={{
-        background: "var(--fm-accent)",
-        color: "#fff",
-        border: "none",
-        borderRadius: 10,
-        padding: "10px 24px",
-        fontSize: 13,
-        fontWeight: 600,
-        cursor: "pointer",
-        fontFamily: "Outfit, sans-serif",
-        }}
-    >
-        Share your DNA card
-    </button>
+
+    {/* Kai Insight */}
+    <div style={{ background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)", borderRadius: 14, padding: 18, marginTop: 16 }}>
+    <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+        <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
+        </div>
+        <span style={{ fontSize: 13, color: "var(--fm-accent-light)", fontWeight: 600 }}>Kai's insight</span>
+    </div>
+    <div style={{ fontSize: 13, color: "var(--fm-text)", lineHeight: 1.6 }}>
+        {totalTasks === 0
+        ? "Start adding tasks to see personalized productivity insights! I'll analyze your patterns and help you work smarter."
+        : completionRate > 80
+        ? `Incredible work! You've completed ${completionRate}% of your tasks. Your consistency is impressive. Consider taking a well-deserved break with Zen Mode!`
+        : completionRate > 50
+        ? `Good progress! ${completedTasks} of ${totalTasks} tasks done. Try tackling your high-priority tasks first tomorrow morning when your energy is highest.`
+        : highPriority > pendingTasks / 2
+        ? `I notice you have ${highPriority} high-priority tasks. Focus on those first — completing them will give you the biggest sense of progress.`
+        : `You've got ${pendingTasks} tasks remaining. Break them into smaller chunks and tackle them one at a time. You've got this!`
+        }
+    </div>
     </div>
 </div>
 );
