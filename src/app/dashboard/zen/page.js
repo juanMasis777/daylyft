@@ -80,15 +80,27 @@ if (playing[id]) {
     audioRefs.current[id].currentTime = 0;
     }
     setPlaying((p) => ({ ...p, [id]: false }));
-} else {
-    if (!audioRefs.current[id]) {
+    return;
+}
+
+Object.keys(playing).forEach((key) => {
+    if (playing[key] && audioRefs.current[key]) {
+    audioRefs.current[key].pause();
+    audioRefs.current[key].currentTime = 0;
+    }
+});
+
+if (!audioRefs.current[id]) {
     audioRefs.current[id] = new Audio(file);
     audioRefs.current[id].loop = true;
-    }
-    audioRefs.current[id].volume = volumes[id] || 0.5;
-    audioRefs.current[id].play().catch(() => {});
-    setPlaying((p) => ({ ...p, [id]: true }));
 }
+audioRefs.current[id].volume = volumes[id] || 0.5;
+audioRefs.current[id].play().catch(() => {});
+
+const newPlaying = {};
+sounds.forEach((s) => { newPlaying[s.id] = false; });
+newPlaying[id] = true;
+setPlaying(newPlaying);
 };
 
 const changeVolume = (id, vol) => {
