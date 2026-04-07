@@ -1,6 +1,6 @@
 {
-"name": "FlowMind — AI Copilot for Productivity",
-"short_name": "FlowMind",
+"name": "DayLyft — AI Copilot for Productivity",
+"short_name": "DayLyft",
 "description": "Your AI copilot that organizes your day, learns your patterns, and helps you achieve more.",
 "start_url": "/dashboard",
 "display": "standalone",
