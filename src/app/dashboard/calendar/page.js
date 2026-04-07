@@ -198,7 +198,7 @@ return (
     )}
 
     {/* Week Grid */}
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(7, 1fr)", gap: 8, marginBottom: 16 }}>
+    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 8, marginBottom: 16 }}>
     {weekDays.map((day, i) => {
         const dateStr = formatDate(day);
         const isToday = dateStr === today;

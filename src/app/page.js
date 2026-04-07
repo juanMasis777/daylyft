@@ -6,7 +6,20 @@ export default function LandingPage() {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
-    setVisible(true);
+    const checkAuth = async () => {
+      const { createClient } = await import("@supabase/supabase-js");
+      const supabase = createClient(
+        process.env.NEXT_PUBLIC_SUPABASE_URL,
+        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+      );
+      const { data: { session } } = await supabase.auth.getSession();
+      if (session) {
+        window.location.href = "/dashboard";
+        return;
+      }
+      setVisible(true);
+    };
+    checkAuth();
   }, []);
 
   const features = [
@@ -25,12 +38,15 @@ export default function LandingPage() {
     { num: "4", title: "Track your progress", desc: "See analytics, insights, and improvement over time.", color: "#fdcb6e" },
   ];
 
+  if (!visible) {
+    return <div style={{ minHeight: "100vh", background: "#08080d" }} />;
+  }
+
   return (
     <div style={{
       minHeight: "100vh", background: "#08080d", fontFamily: "Outfit, sans-serif",
       color: "#eaeaef", overflow: "hidden", position: "relative",
     }}>
-      {/* Animated background orbs */}
       <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0 }}>
         <div style={{
           position: "absolute", width: 300, height: 300, borderRadius: "50%",
@@ -65,15 +81,11 @@ export default function LandingPage() {
         @keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-25px,30px) scale(1.05); } }
         @keyframes float3 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(20px,-20px); } }
         @keyframes pulse { 0%,100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.5); } }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(25px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes scaleIn { from { opacity: 0; transform: scale(0.85); } to { opacity: 1; transform: scale(1); } }
-        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
         @keyframes progressBar { from { width: 0; } to { width: 100%; } }
         @keyframes glowPulse { 0%,100% { box-shadow: 0 0 20px rgba(108,92,231,0.3); } 50% { box-shadow: 0 0 40px rgba(108,92,231,0.5); } }
       `}</style>
 
       <div style={{ position: "relative", zIndex: 1 }}>
-        {/* Nav */}
         <nav style={{
           display: "flex", justifyContent: "space-between", alignItems: "center",
           padding: "18px 24px", maxWidth: 1000, margin: "0 auto",
@@ -107,7 +119,6 @@ export default function LandingPage() {
           </div>
         </nav>
 
-        {/* Hero */}
         <section style={{
           textAlign: "center", padding: "50px 20px 40px", maxWidth: 700, margin: "0 auto",
         }}>
@@ -169,11 +180,8 @@ export default function LandingPage() {
           }}>Free forever plan available. No credit card required.</p>
         </section>
 
-        {/* Animated divider */}
         <div style={{ padding: "0 20%", marginBottom: 40 }}>
-          <div style={{
-            height: 2, borderRadius: 2, overflow: "hidden", background: "#1c1c2a",
-          }}>
+          <div style={{ height: 2, borderRadius: 2, overflow: "hidden", background: "#1c1c2a" }}>
             <div style={{
               height: "100%",
               background: "linear-gradient(90deg, #6C5CE7, #00CEC9, #fd79a8)",
@@ -182,7 +190,6 @@ export default function LandingPage() {
           </div>
         </div>
 
-        {/* Stats */}
         <section style={{
           display: "flex", justifyContent: "center", gap: "clamp(24px, 5vw, 50px)", padding: "0 20px 40px",
           flexWrap: "wrap",
@@ -202,7 +209,6 @@ export default function LandingPage() {
           ))}
         </section>
 
-        {/* Features */}
         <section style={{ padding: "20px 20px 50px", maxWidth: 900, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 28 }}>
             <div style={{ fontSize: 12, color: "#6C5CE7", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 6 }}>FEATURES</div>
@@ -232,7 +238,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* How it works */}
         <section style={{ padding: "20px 20px 50px", maxWidth: 700, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 28 }}>
             <div style={{ fontSize: 12, color: "#00CEC9", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 6 }}>HOW IT WORKS</div>
@@ -262,7 +267,6 @@ export default function LandingPage() {
           </div>
         </section>
 
-        {/* CTA */}
         <section style={{
           padding: "40px 20px", textAlign: "center",
           background: "linear-gradient(180deg, transparent, rgba(108,92,231,0.05))",
@@ -282,11 +286,7 @@ export default function LandingPage() {
           }}>Get started free</button>
         </section>
 
-        {/* Footer */}
-        <footer style={{
-          padding: "20px", textAlign: "center",
-          borderTop: "1px solid #1c1c2a",
-        }}>
+        <footer style={{ padding: "20px", textAlign: "center", borderTop: "1px solid #1c1c2a" }}>
           <p style={{ fontSize: 11, color: "#6b6b80" }}>
             © 2026 FlowMind. Your data is yours. We never sell it. Privacy Policy · Terms of Service
           </p>
