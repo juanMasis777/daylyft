@@ -158,7 +158,7 @@ export default function DashboardLayout({ children }) {
 
       {isMobile && (
         <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "var(--fm-surface)", borderTop: "1px solid var(--fm-border)", display: "flex", justifyContent: "space-around", alignItems: "center", padding: "8px 0 12px", zIndex: 100 }}>
-          {navItems.slice(0, 5).map((item) => (
+          {[navItems[0], navItems[1], navItems[5], navItems[6], navItems[7]].map((item) => (
             <button key={item.id} onClick={() => navigate(item.id)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 3, background: "none", border: "none", cursor: "pointer", color: activeNav === item.id ? "var(--fm-accent-light)" : "var(--fm-muted)", fontFamily: "Outfit, sans-serif", fontSize: 10, fontWeight: 500, padding: "4px 12px" }}>
               {item.icon}
               {item.label}
