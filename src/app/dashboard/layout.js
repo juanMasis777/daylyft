@@ -73,6 +73,7 @@ export default function DashboardLayout({ children }) {
     else if (path.includes("settings")) setActiveNav("settings");
     else if (path.includes("journal")) setActiveNav("journal");
     else if (path.includes("dna")) setActiveNav("dna");
+    else if (path.includes("autopilot")) setActiveNav("autopilot");
   }, []);
 
   const handleLogout = async () => {
@@ -93,6 +94,7 @@ export default function DashboardLayout({ children }) {
       settings: "/dashboard/settings",
       journal: "/dashboard/journal",
       dna: "/dashboard/dna",
+      autopilot: "/dashboard/autopilot",
     };
     window.location.href = routes[id] || "/dashboard";
   };
