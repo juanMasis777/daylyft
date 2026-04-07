@@ -8,7 +8,7 @@ const { theme, setTheme, themes } = useTheme();
 return (
 <div style={{ animation: "fadeIn 0.5s ease" }}>
     <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", marginBottom: 4 }}>Settings</h2>
-    <p style={{ fontSize: 13, color: "var(--fm-muted)", marginBottom: 24 }}>Customize your FlowMind experience</p>
+    <p style={{ fontSize: 13, color: "var(--fm-muted)", marginBottom: 24 }}>Customize your DayLyft experience</p>
 
     {/* Theme Selection */}
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 16, padding: 24, marginBottom: 16 }}>

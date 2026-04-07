@@ -2,14 +2,14 @@ import "./globals.css";
 import { ThemeProvider } from "@/context/ThemeContext";
 
 export const metadata = {
-  title: "FlowMind — AI Copilot for Productivity",
+  title: "DayLyft — AI Copilot for Productivity",
   description: "Your AI copilot that organizes your day, learns your patterns, and helps you achieve more.",
   manifest: "/manifest.json",
   themeColor: "#6C5CE7",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "FlowMind",
+    title: "DayLyft",
   },
 };
 

@@ -75,7 +75,7 @@ return (
         <line x1="18" y1="18" x2="14" y2="14" />
         </svg>
     </div>
-    <span style={{ fontSize: 20, fontWeight: 700, color: "#fff" }}>FlowMind</span>
+    <span style={{ fontSize: 20, fontWeight: 700, color: "#fff" }}>DayLyft</span>
     </div>
 
     {/* Header */}

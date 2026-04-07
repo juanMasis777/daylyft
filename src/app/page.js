@@ -103,7 +103,7 @@ export default function LandingPage() {
                 <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
             </div>
-            <span style={{ fontSize: 18, fontWeight: 700, color: "#eaeaef" }}>FlowMind</span>
+            <span style={{ fontSize: 18, fontWeight: 700, color: "#eaeaef" }}>DayLyft</span>
           </div>
           <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
             <button onClick={() => window.location.href = "/login"} style={{
@@ -276,7 +276,7 @@ export default function LandingPage() {
             Ready to meet Kai?
           </h2>
           <p style={{ fontSize: 14, color: "#6b6b80", marginBottom: 20 }}>
-            Join FlowMind today. Free forever, upgrade when you're ready.
+            Join DayLyft today. Free forever, upgrade when you're ready.
           </p>
           <button onClick={() => window.location.href = "/login"} style={{
             padding: "14px 32px", borderRadius: 14, border: "none",
@@ -288,7 +288,7 @@ export default function LandingPage() {
 
         <footer style={{ padding: "20px", textAlign: "center", borderTop: "1px solid #1c1c2a" }}>
           <p style={{ fontSize: 11, color: "#6b6b80" }}>
-            © 2026 FlowMind. Your data is yours. We never sell it. Privacy Policy · Terms of Service
+            © 2026 DayLyft. Your data is yours. We never sell it. Privacy Policy · Terms of Service
           </p>
         </footer>
       </div>

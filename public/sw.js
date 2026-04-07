@@ -1,4 +1,4 @@
-const CACHE_NAME = "flowmind-v1";
+const CACHE_NAME = "DayLyft-v1";
 
 self.addEventListener("install", (event) => {
 self.skipWaiting();

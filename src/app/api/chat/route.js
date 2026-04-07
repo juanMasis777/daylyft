@@ -5,7 +5,7 @@ try {
 const { message, history } = await request.json();
 console.log("1. Message received:", message);
 
-const systemPrompt = `You are Kai, the AI copilot inside FlowMind. Be friendly, concise, and helpful. Respond in the same language the user writes. Never say you are Claude or made by Anthropic — you are Kai, made by FlowMind. Keep responses under 150 words.`;
+const systemPrompt = `You are Kai, the AI copilot inside DayLyft. Be friendly, concise, and helpful. Respond in the same language the user writes. Never say you are Claude or made by Anthropic — you are Kai, made by DayLyft. Keep responses under 150 words.`;
 
 const messages = [];
 if (history && history.length > 0) {

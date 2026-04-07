@@ -29,7 +29,7 @@ return (
             <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
         </div>
-        <span style={{ fontSize: 20, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>FlowMind</span>
+        <span style={{ fontSize: 20, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</span>
     </div>
     <div style={{ display: "flex", gap: 8 }}>
         <button onClick={() => window.location.href = "/login"} style={{
@@ -79,7 +79,7 @@ return (
         Live fully.
     </h1>
     <p style={{ fontSize: "clamp(14px, 2vw, 18px)", color: "var(--fm-muted)", lineHeight: 1.6, marginBottom: 28, maxWidth: 560, margin: "0 auto 28px", position: "relative" }}>
-        FlowMind is the AI copilot that organizes your work, protects your rest, and manages your life — all for less than a coffee per month.
+        DayLyft is the AI copilot that organizes your work, protects your rest, and manages your life — all for less than a coffee per month.
     </p>
     <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", position: "relative" }}>
         <button onClick={() => window.location.href = "/login"} style={{
@@ -147,7 +147,7 @@ return (
     {/* How it works */}
     <section style={{ padding: "30px 20px 60px", maxWidth: 800, margin: "0 auto" }}>
     <h2 style={{ textAlign: "center", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 800, color: "var(--fm-text)", marginBottom: 36 }}>
-        How FlowMind works
+        How DayLyft works
     </h2>
     <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
         {[
@@ -182,7 +182,7 @@ return (
         Ready to meet Kai?
     </h2>
     <p style={{ fontSize: 15, color: "var(--fm-muted)", marginBottom: 24 }}>
-        Join FlowMind today. Free forever, upgrade when you're ready.
+        Join DayLyft today. Free forever, upgrade when you're ready.
     </p>
     <button onClick={() => window.location.href = "/login"} style={{
         padding: "14px 36px", borderRadius: 14, border: "none",
@@ -197,7 +197,7 @@ return (
     borderTop: "1px solid var(--fm-border)",
     }}>
     <p style={{ fontSize: 11, color: "var(--fm-muted)" }}>
-        © 2026 FlowMind. Your data is yours. We never sell it. Privacy Policy · Terms of Service
+        © 2026 DayLyft. Your data is yours. We never sell it. Privacy Policy · Terms of Service
     </p>
     </footer>
 </div>

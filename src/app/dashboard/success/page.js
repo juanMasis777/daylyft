@@ -19,11 +19,11 @@ return (
     </h1>
 
     <p style={{ fontSize: 16, color: "var(--fm-muted)", lineHeight: 1.6, marginBottom: 8 }}>
-        Welcome to FlowMind Pro! You now have access to all premium features.
+        Welcome to DayLyft Pro! You now have access to all premium features.
     </p>
 
     <p style={{ fontSize: 14, color: "var(--fm-muted)", lineHeight: 1.6, marginBottom: 32 }}>
-        A charge from <strong style={{ color: "var(--fm-text)" }}>FlowMind</strong> will appear on your statement. Your subscription renews monthly and you can cancel anytime.
+        A charge from <strong style={{ color: "var(--fm-text)" }}>DayLyft</strong> will appear on your statement. Your subscription renews monthly and you can cancel anytime.
     </p>
 
     <div style={{
@@ -59,11 +59,11 @@ return (
         fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}
     >
-        Start using FlowMind Pro
+        Start using DayLyft Pro
     </button>
 
     <p style={{ fontSize: 12, color: "var(--fm-muted)", marginTop: 16 }}>
-        Questions? Contact support@flowmind.app
+        Questions? Contact support@DayLyft.app
     </p>
     </div>
 </div>

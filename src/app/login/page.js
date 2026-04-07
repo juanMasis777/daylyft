@@ -63,13 +63,13 @@ return (
             <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
         </div>
-        <span style={{ fontSize: 22, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>FlowMind</span>
+        <span style={{ fontSize: 22, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</span>
         </div>
         <h1 style={{ fontSize: 24, fontWeight: 700, color: "var(--fm-text)", margin: "0 0 6px" }}>
         {isLogin ? "Welcome back" : "Create your account"}
         </h1>
         <p style={{ fontSize: 14, color: "var(--fm-muted)", margin: 0 }}>
-        {isLogin ? "Sign in to continue to FlowMind" : "Start your productivity journey with Kai"}
+        {isLogin ? "Sign in to continue to DayLyft" : "Start your productivity journey with Kai"}
         </p>
     </div>
 

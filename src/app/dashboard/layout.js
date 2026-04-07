@@ -96,7 +96,7 @@ export default function DashboardLayout({ children }) {
       <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--fm-bg)" }}>
         <div style={{ textAlign: "center" }}>
           <Logo />
-          <p style={{ color: "var(--fm-muted)", fontSize: 14, marginTop: 12 }}>Loading FlowMind...</p>
+          <p style={{ color: "var(--fm-muted)", fontSize: 14, marginTop: 12 }}>Loading DayLyft...</p>
         </div>
       </div>
     );
@@ -115,7 +115,7 @@ export default function DashboardLayout({ children }) {
           <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 8px", marginBottom: 28 }}>
             <Logo />
             <div>
-              <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>FlowMind</div>
+              <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</div>
               <div style={{ fontSize: 9, color: "var(--fm-muted)", fontWeight: 500, letterSpacing: "0.08em" }}>AI COPILOT</div>
             </div>
           </div>
