@@ -45,6 +45,7 @@ export default function DashboardLayout({ children }) {
   const [isMobile, setIsMobile] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const checkSize = () => setIsMobile(window.innerWidth < 768);
@@ -89,6 +90,7 @@ export default function DashboardLayout({ children }) {
 
   const navigate = (id) => {
     setActiveNav(id);
+    setMenuOpen(false);
     const routes = {
       dashboard: "/dashboard",
       tasks: "/dashboard/tasks",
@@ -126,53 +128,87 @@ export default function DashboardLayout({ children }) {
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
+  const renderSidebar = (items) => (
+    <>
+      <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 8px", marginBottom: 28 }}>
+        <Logo />
+        <div>
+          <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</div>
+          <div style={{ fontSize: 9, color: "var(--fm-muted)", fontWeight: 500, letterSpacing: "0.08em" }}>AI COPILOT</div>
+        </div>
+        {isMobile && (
+          <div onClick={() => setMenuOpen(false)} style={{ marginLeft: "auto", cursor: "pointer", color: "var(--fm-muted)", padding: 4 }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          </div>
+        )}
+      </div>
+
+      <nav style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1, overflowY: "auto" }}>
+        {items.map((item) => (
+          <button key={item.id} onClick={() => navigate(item.id)} style={{
+            display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
+            background: activeNav === item.id ? `${item.color}15` : "transparent",
+            border: activeNav === item.id ? `1px solid ${item.color}30` : "1px solid transparent",
+            borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500,
+            color: activeNav === item.id ? item.color : "var(--fm-muted)",
+            fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left",
+          }}>
+            <span style={{ color: activeNav === item.id ? item.color : item.color + "90" }}>{item.icon}</span>
+            {item.label}
+          </button>
+        ))}
+      </nav>
+
+      <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: "transparent", border: "1px solid transparent", borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500, color: "var(--fm-danger)", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left", marginBottom: 10 }}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg>
+        Log out
+      </button>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 10, padding: 12, background: "var(--fm-card)", borderRadius: 12, border: "1px solid var(--fm-border)" }}>
+        <div style={{ width: 34, height: 34, borderRadius: 9, background: "linear-gradient(135deg, #fd79a8, #e84393)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>{userInitials}</div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-text)" }}>{userName}</div>
+          <div style={{ fontSize: 10, color: "var(--fm-accent-light)" }}>Free plan</div>
+        </div>
+      </div>
+    </>
+  );
+
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
+      {/* Desktop sidebar */}
       {!isMobile && (
         <div style={{ width: 220, background: "var(--fm-surface)", borderRight: "1px solid var(--fm-border)", display: "flex", flexDirection: "column", padding: "20px 12px", flexShrink: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 8px", marginBottom: 28 }}>
-            <Logo />
-            <div>
-              <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</div>
-              <div style={{ fontSize: 9, color: "var(--fm-muted)", fontWeight: 500, letterSpacing: "0.08em" }}>AI COPILOT</div>
-            </div>
-          </div>
+          {renderSidebar(sidebarItems)}
+        </div>
+      )}
 
-          <nav style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1, overflowY: "auto" }}>
-            {sidebarItems.map((item) => (
-              <button key={item.id} onClick={() => navigate(item.id)} style={{
-                display: "flex", alignItems: "center", gap: 10, padding: "9px 12px",
-                background: activeNav === item.id ? `${item.color}15` : "transparent",
-                border: activeNav === item.id ? `1px solid ${item.color}30` : "1px solid transparent",
-                borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500,
-                color: activeNav === item.id ? item.color : "var(--fm-muted)",
-                fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left",
-              }}>
-                <span style={{ color: activeNav === item.id ? item.color : item.color + "90" }}>{item.icon}</span>
-                {item.label}
-              </button>
-            ))}
-          </nav>
-
-          <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: "transparent", border: "1px solid transparent", borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500, color: "var(--fm-danger)", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left", marginBottom: 10 }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg>
-            Log out
-          </button>
-
-          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: 12, background: "var(--fm-card)", borderRadius: 12, border: "1px solid var(--fm-border)" }}>
-            <div style={{ width: 34, height: 34, borderRadius: 9, background: "linear-gradient(135deg, #fd79a8, #e84393)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>{userInitials}</div>
-            <div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-text)" }}>{userName}</div>
-              <div style={{ fontSize: 10, color: "var(--fm-accent-light)" }}>Free plan</div>
-            </div>
+      {/* Mobile sidebar overlay */}
+      {isMobile && menuOpen && (
+        <div onClick={() => setMenuOpen(false)} style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", zIndex: 200 }}>
+          <div onClick={(e) => e.stopPropagation()} style={{
+            position: "fixed", top: 0, left: 0, bottom: 0, width: 260,
+            background: "var(--fm-surface)", padding: "20px 12px",
+            display: "flex", flexDirection: "column", zIndex: 201,
+            boxShadow: "4px 0 20px rgba(0,0,0,0.3)",
+            animation: "slideInLeft 0.25s ease",
+          }}>
+            {renderSidebar(navItems)}
           </div>
         </div>
       )}
 
-      <div style={{ flex: 1, overflowY: "auto", background: "var(--fm-bg)", paddingBottom: isMobile ? 80 : 0 }}>
+      <style>{`@keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }`}</style>
+
+      {/* Main content */}
+      <div style={{ flex: 1, overflowY: "auto", background: "var(--fm-bg)" }}>
         <div style={{ padding: isMobile ? "14px 16px" : "20px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--fm-border)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            {isMobile && <Logo />}
+            {isMobile && (
+              <div onClick={() => setMenuOpen(true)} style={{ width: 36, height: 36, borderRadius: 10, border: "1px solid var(--fm-border)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--fm-muted)" }}>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+              </div>
+            )}
             <div>
               <div style={{ fontSize: isMobile ? 16 : 20, fontWeight: 700, color: "var(--fm-text)" }}>
                 {`${greeting}, ${userName.split(" ")[0]}`}
@@ -197,31 +233,6 @@ export default function DashboardLayout({ children }) {
         </div>
         <div style={{ padding: isMobile ? "14px 16px" : "24px 28px" }}>{children}</div>
       </div>
-
-      {isMobile && (
-        <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "var(--fm-surface)", borderTop: "1px solid var(--fm-border)", display: "flex", justifyContent: "space-around", alignItems: "center", padding: "6px 0 10px", zIndex: 100, overflowX: "auto" }}>
-          {navItems.map((item) => (
-            <button key={item.id} onClick={() => navigate(item.id)} style={{
-              display: "flex", flexDirection: "column", alignItems: "center", gap: 2,
-              background: "none", border: "none", cursor: "pointer",
-              color: activeNav === item.id ? item.color : "var(--fm-muted)",
-              fontFamily: "Outfit, sans-serif", fontSize: 8, fontWeight: activeNav === item.id ? 600 : 500,
-              padding: "2px 3px", minWidth: 0, flexShrink: 0,
-            }}>
-              <div style={{
-                width: 26, height: 26, borderRadius: 8,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                background: activeNav === item.id ? `${item.color}20` : "transparent",
-                color: activeNav === item.id ? item.color : item.color + "70",
-                transition: "all 0.2s ease",
-              }}>
-                {item.icon}
-              </div>
-              <span style={{ color: activeNav === item.id ? item.color : "var(--fm-muted)" }}>{item.label}</span>
-            </button>
-          ))}
-        </div>
-      )}
     </div>
   );
 }
