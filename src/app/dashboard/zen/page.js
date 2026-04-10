@@ -129,11 +129,10 @@ return (
     <div style={{ marginBottom: 20 }}>
     <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: 0 }}>Zen Mode</h2>
     <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>
-        Ambient sounds, breathing exercises, and mindful breaks
+        Recharge your mind with ambient sounds, breathing exercises, and guided breaks
     </p>
     </div>
 
-    {/* Timer */}
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 18, marginBottom: 16 }}>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
         <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)" }}>Rest Timer</div>
@@ -161,7 +160,6 @@ return (
     </div>
     </div>
 
-    {/* Sounds */}
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 18, marginBottom: 16 }}>
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
         <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)" }}>Ambient Sounds</div>
@@ -196,7 +194,6 @@ return (
     </div>
     </div>
 
-    {/* Breathing Exercise */}
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 18 }}>
     <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 12 }}>Breathing Exercise (4-7-8)</div>
 

@@ -79,10 +79,9 @@ return (
 <div style={{ animation: "fadeIn 0.5s ease" }}>
     <div style={{ marginBottom: 20 }}>
     <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: 0 }}>Morning Autopilot</h2>
-    <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Let Kai plan the perfect {timeOfDay} for you</p>
+    <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Kai analyzes your tasks and creates an optimized schedule for your {timeOfDay}</p>
     </div>
 
-    {/* Header Card */}
     <div style={{
     background: "linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,206,201,0.08))",
     border: "1px solid rgba(108,92,231,0.2)",
@@ -102,7 +101,6 @@ return (
     </p>
     </div>
 
-    {/* Pending Tasks Preview */}
     {tasks.length > 0 && !generated && (
     <div style={{
         background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
@@ -136,7 +134,6 @@ return (
     </div>
     )}
 
-    {/* Generate Button */}
     {tasks.length > 0 && !generated && (
     <div style={{ textAlign: "center", marginBottom: 20 }}>
         <button onClick={generatePlan} disabled={generating} style={{
@@ -162,7 +159,6 @@ return (
     </div>
     )}
 
-    {/* No Tasks */}
     {tasks.length === 0 && (
     <div style={{ textAlign: "center", padding: 30 }}>
         <button onClick={() => window.location.href = "/dashboard/tasks"} style={{
@@ -173,7 +169,6 @@ return (
     </div>
     )}
 
-    {/* Generated Plan */}
     {generated && plan && (
     <div>
         <div style={{

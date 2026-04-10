@@ -42,10 +42,7 @@ const today = new Date().toDateString();
 const savedDaily = localStorage.getItem("daylyft-daily-quote");
 if (savedDaily) {
     const parsed = JSON.parse(savedDaily);
-    if (parsed.date === today) {
-    setQuote(parsed);
-    return;
-    }
+    if (parsed.date === today) { setQuote(parsed); return; }
 }
 const random = fallbackQuotes[Math.floor(Math.random() * fallbackQuotes.length)];
 const cat = categories.find(c => c.id === random.category) || categories[0];
@@ -57,7 +54,6 @@ localStorage.setItem("daylyft-daily-quote", JSON.stringify(dailyQuote));
 const generateQuote = async (category) => {
 setLoading(true);
 const catName = category === "all" ? "any topic related to productivity, wellness, or personal growth" : category;
-
 try {
     const response = await fetch("/api/chat", {
     method: "POST",
@@ -69,18 +65,8 @@ try {
     });
     const data = await response.json();
     if (data.reply) {
-    const cat = category === "all"
-        ? categories[Math.floor(Math.random() * categories.length)]
-        : categories.find(c => c.id === category) || categories[0];
-    const newQuote = {
-        text: data.reply.replace(/"/g, "").trim(),
-        category: cat.id,
-        emoji: cat.emoji,
-        color: cat.color,
-        categoryName: cat.name,
-        date: new Date().toDateString(),
-        source: "kai",
-    };
+    const cat = category === "all" ? categories[Math.floor(Math.random() * categories.length)] : categories.find(c => c.id === category) || categories[0];
+    const newQuote = { text: data.reply.replace(/"/g, "").trim(), category: cat.id, emoji: cat.emoji, color: cat.color, categoryName: cat.name, date: new Date().toDateString(), source: "kai" };
     setQuote(newQuote);
     }
 } catch (e) {
@@ -113,26 +99,20 @@ return (
     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 20 }}>
     <div>
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: 0 }}>Kai's Wisdom</h2>
-        <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Daily inspiration powered by AI</p>
+        <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Get daily motivational quotes from Kai — save your favorites and explore by topic</p>
     </div>
     <button onClick={() => setShowSaved(!showSaved)} style={{
-        padding: "8px 16px", borderRadius: 10,
-        border: "1px solid var(--fm-border)", background: showSaved ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
+        padding: "8px 16px", borderRadius: 10, border: "1px solid var(--fm-border)",
+        background: showSaved ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
         color: showSaved ? "var(--fm-accent-light)" : "var(--fm-muted)",
         fontSize: 12, fontWeight: 500, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-    }}>
-        {showSaved ? "Back to wisdom" : `Saved (${savedQuotes.length})`}
-    </button>
+    }}>{showSaved ? "Back to wisdom" : `Saved (${savedQuotes.length})`}</button>
     </div>
 
     {showSaved ? (
     <div>
         {savedQuotes.length === 0 ? (
-        <div style={{
-            textAlign: "center", padding: 50,
-            background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
-            borderRadius: 16,
-        }}>
+        <div style={{ textAlign: "center", padding: 50, background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 16 }}>
             <div style={{ fontSize: 36, marginBottom: 12 }}>📌</div>
             <div style={{ fontSize: 16, fontWeight: 600, color: "var(--fm-text)", marginBottom: 4 }}>No saved quotes yet</div>
             <div style={{ fontSize: 13, color: "var(--fm-muted)" }}>Save quotes you love and revisit them here</div>
@@ -142,21 +122,14 @@ return (
             {savedQuotes.map((q, i) => {
             const cat = categories.find(c => c.id === q.category) || categories[0];
             return (
-                <div key={i} style={{
-                background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
-                borderRadius: 14, padding: 18, borderLeft: `3px solid ${cat.color}`,
-                }}>
-                <div style={{ fontSize: 15, color: "var(--fm-text)", lineHeight: 1.7, marginBottom: 10, fontStyle: "italic" }}>
-                    "{q.text}"
-                </div>
+                <div key={i} style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 18, borderLeft: `3px solid ${cat.color}` }}>
+                <div style={{ fontSize: 15, color: "var(--fm-text)", lineHeight: 1.7, marginBottom: 10, fontStyle: "italic" }}>"{q.text}"</div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
                     <span style={{ fontSize: 14 }}>{cat.emoji}</span>
                     <span style={{ fontSize: 11, color: cat.color }}>{cat.name}</span>
                     </div>
-                    <div onClick={() => removeSavedQuote(i)} style={{
-                    fontSize: 11, color: "var(--fm-muted)", cursor: "pointer",
-                    }}>Remove</div>
+                    <div onClick={() => removeSavedQuote(i)} style={{ fontSize: 11, color: "var(--fm-muted)", cursor: "pointer" }}>Remove</div>
                 </div>
                 </div>
             );
@@ -166,21 +139,13 @@ return (
     </div>
     ) : (
     <div>
-        {/* Main Quote Card */}
         {quote && (
         <div style={{
             background: `linear-gradient(135deg, ${quote.color}12, ${quote.color}06)`,
-            border: `1px solid ${quote.color}25`,
-            borderRadius: 20, padding: 32, marginBottom: 20, textAlign: "center",
-            position: "relative",
+            border: `1px solid ${quote.color}25`, borderRadius: 20, padding: 32, marginBottom: 20, textAlign: "center", position: "relative",
         }}>
             <div style={{ fontSize: 40, marginBottom: 16, opacity: 0.3 }}>"</div>
-            <div style={{
-            fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 600, color: "var(--fm-text)",
-            lineHeight: 1.6, maxWidth: 500, margin: "0 auto 20px", fontStyle: "italic",
-            }}>
-            {quote.text}
-            </div>
+            <div style={{ fontSize: "clamp(18px, 3vw, 24px)", fontWeight: 600, color: "var(--fm-text)", lineHeight: 1.6, maxWidth: 500, margin: "0 auto 20px", fontStyle: "italic" }}>{quote.text}</div>
             <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 8, marginBottom: 16 }}>
             <span style={{ fontSize: 18 }}>{quote.emoji}</span>
             <span style={{ fontSize: 13, color: quote.color, fontWeight: 500 }}>{quote.categoryName}</span>
@@ -188,25 +153,19 @@ return (
             <div style={{ display: "flex", gap: 8, justifyContent: "center" }}>
             <button onClick={saveQuote} disabled={isSaved} style={{
                 padding: "8px 18px", borderRadius: 10, fontSize: 12, fontWeight: 500,
-                border: isSaved ? `1px solid rgba(0,206,201,0.2)` : "1px solid var(--fm-border)",
+                border: isSaved ? "1px solid rgba(0,206,201,0.2)" : "1px solid var(--fm-border)",
                 background: isSaved ? "rgba(0,206,201,0.1)" : "var(--fm-surface)",
                 color: isSaved ? "#00CEC9" : "var(--fm-text)",
                 cursor: isSaved ? "default" : "pointer", fontFamily: "Outfit, sans-serif",
             }}>{isSaved ? "✓ Saved" : "📌 Save"}</button>
             </div>
-            <div style={{
-            fontSize: 10, color: "var(--fm-muted)", marginTop: 12,
-            }}>
+            <div style={{ fontSize: 10, color: "var(--fm-muted)", marginTop: 12 }}>
             {quote.source === "kai" ? "Generated by Kai AI" : "Daily wisdom"} · {quote.date}
             </div>
         </div>
         )}
 
-        {/* Category Filter */}
-        <div style={{
-        background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
-        borderRadius: 14, padding: 18, marginBottom: 16,
-        }}>
+        <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 18, marginBottom: 16 }}>
         <div style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-text)", marginBottom: 12 }}>Generate wisdom by topic</div>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(110px, 1fr))", gap: 8 }}>
             {categories.map((cat) => (
@@ -223,14 +182,12 @@ return (
         </div>
         </div>
 
-        {/* Generate Random */}
         <div style={{ textAlign: "center" }}>
         <button onClick={() => generateQuote("all")} disabled={loading} style={{
             padding: "14px 28px", borderRadius: 14, border: "none",
             background: loading ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-            color: "#fff", fontSize: 14, fontWeight: 700,
-            cursor: loading ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
-            display: "inline-flex", alignItems: "center", gap: 8,
+            color: "#fff", fontSize: 14, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer",
+            fontFamily: "Outfit, sans-serif", display: "inline-flex", alignItems: "center", gap: 8,
         }}>
             {loading ? (
             <>

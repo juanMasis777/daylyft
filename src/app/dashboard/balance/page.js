@@ -53,7 +53,6 @@ const values = Object.values(scores);
 const min = Math.min(...values);
 const max = Math.max(...values);
 const spread = max - min;
-
 if (avg >= 8 && spread <= 2) return { label: "Excellent balance", color: "#00CEC9", emoji: "🌟" };
 if (avg >= 7) return { label: "Good balance", color: "#6C5CE7", emoji: "✨" };
 if (avg >= 5) return { label: "Room to grow", color: "#fdcb6e", emoji: "🌱" };
@@ -64,7 +63,6 @@ const balanceLevel = getBalanceLevel();
 
 const generateKaiInsight = async () => {
 setGeneratingKai(true);
-
 const scoreList = areas.map((a) => `${a.name}: ${scores[a.id]}/10`).join(", ");
 const strongest = areas.find((a) => a.id === maxArea?.[0])?.name || "unknown";
 const weakest = areas.find((a) => a.id === minArea?.[0])?.name || "unknown";
@@ -95,7 +93,6 @@ setKaiMessage("");
 localStorage.removeItem("daylyft-balance");
 };
 
-// Draw wheel
 const wheelSize = 280;
 const center = wheelSize / 2;
 const maxRadius = center - 30;
@@ -103,10 +100,7 @@ const maxRadius = center - 30;
 const getPoint = (index, value) => {
 const angle = (Math.PI * 2 * index) / areas.length - Math.PI / 2;
 const r = (value / 10) * maxRadius;
-return {
-    x: center + r * Math.cos(angle),
-    y: center + r * Math.sin(angle),
-};
+return { x: center + r * Math.cos(angle), y: center + r * Math.sin(angle) };
 };
 
 const polygonPoints = areas.map((_, i) => {
@@ -118,15 +112,12 @@ return (
 <div style={{ animation: "fadeIn 0.5s ease" }}>
     <div style={{ marginBottom: 20 }}>
     <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: 0 }}>Life Balance Wheel</h2>
-    <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Rate each area of your life to see your overall balance</p>
+    <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Rate 8 areas of your life and get AI-powered advice to improve your weakest spots</p>
     </div>
 
-    {/* Balance Level */}
     <div style={{
-    background: `${balanceLevel.color}10`,
-    border: `1px solid ${balanceLevel.color}25`,
-    borderRadius: 14, padding: 16, marginBottom: 20,
-    display: "flex", alignItems: "center", gap: 12,
+    background: `${balanceLevel.color}10`, border: `1px solid ${balanceLevel.color}25`,
+    borderRadius: 14, padding: 16, marginBottom: 20, display: "flex", alignItems: "center", gap: 12,
     }}>
     <span style={{ fontSize: 28 }}>{balanceLevel.emoji}</span>
     <div>
@@ -135,39 +126,24 @@ return (
     </div>
     </div>
 
-    {/* Wheel Visualization */}
-    <div style={{
-    background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
-    borderRadius: 16, padding: 20, marginBottom: 20, textAlign: "center",
-    }}>
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 16, padding: 20, marginBottom: 20, textAlign: "center" }}>
     <svg width={wheelSize} height={wheelSize} viewBox={`0 0 ${wheelSize} ${wheelSize}`} style={{ maxWidth: "100%" }}>
-        {/* Grid circles */}
         {[2, 4, 6, 8, 10].map((level) => (
-        <circle key={level} cx={center} cy={center} r={(level / 10) * maxRadius}
-            fill="none" stroke="var(--fm-border)" strokeWidth="0.5" strokeDasharray={level === 10 ? "none" : "3,3"} />
+        <circle key={level} cx={center} cy={center} r={(level / 10) * maxRadius} fill="none" stroke="var(--fm-border)" strokeWidth="0.5" strokeDasharray={level === 10 ? "none" : "3,3"} />
         ))}
-
-        {/* Grid lines */}
         {areas.map((_, i) => {
         const p = getPoint(i, 10);
         return <line key={i} x1={center} y1={center} x2={p.x} y2={p.y} stroke="var(--fm-border)" strokeWidth="0.5" />;
         })}
-
-        {/* Filled polygon */}
         <polygon points={polygonPoints} fill="rgba(108,92,231,0.15)" stroke="#6C5CE7" strokeWidth="2" />
-
-        {/* Data points */}
         {areas.map((area, i) => {
         const p = getPoint(i, scores[area.id] || 5);
         return <circle key={area.id} cx={p.x} cy={p.y} r="5" fill={area.color} stroke="var(--fm-bg)" strokeWidth="2" />;
         })}
-
-        {/* Labels */}
         {areas.map((area, i) => {
         const p = getPoint(i, 12);
         return (
-            <text key={area.id} x={p.x} y={p.y} textAnchor="middle" dominantBaseline="central"
-            fill="var(--fm-muted)" fontSize="10" fontFamily="Outfit, sans-serif">
+            <text key={area.id} x={p.x} y={p.y} textAnchor="middle" dominantBaseline="central" fill="var(--fm-muted)" fontSize="10" fontFamily="Outfit, sans-serif">
             {area.emoji}
             </text>
         );
@@ -175,11 +151,7 @@ return (
     </svg>
     </div>
 
-    {/* Sliders */}
-    <div style={{
-    background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
-    borderRadius: 16, padding: 20, marginBottom: 16,
-    }}>
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 16, padding: 20, marginBottom: 16 }}>
     <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 14 }}>Rate each area (1-10)</div>
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
         {areas.map((area) => (
@@ -189,68 +161,40 @@ return (
                 <span style={{ fontSize: 16 }}>{area.emoji}</span>
                 <span style={{ fontSize: 13, fontWeight: 500, color: "var(--fm-text)" }}>{area.name}</span>
             </div>
-            <span style={{
-                fontSize: 14, fontWeight: 700, color: area.color,
-                minWidth: 28, textAlign: "right",
-            }}>{scores[area.id] || 5}</span>
+            <span style={{ fontSize: 14, fontWeight: 700, color: area.color, minWidth: 28, textAlign: "right" }}>{scores[area.id] || 5}</span>
             </div>
-            <input
-            type="range" min="1" max="10" step="1"
-            value={scores[area.id] || 5}
-            onChange={(e) => updateScore(area.id, parseInt(e.target.value))}
-            style={{ width: "100%", accentColor: area.color }}
-            />
+            <input type="range" min="1" max="10" step="1" value={scores[area.id] || 5} onChange={(e) => updateScore(area.id, parseInt(e.target.value))} style={{ width: "100%", accentColor: area.color }} />
         </div>
         ))}
     </div>
-
     <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
         <button onClick={saveScores} style={{
-        flex: 1, padding: "12px", borderRadius: 12, border: "none",
+        flex: 1, padding: "12px", borderRadius: 12, border: saved ? "1px solid rgba(0,206,201,0.2)" : "none",
         background: saved ? "rgba(0,206,201,0.1)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-        color: saved ? "#00CEC9" : "#fff",
-        fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-        border: saved ? "1px solid rgba(0,206,201,0.2)" : "none",
+        color: saved ? "#00CEC9" : "#fff", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{saved ? "✓ Saved" : "Save scores"}</button>
         <button onClick={resetScores} style={{
-        padding: "12px 20px", borderRadius: 12,
-        border: "1px solid var(--fm-border)", background: "transparent",
-        color: "var(--fm-muted)", fontSize: 13, fontWeight: 500,
-        cursor: "pointer", fontFamily: "Outfit, sans-serif",
+        padding: "12px 20px", borderRadius: 12, border: "1px solid var(--fm-border)", background: "transparent",
+        color: "var(--fm-muted)", fontSize: 13, fontWeight: 500, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Reset</button>
     </div>
     </div>
 
-    {/* Stats */}
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: 10, marginBottom: 16 }}>
-    <div style={{
-        background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
-        borderRadius: 12, padding: 16, textAlign: "center",
-    }}>
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Strongest area</div>
         <div style={{ fontSize: 20 }}>{areas.find((a) => a.id === maxArea?.[0])?.emoji}</div>
-        <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-success)" }}>
-        {areas.find((a) => a.id === maxArea?.[0])?.name} ({maxArea?.[1]}/10)
-        </div>
+        <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-success)" }}>{areas.find((a) => a.id === maxArea?.[0])?.name} ({maxArea?.[1]}/10)</div>
     </div>
-    <div style={{
-        background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
-        borderRadius: 12, padding: 16, textAlign: "center",
-    }}>
+    <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Needs attention</div>
         <div style={{ fontSize: 20 }}>{areas.find((a) => a.id === minArea?.[0])?.emoji}</div>
-        <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-warning)" }}>
-        {areas.find((a) => a.id === minArea?.[0])?.name} ({minArea?.[1]}/10)
-        </div>
+        <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-warning)" }}>{areas.find((a) => a.id === minArea?.[0])?.name} ({minArea?.[1]}/10)</div>
     </div>
     </div>
 
-    {/* Kai Insight */}
     {kaiMessage ? (
-    <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
-        borderRadius: 14, padding: 20,
-    }}>
+    <div style={{ background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)", borderRadius: 14, padding: 20 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
         <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
@@ -264,9 +208,8 @@ return (
         <button onClick={generateKaiInsight} disabled={generatingKai} style={{
         padding: "14px 28px", borderRadius: 14, border: "none",
         background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-        color: "#fff", fontSize: 14, fontWeight: 700,
-        cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
-        display: "inline-flex", alignItems: "center", gap: 8,
+        color: "#fff", fontSize: 14, fontWeight: 700, cursor: generatingKai ? "not-allowed" : "pointer",
+        fontFamily: "Outfit, sans-serif", display: "inline-flex", alignItems: "center", gap: 8,
         }}>
         {generatingKai ? (
             <>

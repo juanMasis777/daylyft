@@ -97,6 +97,7 @@ return (
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: 0 }}>Tasks</h2>
         <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>
         {completedCount} of {tasks.length} completed
+        <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Organize, prioritize, and track all your tasks in one place</p>
         </p>
     </div>
     </div>

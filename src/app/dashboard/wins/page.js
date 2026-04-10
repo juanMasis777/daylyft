@@ -49,8 +49,6 @@ categories[t.category] = (categories[t.category] || 0) + 1;
 });
 const topCategory = Object.entries(categories).sort((a, b) => b[1] - a[1])[0];
 
-const streak = completed.length;
-
 const getGrade = () => {
 if (completionRate >= 90) return { grade: "A+", color: "#00CEC9", label: "Outstanding!" };
 if (completionRate >= 80) return { grade: "A", color: "#00CEC9", label: "Excellent!" };
@@ -96,7 +94,7 @@ return (
 <div style={{ animation: "fadeIn 0.5s ease" }}>
     <div style={{ marginBottom: 20 }}>
     <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: 0 }}>Weekly Wins Report</h2>
-    <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Your achievements from the last 7 days</p>
+    <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>See your weekly grade, completed tasks, and get Kai's motivational report</p>
     </div>
 
     {total === 0 ? (
@@ -118,7 +116,6 @@ return (
     </div>
     ) : (
     <div>
-        {/* Grade Card */}
         <div style={{
         background: `linear-gradient(135deg, ${grade.color}12, ${grade.color}06)`,
         border: `1px solid ${grade.color}25`,
@@ -132,7 +129,6 @@ return (
         </div>
         </div>
 
-        {/* Stats Grid */}
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 10, marginBottom: 20 }}>
         <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16, textAlign: "center" }}>
             <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Completed</div>
@@ -156,38 +152,27 @@ return (
         </div>
         </div>
 
-        {/* Priority Breakdown */}
         <div style={{
         background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
         borderRadius: 14, padding: 20, marginBottom: 16,
         }}>
         <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 14 }}>Tasks completed by priority</div>
         <div style={{ display: "flex", gap: 10, flexWrap: "wrap" }}>
-            <div style={{
-            flex: 1, minWidth: 100, padding: 14, borderRadius: 10, textAlign: "center",
-            background: "rgba(255,107,107,0.08)", border: "1px solid rgba(255,107,107,0.15)",
-            }}>
+            <div style={{ flex: 1, minWidth: 100, padding: 14, borderRadius: 10, textAlign: "center", background: "rgba(255,107,107,0.08)", border: "1px solid rgba(255,107,107,0.15)" }}>
             <div style={{ fontSize: 24, fontWeight: 700, color: "#ff6b6b" }}>{highCompleted}</div>
             <div style={{ fontSize: 11, color: "#ff6b6b" }}>High priority</div>
             </div>
-            <div style={{
-            flex: 1, minWidth: 100, padding: 14, borderRadius: 10, textAlign: "center",
-            background: "rgba(253,203,110,0.08)", border: "1px solid rgba(253,203,110,0.15)",
-            }}>
+            <div style={{ flex: 1, minWidth: 100, padding: 14, borderRadius: 10, textAlign: "center", background: "rgba(253,203,110,0.08)", border: "1px solid rgba(253,203,110,0.15)" }}>
             <div style={{ fontSize: 24, fontWeight: 700, color: "#fdcb6e" }}>{medCompleted}</div>
             <div style={{ fontSize: 11, color: "#fdcb6e" }}>Medium priority</div>
             </div>
-            <div style={{
-            flex: 1, minWidth: 100, padding: 14, borderRadius: 10, textAlign: "center",
-            background: "rgba(0,206,201,0.08)", border: "1px solid rgba(0,206,201,0.15)",
-            }}>
+            <div style={{ flex: 1, minWidth: 100, padding: 14, borderRadius: 10, textAlign: "center", background: "rgba(0,206,201,0.08)", border: "1px solid rgba(0,206,201,0.15)" }}>
             <div style={{ fontSize: 24, fontWeight: 700, color: "#00CEC9" }}>{lowCompleted}</div>
             <div style={{ fontSize: 11, color: "#00CEC9" }}>Low priority</div>
             </div>
         </div>
         </div>
 
-        {/* Completed Tasks List */}
         <div style={{
         background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
         borderRadius: 14, padding: 20, marginBottom: 16,
@@ -200,25 +185,16 @@ return (
         ) : (
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {completed.map((task) => (
-                <div key={task.id} style={{
-                display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                background: "var(--fm-card)", borderRadius: 8,
-                }}>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00CEC9" strokeWidth="2.5">
-                    <polyline points="20 6 9 17 4 12" />
-                </svg>
+                <div key={task.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: "var(--fm-card)", borderRadius: 8 }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00CEC9" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
                 <span style={{ fontSize: 13, color: "var(--fm-text)", flex: 1 }}>{task.title}</span>
-                <span style={{
-                    fontSize: 10, padding: "2px 8px", borderRadius: 10, textTransform: "capitalize",
-                    background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
-                }}>{task.category}</span>
+                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 10, textTransform: "capitalize", background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)" }}>{task.category}</span>
                 </div>
             ))}
             </div>
         )}
         </div>
 
-        {/* Kai's Report */}
         {kaiMessage ? (
         <div style={{
             background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
@@ -257,31 +233,18 @@ return (
         </div>
         )}
 
-        {/* Pending Tasks */}
         {pending.length > 0 && (
         <div style={{
             background: "var(--fm-surface)", border: "1px solid rgba(253,203,110,0.2)",
             borderRadius: 14, padding: 20,
         }}>
-            <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-warning)", marginBottom: 14 }}>
-            Still pending ({pending.length})
-            </div>
+            <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-warning)", marginBottom: 14 }}>Still pending ({pending.length})</div>
             <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
             {pending.map((task) => (
-                <div key={task.id} style={{
-                display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-                background: "var(--fm-card)", borderRadius: 8,
-                }}>
-                <div style={{
-                    width: 16, height: 16, borderRadius: 4, flexShrink: 0,
-                    border: "2px solid var(--fm-muted)",
-                }} />
+                <div key={task.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: "var(--fm-card)", borderRadius: 8 }}>
+                <div style={{ width: 16, height: 16, borderRadius: 4, flexShrink: 0, border: "2px solid var(--fm-muted)" }} />
                 <span style={{ fontSize: 13, color: "var(--fm-text)", flex: 1 }}>{task.title}</span>
-                <span style={{
-                    fontSize: 10, padding: "2px 8px", borderRadius: 10,
-                    background: task.priority === "high" ? "rgba(255,107,107,0.1)" : "rgba(253,203,110,0.1)",
-                    color: task.priority === "high" ? "#ff6b6b" : "#fdcb6e",
-                }}>{task.priority}</span>
+                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 10, background: task.priority === "high" ? "rgba(255,107,107,0.1)" : "rgba(253,203,110,0.1)", color: task.priority === "high" ? "#ff6b6b" : "#fdcb6e" }}>{task.priority}</span>
                 </div>
             ))}
             </div>
