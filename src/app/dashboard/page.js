@@ -1,205 +1,162 @@
 "use client";
 
-export default function LandingPage() {
-const features = [
-{ icon: "✦", title: "AI Copilot — Kai", desc: "Your personal AI assistant that learns how you work and optimizes your day automatically." },
-{ icon: "◉", title: "Smart Calendar", desc: "Add events, organize your week, and never miss a deadline." },
-{ icon: "◈", title: "Zen Mode", desc: "8 ambient sounds, breathing exercises, and smart breaks to recharge." },
-{ icon: "◇", title: "Life Journal", desc: "AI-generated daily summaries and a printable Life Book of your year." },
-{ icon: "△", title: "Productivity DNA", desc: "Discover your unique work personality and share it with the world." },
-{ icon: "○", title: "7 Color Themes", desc: "Personalize your experience with beautiful dark and light themes." },
-];
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import { supabase } from "@/lib/supabase";
+
+export default function DashboardPage() {
+const router = useRouter();
+const [tasks, setTasks] = useState([]);
+const [quickInput, setQuickInput] = useState("");
+const [kaiText, setKaiText] = useState("");
+const [kaiDone, setKaiDone] = useState(false);
+const [loading, setLoading] = useState(true);
+
+const fullMessage = "Good morning! I've analyzed your schedule and organized your day by priority. You have tasks pending — let's get started. What would you like to focus on first?";
+
+useEffect(() => {
+fetchTasks();
+let i = 0;
+const interval = setInterval(() => {
+    setKaiText(fullMessage.slice(0, i + 1));
+    i++;
+    if (i >= fullMessage.length) { clearInterval(interval); setKaiDone(true); }
+}, 22);
+return () => clearInterval(interval);
+}, []);
+
+const fetchTasks = async () => {
+const { data: { session } } = await supabase.auth.getSession();
+if (!session) return;
+const today = new Date().toISOString().split("T")[0];
+const { data } = await supabase
+    .from("tasks")
+    .select("*")
+    .eq("user_id", session.user.id)
+    .eq("due_date", today)
+    .order("created_at", { ascending: false })
+    .limit(6);
+if (data) setTasks(data);
+setLoading(false);
+};
+
+const toggleTask = async (id, done) => {
+await supabase.from("tasks").update({ completed: !done }).eq("id", id);
+setTasks(tasks.map((t) => t.id === id ? { ...t, completed: !done } : t));
+};
+
+const sendToKai = () => {
+if (!quickInput.trim()) return;
+router.push(`/dashboard/chat?q=${encodeURIComponent(quickInput.trim())}`);
+};
+
+const completedCount = tasks.filter((t) => t.completed).length;
+const progress = tasks.length > 0 ? Math.round((completedCount / tasks.length) * 100) : 0;
+const priorityColors = { high: "var(--fm-danger)", med: "var(--fm-warning)", medium: "var(--fm-warning)", low: "var(--fm-success)" };
 
 return (
-<div style={{ minHeight: "100vh", background: "var(--fm-bg)", fontFamily: "Outfit, sans-serif" }}>
-    {/* Nav */}
-    <nav style={{
-    display: "flex", justifyContent: "space-between", alignItems: "center",
-    padding: "16px 24px", maxWidth: 1100, margin: "0 auto",
-    }}>
-    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{
-        width: 36, height: 36, borderRadius: 10,
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-        display: "flex", alignItems: "center", justifyContent: "center",
-        }}>
-        <svg width={18} height={18} viewBox="0 0 24 24" fill="none">
-            <circle cx="8" cy="8" r="3" fill="white" />
-            <circle cx="16" cy="14" r="3" fill="white" />
-            <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        </svg>
+<div style={{ animation: "fadeIn 0.5s ease" }}>
+
+    {/* Kai Briefing */}
+    <div style={{ background: "linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,206,201,0.08))", border: "1px solid rgba(108,92,231,0.3)", borderRadius: 16, padding: "18px 20px", marginBottom: 20, display: "flex", gap: 14, alignItems: "flex-start" }}>
+    <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
+    </div>
+    <div style={{ flex: 1 }}>
+        <div style={{ fontSize: 12, color: "var(--fm-accent-light)", fontWeight: 600, marginBottom: 6 }}>KAI · Daily Briefing</div>
+        <div style={{ fontSize: 14, color: "var(--fm-text)", lineHeight: 1.6 }}>
+        {kaiText}
+        {!kaiDone && <span style={{ display: "inline-block", width: 2, height: 14, background: "var(--fm-accent)", marginLeft: 2, animation: "blink 1s step-end infinite", verticalAlign: "middle" }} />}
         </div>
-        <span style={{ fontSize: 20, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</span>
+        {kaiDone && (
+        <div style={{ display: "flex", gap: 8, marginTop: 12 }}>
+            <button onClick={() => router.push("/dashboard/chat")} style={{ padding: "6px 14px", borderRadius: 8, border: "none", background: "var(--fm-accent)", color: "#fff", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>Ask Kai</button>
+            <button onClick={() => router.push("/dashboard/tasks")} style={{ padding: "6px 14px", borderRadius: 8, border: "1px solid var(--fm-border)", background: "transparent", color: "var(--fm-muted)", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>View tasks</button>
+        </div>
+        )}
     </div>
-    <div style={{ display: "flex", gap: 8 }}>
-        <button onClick={() => window.location.href = "/login"} style={{
-        padding: "10px 20px", borderRadius: 10, border: "1px solid var(--fm-border)",
-        background: "transparent", color: "var(--fm-text)", fontSize: 13,
-        fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-        }}>Sign in</button>
-        <button onClick={() => window.location.href = "/login"} style={{
-        padding: "10px 20px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
-        fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-        }}>Get started free</button>
     </div>
-    </nav>
 
-    {/* Hero */}
-    <section style={{
-    textAlign: "center", padding: "60px 20px 50px", maxWidth: 800, margin: "0 auto",
-    position: "relative",
-    }}>
-    <div style={{
-        position: "absolute", width: 300, height: 300, borderRadius: "50%",
-        background: "var(--fm-accent-glow)", filter: "blur(100px)", opacity: 0.3,
-        left: "10%", top: "0", pointerEvents: "none",
-    }} />
-    <div style={{
-        position: "absolute", width: 250, height: 250, borderRadius: "50%",
-        background: "var(--fm-teal-glow)", filter: "blur(80px)", opacity: 0.2,
-        right: "10%", top: "20%", pointerEvents: "none",
-    }} />
-    <div style={{
-        display: "inline-block", padding: "6px 16px", borderRadius: 20,
-        background: "rgba(108,92,231,0.1)", border: "1px solid rgba(108,92,231,0.2)",
-        fontSize: 13, color: "var(--fm-accent-light)", fontWeight: 500, marginBottom: 20,
-    }}>
-        Meet Kai — your AI productivity copilot
-    </div>
-    <h1 style={{
-        fontSize: "clamp(32px, 6vw, 52px)", fontWeight: 900, color: "var(--fm-text)",
-        letterSpacing: "-0.03em", lineHeight: 1.1, marginBottom: 16,
-        position: "relative",
-    }}>
-        Work smarter.<br />
-        <span style={{ background: "linear-gradient(135deg, #6C5CE7, #00CEC9)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>
-        Rest better.
-        </span><br />
-        Live fully.
-    </h1>
-    <p style={{ fontSize: "clamp(14px, 2vw, 18px)", color: "var(--fm-muted)", lineHeight: 1.6, marginBottom: 28, maxWidth: 560, margin: "0 auto 28px", position: "relative" }}>
-        DayLyft is the AI copilot that organizes your work, protects your rest, and manages your life — all for less than a coffee per month.
-    </p>
-    <div style={{ display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap", position: "relative" }}>
-        <button onClick={() => window.location.href = "/login"} style={{
-        padding: "14px 28px", borderRadius: 14, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
-        fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-        }}>Start free — no card needed</button>
-        <button onClick={() => window.location.href = "/pricing"} style={{
-        padding: "14px 28px", borderRadius: 14,
-        border: "1px solid var(--fm-border)", background: "transparent",
-        color: "var(--fm-text)", fontSize: 15, fontWeight: 600,
-        cursor: "pointer", fontFamily: "Outfit, sans-serif",
-        }}>See pricing</button>
-    </div>
-    <p style={{ fontSize: 12, color: "var(--fm-muted)", marginTop: 14, position: "relative" }}>
-        Free forever plan available. No credit card required.
-    </p>
-    </section>
-
-    {/* Social proof */}
-    <section style={{
-    display: "flex", justifyContent: "center", gap: "clamp(20px, 4vw, 40px)", padding: "10px 20px 50px",
-    flexWrap: "wrap",
-    }}>
+    {/* Stats */}
+    <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
     {[
-        { num: "$6.99", label: "/month for Pro" },
-        { num: "46+", label: "features" },
-        { num: "24/7", label: "AI copilot" },
-        { num: "100%", label: "data privacy" },
+        { label: "Tasks today", value: tasks.length > 0 ? `${completedCount}/${tasks.length}` : "—", sub: tasks.length > 0 ? `${progress}% done` : "No tasks today", color: "var(--fm-accent)" },
+        { label: "Focus time", value: "3.2h", sub: "↑ 18% vs avg", color: "var(--fm-teal)" },
+        { label: "Streak", value: "7 🔥", sub: "days in a row", color: "var(--fm-warning)" },
     ].map((s, i) => (
-        <div key={i} style={{ textAlign: "center" }}>
-        <div style={{ fontSize: "clamp(22px, 3vw, 28px)", fontWeight: 800, color: "var(--fm-accent)" }}>{s.num}</div>
-        <div style={{ fontSize: 12, color: "var(--fm-muted)" }}>{s.label}</div>
+        <div key={i} style={{ background: "var(--fm-card)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 16, flex: 1, minWidth: 0 }}>
+        <div style={{ fontSize: 12, color: "var(--fm-muted)", marginBottom: 6 }}>{s.label}</div>
+        <div style={{ fontSize: 22, fontWeight: 700, color: s.color }}>{s.value}</div>
+        <div style={{ fontSize: 11, color: "var(--fm-muted)", marginTop: 4 }}>{s.sub}</div>
         </div>
     ))}
-    </section>
-
-    {/* Features */}
-    <section style={{ padding: "30px 20px 60px", maxWidth: 1000, margin: "0 auto" }}>
-    <h2 style={{ textAlign: "center", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 800, color: "var(--fm-text)", marginBottom: 8 }}>
-        Everything you need. Nothing you don't.
-    </h2>
-    <p style={{ textAlign: "center", fontSize: 15, color: "var(--fm-muted)", marginBottom: 36 }}>
-        Productivity + wellness + life management — all in one app.
-    </p>
-    <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: 14 }}>
-        {features.map((f, i) => (
-        <div key={i} style={{
-            background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
-            borderRadius: 16, padding: 22,
-        }}>
-            <div style={{
-            width: 40, height: 40, borderRadius: 10,
-            background: "rgba(108,92,231,0.1)", display: "flex",
-            alignItems: "center", justifyContent: "center",
-            fontSize: 18, color: "var(--fm-accent)", marginBottom: 12,
-            }}>{f.icon}</div>
-            <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 4 }}>{f.title}</div>
-            <div style={{ fontSize: 13, color: "var(--fm-muted)", lineHeight: 1.6 }}>{f.desc}</div>
-        </div>
-        ))}
     </div>
-    </section>
 
-    {/* How it works */}
-    <section style={{ padding: "30px 20px 60px", maxWidth: 800, margin: "0 auto" }}>
-    <h2 style={{ textAlign: "center", fontSize: "clamp(22px, 4vw, 32px)", fontWeight: 800, color: "var(--fm-text)", marginBottom: 36 }}>
-        How DayLyft works
-    </h2>
-    <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-        {[
-        { step: "1", title: "Sign up in 10 seconds", desc: "Create an account with email or Google. No credit card needed." },
-        { step: "2", title: "Add your tasks", desc: "Tell Kai what you need to do. He organizes everything by priority and deadline." },
-        { step: "3", title: "Let Kai optimize your day", desc: "Kai learns your patterns and suggests the best times for focus, breaks, and tasks." },
-        { step: "4", title: "Track your progress", desc: "See your productivity analytics, completion rates, and improvement over time." },
-        ].map((item, i) => (
-        <div key={i} style={{ display: "flex", gap: 16, alignItems: "flex-start" }}>
-            <div style={{
-            width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            fontSize: 16, fontWeight: 700, color: "#fff",
-            }}>{item.step}</div>
-            <div>
-            <div style={{ fontSize: 16, fontWeight: 600, color: "var(--fm-text)", marginBottom: 2 }}>{item.title}</div>
-            <div style={{ fontSize: 14, color: "var(--fm-muted)", lineHeight: 1.6 }}>{item.desc}</div>
-            </div>
+    {/* Progress Bar */}
+    {tasks.length > 0 && (
+    <div style={{ marginBottom: 20 }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 6 }}>
+        <span style={{ fontSize: 12, color: "var(--fm-muted)" }}>Daily progress</span>
+        <span style={{ fontSize: 12, fontWeight: 600, color: "var(--fm-accent)" }}>{progress}%</span>
         </div>
-        ))}
+        <div style={{ height: 6, background: "var(--fm-border)", borderRadius: 99, overflow: "hidden" }}>
+        <div style={{ height: "100%", width: `${progress}%`, background: "linear-gradient(90deg, #6C5CE7, #00CEC9)", borderRadius: 99, transition: "width 0.6s ease" }} />
+        </div>
     </div>
-    </section>
+    )}
 
-    {/* CTA */}
-    <section style={{
-    padding: "50px 20px", textAlign: "center",
-    background: "linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,206,201,0.05))",
-    borderTop: "1px solid var(--fm-border)",
-    }}>
-    <h2 style={{ fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 800, color: "var(--fm-text)", marginBottom: 8 }}>
-        Ready to meet Kai?
-    </h2>
-    <p style={{ fontSize: 15, color: "var(--fm-muted)", marginBottom: 24 }}>
-        Join DayLyft today. Free forever, upgrade when you're ready.
-    </p>
-    <button onClick={() => window.location.href = "/login"} style={{
-        padding: "14px 36px", borderRadius: 14, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
-        fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-    }}>Get started free</button>
-    </section>
+    {/* Today's Tasks */}
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+    <span style={{ fontSize: 16, fontWeight: 600, color: "var(--fm-text)" }}>Today's tasks</span>
+    <span onClick={() => router.push("/dashboard/tasks")} style={{ fontSize: 12, color: "var(--fm-accent-light)", cursor: "pointer" }}>View all →</span>
+    </div>
 
-    {/* Footer */}
-    <footer style={{
-    padding: "24px 20px", textAlign: "center",
-    borderTop: "1px solid var(--fm-border)",
-    }}>
-    <p style={{ fontSize: 11, color: "var(--fm-muted)" }}>
-        © 2026 DayLyft. Your data is yours. We never sell it. Privacy Policy · Terms of Service
-    </p>
-    </footer>
+    <div style={{ display: "flex", flexDirection: "column", gap: 6, marginBottom: 24 }}>
+    {loading ? (
+        <div style={{ padding: 20, textAlign: "center", color: "var(--fm-muted)", fontSize: 13 }}>Loading tasks...</div>
+    ) : tasks.length === 0 ? (
+        <div style={{ padding: 20, textAlign: "center", color: "var(--fm-muted)", fontSize: 13, background: "var(--fm-card)", borderRadius: 12, border: "1px solid var(--fm-border)" }}>
+        No tasks for today. <span onClick={() => router.push("/dashboard/tasks")} style={{ color: "var(--fm-accent-light)", cursor: "pointer" }}>Add one →</span>
+        </div>
+    ) : tasks.map((task) => (
+        <div key={task.id} onClick={() => toggleTask(task.id, task.completed)}
+        style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 14px", background: "var(--fm-card)", border: "1px solid var(--fm-border)", borderRadius: 12, cursor: "pointer", opacity: task.completed ? 0.6 : 1, transition: "all 0.2s" }}>
+        <div style={{ width: 22, height: 22, borderRadius: 6, border: `2px solid ${task.completed ? "var(--fm-accent)" : "var(--fm-border)"}`, background: task.completed ? "var(--fm-accent)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "all 0.2s" }}>
+            {task.completed && <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>}
+        </div>
+        <div style={{ flex: 1 }}>
+            <div style={{ fontSize: 14, fontWeight: 500, color: "var(--fm-text)", textDecoration: task.completed ? "line-through" : "none" }}>{task.title}</div>
+        </div>
+        {task.priority && (
+            <span style={{ fontSize: 11, fontWeight: 700, padding: "3px 9px", borderRadius: 20, background: `${priorityColors[task.priority] || "var(--fm-muted)"}18`, color: priorityColors[task.priority] || "var(--fm-muted)", textTransform: "uppercase" }}>
+            {task.priority}
+            </span>
+        )}
+        </div>
+    ))}
+    </div>
+
+    {/* Ask Kai */}
+    <div style={{ background: "var(--fm-card)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 16 }}>
+    <div style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-text)", marginBottom: 12 }}>Ask Kai anything</div>
+    <div style={{ display: "flex", gap: 8 }}>
+        <input
+        value={quickInput}
+        onChange={(e) => setQuickInput(e.target.value)}
+        onKeyDown={(e) => e.key === "Enter" && sendToKai()}
+        placeholder="e.g. 'Optimize my day' or 'Add a task for tomorrow'"
+        style={{ flex: 1, padding: "10px 14px", borderRadius: 10, border: "1px solid var(--fm-border)", background: "var(--fm-surface)", color: "var(--fm-text)", fontSize: 13, fontFamily: "Outfit, sans-serif", outline: "none" }}
+        />
+        <button onClick={sendToKai} style={{ width: 40, height: 40, borderRadius: 10, border: "none", background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", flexShrink: 0 }}>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>
+        </button>
+    </div>
+    </div>
+
+    <style>{`
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    `}</style>
 </div>
 );
 }

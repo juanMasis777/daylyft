@@ -30,19 +30,59 @@ const navItems = [
   { id: "balance", label: "Balance", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg> },
   { id: "wisdom", label: "Wisdom", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z" /></svg> },
   { id: "family", label: "Family", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg> },
+  { id: "team", label: "Team", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg> },
   { id: "settings", label: "Settings", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg> },
 ];
 
-const sidebarItems = [
-  ...navItems.slice(0, 4),
-  { id: "team", label: "Team", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg> },
-  ...navItems.slice(4),
-];
+function SidebarContent({ activeNav, navigate, handleLogout, userName, userInitials, onClose }) {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", height: "100%", padding: "20px 12px" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 8px", marginBottom: 28 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <Logo />
+          <div>
+            <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</div>
+            <div style={{ fontSize: 9, color: "var(--fm-muted)", fontWeight: 500, letterSpacing: "0.08em" }}>AI COPILOT</div>
+          </div>
+        </div>
+        {onClose && (
+          <button onClick={onClose} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--fm-muted)", padding: 4 }}>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
+          </button>
+        )}
+      </div>
+
+      <nav style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1, overflowY: "auto" }}>
+        {navItems.map((item) => (
+          <button key={item.id} onClick={() => { navigate(item.id); onClose && onClose(); }}
+            style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", background: activeNav === item.id ? "rgba(108,92,231,0.1)" : "transparent", border: activeNav === item.id ? "1px solid rgba(108,92,231,0.15)" : "1px solid transparent", borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500, color: activeNav === item.id ? "var(--fm-accent-light)" : "var(--fm-muted)", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left" }}>
+            {item.icon}
+            {item.label}
+          </button>
+        ))}
+      </nav>
+
+      <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: "transparent", border: "1px solid transparent", borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500, color: "var(--fm-danger)", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left", marginBottom: 10, marginTop: 8 }}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg>
+        Log out
+      </button>
+
+      <div style={{ display: "flex", alignItems: "center", gap: 10, padding: 12, background: "var(--fm-card)", borderRadius: 12, border: "1px solid var(--fm-border)" }}>
+        <div style={{ width: 34, height: 34, borderRadius: 9, background: "linear-gradient(135deg, #fd79a8, #e84393)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>{userInitials}</div>
+        <div>
+          <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-text)" }}>{userName}</div>
+          <div style={{ fontSize: 10, color: "var(--fm-accent-light)" }}>Free plan</div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function DashboardLayout({ children }) {
   const [activeNav, setActiveNav] = useState("dashboard");
   const { theme, toggleTheme } = useTheme();
   const [isMobile, setIsMobile] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -56,10 +96,7 @@ export default function DashboardLayout({ children }) {
   useEffect(() => {
     const checkUser = async () => {
       const { data: { session } } = await supabase.auth.getSession();
-      if (!session) {
-        window.location.href = "/login";
-        return;
-      }
+      if (!session) { window.location.href = "/login"; return; }
       setUser(session.user);
       setLoading(false);
     };
@@ -93,84 +130,65 @@ export default function DashboardLayout({ children }) {
   const navigate = (id) => {
     setActiveNav(id);
     const routes = {
-      dashboard: "/dashboard",
-      tasks: "/dashboard/tasks",
-      analytics: "/dashboard/analytics",
-      zen: "/dashboard/zen",
-      calendar: "/dashboard/calendar",
-      team: "/dashboard/team",
-      chat: "/dashboard/chat",
-      settings: "/dashboard/settings",
-      journal: "/dashboard/journal",
-      dna: "/dashboard/dna",
-      autopilot: "/dashboard/autopilot",
-      wins: "/dashboard/wins",
-      balance: "/dashboard/balance",
-      wisdom: "/dashboard/wisdom",
+      dashboard: "/dashboard", tasks: "/dashboard/tasks",
+      analytics: "/dashboard/analytics", zen: "/dashboard/zen",
+      calendar: "/dashboard/calendar", team: "/dashboard/team",
+      chat: "/dashboard/chat", settings: "/dashboard/settings",
+      journal: "/dashboard/journal", dna: "/dashboard/dna",
+      autopilot: "/dashboard/autopilot", wins: "/dashboard/wins",
+      balance: "/dashboard/balance", wisdom: "/dashboard/wisdom",
       family: "/dashboard/family",
     };
     window.location.href = routes[id] || "/dashboard";
   };
 
-  if (loading) {
-    return (
-      <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--fm-bg)" }}>
-        <div style={{ textAlign: "center" }}>
-          <Logo />
-          <p style={{ color: "var(--fm-muted)", fontSize: 14, marginTop: 12 }}>Loading DayLyft...</p>
-        </div>
+  if (loading) return (
+    <div style={{ height: "100vh", display: "flex", alignItems: "center", justifyContent: "center", background: "var(--fm-bg)" }}>
+      <div style={{ textAlign: "center" }}>
+        <Logo />
+        <p style={{ color: "var(--fm-muted)", fontSize: 14, marginTop: 12 }}>Loading DayLyft...</p>
       </div>
-    );
-  }
+    </div>
+  );
 
   const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User";
   const userInitials = userName.split(" ").map((n) => n[0]).join("").toUpperCase().slice(0, 2);
-
   const hour = new Date().getHours();
   const greeting = hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
+
+      {/* Sidebar Desktop */}
       {!isMobile && (
-        <div style={{ width: 220, background: "var(--fm-surface)", borderRight: "1px solid var(--fm-border)", display: "flex", flexDirection: "column", padding: "20px 12px", flexShrink: 0 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: "0 8px", marginBottom: 28 }}>
-            <Logo />
-            <div>
-              <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</div>
-              <div style={{ fontSize: 9, color: "var(--fm-muted)", fontWeight: 500, letterSpacing: "0.08em" }}>AI COPILOT</div>
-            </div>
-          </div>
-
-          <nav style={{ display: "flex", flexDirection: "column", gap: 2, flex: 1, overflowY: "auto" }}>
-            {sidebarItems.map((item) => (
-              <button key={item.id} onClick={() => navigate(item.id)} style={{ display: "flex", alignItems: "center", gap: 10, padding: "9px 12px", background: activeNav === item.id ? "rgba(108,92,231,0.1)" : "transparent", border: activeNav === item.id ? "1px solid rgba(108,92,231,0.15)" : "1px solid transparent", borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500, color: activeNav === item.id ? "var(--fm-accent-light)" : "var(--fm-muted)", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left" }}>
-                {item.icon}
-                {item.label}
-              </button>
-            ))}
-          </nav>
-
-          <button onClick={handleLogout} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: "transparent", border: "1px solid transparent", borderRadius: 10, cursor: "pointer", fontSize: 13, fontWeight: 500, color: "var(--fm-danger)", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left", marginBottom: 10 }}>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" /><polyline points="16 17 21 12 16 7" /><line x1="21" y1="12" x2="9" y2="12" /></svg>
-            Log out
-          </button>
-
-          <div style={{ display: "flex", alignItems: "center", gap: 10, padding: 12, background: "var(--fm-card)", borderRadius: 12, border: "1px solid var(--fm-border)" }}>
-            <div style={{ width: 34, height: 34, borderRadius: 9, background: "linear-gradient(135deg, #fd79a8, #e84393)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 12, fontWeight: 700, color: "#fff" }}>{userInitials}</div>
-            <div>
-              <div style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-text)" }}>{userName}</div>
-              <div style={{ fontSize: 10, color: "var(--fm-accent-light)" }}>Free plan</div>
-            </div>
-          </div>
+        <div style={{ width: 220, background: "var(--fm-surface)", borderRight: "1px solid var(--fm-border)", flexShrink: 0 }}>
+          <SidebarContent activeNav={activeNav} navigate={navigate} handleLogout={handleLogout} userName={userName} userInitials={userInitials} />
         </div>
       )}
 
-      <div style={{ flex: 1, overflowY: "auto", background: "var(--fm-bg)", paddingBottom: isMobile ? 80 : 0 }}>
-        <div style={{ padding: isMobile ? "14px 16px" : "20px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--fm-border)" }}>
+      {/* Sidebar Mobile overlay */}
+      {isMobile && sidebarOpen && (
+        <>
+          <div onClick={() => setSidebarOpen(false)} style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.5)", zIndex: 200 }} />
+          <div style={{ position: "fixed", top: 0, left: 0, width: 260, height: "100vh", background: "var(--fm-surface)", borderRight: "1px solid var(--fm-border)", zIndex: 201, overflowY: "auto", animation: "slideIn 0.25s ease" }}>
+            <SidebarContent activeNav={activeNav} navigate={navigate} handleLogout={handleLogout} userName={userName} userInitials={userInitials} onClose={() => setSidebarOpen(false)} />
+          </div>
+        </>
+      )}
+
+      {/* Main */}
+      <div style={{ flex: 1, overflowY: "auto", background: "var(--fm-bg)" }}>
+
+        {/* Header */}
+        <div style={{ padding: isMobile ? "12px 16px" : "20px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--fm-border)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            {isMobile && <Logo />}
+            {isMobile && (
+              <button onClick={() => setSidebarOpen(true)} style={{ background: "none", border: "none", cursor: "pointer", color: "var(--fm-muted)", padding: 4, display: "flex" }}>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+              </button>
+            )}
             <div>
-              <div style={{ fontSize: isMobile ? 16 : 20, fontWeight: 700, color: "var(--fm-text)" }}>
+              <div style={{ fontSize: isMobile ? 15 : 20, fontWeight: 700, color: "var(--fm-text)" }}>
                 {`${greeting}, ${userName.split(" ")[0]}`}
               </div>
               <div style={{ fontSize: isMobile ? 11 : 13, color: "var(--fm-muted)" }}>
@@ -178,7 +196,8 @@ export default function DashboardLayout({ children }) {
               </div>
             </div>
           </div>
-          <div style={{ display: "flex", gap: 8 }}>
+
+          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
             <div onClick={toggleTheme} style={{ width: 36, height: 36, borderRadius: 10, border: "1px solid var(--fm-border)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--fm-muted)", cursor: "pointer" }}>
               {theme === "snow" ? (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>
@@ -187,25 +206,17 @@ export default function DashboardLayout({ children }) {
               )}
             </div>
             {isMobile && (
-              <div style={{ width: 36, height: 36, borderRadius: 10, background: "linear-gradient(135deg, #fd79a8, #e84393)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>{userInitials}</div>
+              <div style={{ width: 34, height: 34, borderRadius: 9, background: "linear-gradient(135deg, #fd79a8, #e84393)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: "#fff" }}>{userInitials}</div>
             )}
           </div>
         </div>
+
         <div style={{ padding: isMobile ? "14px 16px" : "24px 28px" }}>{children}</div>
       </div>
 
-      {isMobile && (
-        <div style={{ position: "fixed", bottom: 0, left: 0, right: 0, background: "var(--fm-surface)", borderTop: "1px solid var(--fm-border)", display: "flex", justifyContent: "space-around", alignItems: "center", padding: "6px 0 10px", zIndex: 100, overflowX: "auto" }}>
-          {navItems.map((item) => (
-            <button key={item.id} onClick={() => navigate(item.id)} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2, background: "none", border: "none", cursor: "pointer", color: activeNav === item.id ? "var(--fm-accent-light)" : "var(--fm-muted)", fontFamily: "Outfit, sans-serif", fontSize: 8, fontWeight: 500, padding: "2px 3px", minWidth: 0, flexShrink: 0 }}>
-              <div style={{ width: 18, height: 18, display: "flex", alignItems: "center", justifyContent: "center" }}>
-                {item.icon}
-              </div>
-              {item.label}
-            </button>
-          ))}
-        </div>
-      )}
+      <style>{`
+        @keyframes slideIn { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+      `}</style>
     </div>
   );
 }
