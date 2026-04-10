@@ -205,8 +205,9 @@ export default function DashboardLayout({ children }) {
         <div style={{ padding: isMobile ? "14px 16px" : "20px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--fm-border)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             {isMobile && (
-              <div onClick={() => setMenuOpen(true)} style={{ width: 36, height: 36, borderRadius: 10, border: "1px solid var(--fm-border)", display: "flex", alignItems: "center", justifyContent: "center", cursor: "pointer", color: "var(--fm-muted)" }}>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+              <div onClick={() => setMenuOpen(true)} style={{ padding: "6px 12px", borderRadius: 10, border: "1px solid var(--fm-border)", display: "flex", alignItems: "center", gap: 6, cursor: "pointer", color: "var(--fm-muted)" }}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+                <span style={{ fontSize: 12, fontWeight: 600, fontFamily: "Outfit, sans-serif" }}>Menu</span>
               </div>
             )}
             <div>
