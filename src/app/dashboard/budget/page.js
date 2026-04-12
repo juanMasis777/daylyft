@@ -41,11 +41,15 @@ const [generatingKai, setGeneratingKai] = useState(false);
 useEffect(() => { fetchEntries(); }, [filterMonth]);
 
 const fetchEntries = async () => {
+setLoading(true);
 const { data: { session } } = await supabase.auth.getSession();
 if (!session) return;
 
 const startDate = `${filterMonth}-01`;
-const endDate = new Date(parseInt(filterMonth.split("-")[0]), parseInt(filterMonth.split("-")[1]), 0).toISOString().split("T")[0];
+const year = parseInt(filterMonth.split("-")[0]);
+const month = parseInt(filterMonth.split("-")[1]);
+const lastDay = new Date(year, month, 0).getDate();
+const endDate = `${filterMonth}-${lastDay}`;
 
 const { data } = await supabase
     .from("budget")
@@ -60,32 +64,41 @@ setLoading(false);
 };
 
 const addEntry = async () => {
-if (!title.trim() || !amount) return;
+if (!title.trim()) { alert("Please enter a title"); return; }
+if (!amount || parseFloat(amount) <= 0) { alert("Please enter a valid amount"); return; }
+
 const { data: { session } } = await supabase.auth.getSession();
-if (!session) return;
+if (!session) { alert("Please log in again"); return; }
 
 const { data, error } = await supabase
     .from("budget")
     .insert([{
     title: title.trim(),
     amount: parseFloat(amount),
-    type,
-    category,
-    date,
+    type: type,
+    category: category,
+    date: date,
     user_id: session.user.id,
     }])
     .select();
 
-if (!error && data) {
+if (error) {
+    alert("Error: " + error.message);
+    return;
+}
+
+if (data && data.length > 0) {
     setEntries([data[0], ...entries]);
     setTitle("");
     setAmount("");
     setCategory(type === "expense" ? "food" : "salary");
+    setDate(new Date().toISOString().split("T")[0]);
     setShowAdd(false);
 }
 };
 
 const deleteEntry = async (id) => {
+if (!confirm("Delete this transaction?")) return;
 await supabase.from("budget").delete().eq("id", id);
 setEntries(entries.filter((e) => e.id !== id));
 };
@@ -108,8 +121,8 @@ return list.find((c) => c.id === catId) || { label: catId, emoji: "📦", color:
 
 const formatMonthLabel = (monthStr) => {
 const [year, month] = monthStr.split("-");
-const date = new Date(year, month - 1);
-return date.toLocaleDateString("en-US", { month: "long", year: "numeric" });
+const d = new Date(year, month - 1);
+return d.toLocaleDateString("en-US", { month: "long", year: "numeric" });
 };
 
 const prevMonth = () => {
@@ -228,7 +241,6 @@ return (
     }}>
         <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 14 }}>Add transaction</div>
 
-        {/* Type Toggle */}
         <div style={{ display: "flex", gap: 6, marginBottom: 14 }}>
         <button onClick={() => { setType("expense"); setCategory("food"); }} style={{
             flex: 1, padding: "10px", borderRadius: 10, fontSize: 13, fontWeight: 600,
@@ -286,11 +298,11 @@ return (
         ))}
         </div>
 
-        <button onClick={addEntry} disabled={!title.trim() || !amount} style={{
+        <button onClick={addEntry} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: title.trim() && amount ? "linear-gradient(135deg, #6C5CE7, #a29bfe)" : "var(--fm-muted)",
+        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
         color: "#fff", fontSize: 14, fontWeight: 600,
-        cursor: title.trim() && amount ? "pointer" : "not-allowed", fontFamily: "Outfit, sans-serif",
+        cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Add {type === "expense" ? "Expense" : "Income"}</button>
     </div>
     )}
