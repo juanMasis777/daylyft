@@ -105,6 +105,7 @@ export default function DashboardLayout({ children }) {
     else if (path.includes("water")) setActiveNav("water");
     else if (path.includes("gratitude")) setActiveNav("gratitude");
     else if (path.includes("challenge")) setActiveNav("challenge");
+    else if (path.includes("decision")) setActiveNav("decision");
   }, []);
 
   const handleLogout = async () => {
@@ -143,6 +144,7 @@ export default function DashboardLayout({ children }) {
       water: "/dashboard/water",
       gratitude: "/dashboard/gratitude",
       challenge: "/dashboard/challenge",
+      decision: "/dashboard/decision",
     };
     window.location.href = routes[id] || "/dashboard";
   };
