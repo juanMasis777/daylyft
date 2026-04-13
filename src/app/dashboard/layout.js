@@ -39,6 +39,7 @@ const navItems = [
   { id: "budget", label: "Budget", color: "#00b894", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg> },
   { id: "checklist", label: "Checklist", color: "#fdcb6e", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg> },
   { id: "notes", label: "Notes", color: "#a29bfe", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /><line x1="16" y1="13" x2="8" y2="13" /><line x1="16" y1="17" x2="8" y2="17" /></svg> },
+  { id: "water", label: "Water", color: "#74b9ff", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" /></svg> },
   { id: "settings", label: "Settings", color: "#636e72", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg> },
 ];
 
@@ -99,6 +100,7 @@ export default function DashboardLayout({ children }) {
     else if (path.includes("budget")) setActiveNav("budget");
     else if (path.includes("checklist")) setActiveNav("checklist");
     else if (path.includes("notes")) setActiveNav("notes");
+    else if (path.includes("water")) setActiveNav("water");
   }, []);
 
   const handleLogout = async () => {
@@ -134,6 +136,7 @@ export default function DashboardLayout({ children }) {
       budget: "/dashboard/budget",
       checklist: "/dashboard/checklist",
       notes: "/dashboard/notes",
+      water: "/dashboard/water",
     };
     window.location.href = routes[id] || "/dashboard";
   };
@@ -203,14 +206,12 @@ export default function DashboardLayout({ children }) {
 
   return (
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
-      {/* Desktop sidebar */}
       {!isMobile && (
         <div style={{ width: 220, background: "var(--fm-surface)", borderRight: "1px solid var(--fm-border)", display: "flex", flexDirection: "column", padding: "20px 12px", flexShrink: 0 }}>
           {renderSidebar(sidebarItems)}
         </div>
       )}
 
-      {/* Mobile sidebar overlay */}
       {isMobile && menuOpen && (
         <div onClick={() => setMenuOpen(false)} style={{ position: "fixed", top: 0, left: 0, right: 0, bottom: 0, background: "rgba(0,0,0,0.5)", zIndex: 200 }}>
           <div onClick={(e) => e.stopPropagation()} style={{
@@ -227,7 +228,6 @@ export default function DashboardLayout({ children }) {
 
       <style>{`@keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }`}</style>
 
-      {/* Main content */}
       <div style={{ flex: 1, overflowY: "auto", background: "var(--fm-bg)" }}>
         <div style={{ padding: isMobile ? "14px 16px" : "20px 28px", display: "flex", justifyContent: "space-between", alignItems: "center", borderBottom: "1px solid var(--fm-border)" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
