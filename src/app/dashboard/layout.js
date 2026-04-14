@@ -50,6 +50,7 @@ const navItems = [
   { id: "sleep", label: "Sleep", color: "#a29bfe", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /><path d="M14 11l2-2 2 2" /><path d="M18 13v-4" /></svg> },
   { id: "links", label: "Links", color: "#74b9ff", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg> },
   { id: "workout", label: "Workout", color: "#e17055", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6.5 6.5L17.5 17.5" /><path d="M3 10l1-1 3 3" /><path d="M21 14l-1 1-3-3" /><path d="M14 3l1 1-3 3" /><path d="M10 21l-1-1 3-3" /></svg> },
+  { id: "bills", label: "Bills", color: "#e17055", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
   { id: "settings", label: "Settings", color: "#636e72", icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" /></svg> },
 ];
 
@@ -121,6 +122,7 @@ export default function DashboardLayout({ children }) {
     else if (path.includes("sleep")) setActiveNav("sleep");
     else if (path.includes("links")) setActiveNav("links");
     else if (path.includes("workout")) setActiveNav("workout");
+    else if (path.includes("bills")) setActiveNav("bills");
   }, []);
 
   const handleLogout = async () => {
@@ -167,6 +169,7 @@ export default function DashboardLayout({ children }) {
       sleep: "/dashboard/sleep",
       links: "/dashboard/links",
       workout: "/dashboard/workout",
+      bills: "/dashboard/bills",
     };
     window.location.href = routes[id] || "/dashboard";
   };
