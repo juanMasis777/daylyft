@@ -1,297 +1,691 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+
+const features = [
+  { emoji: "🤖", title: "Kai AI Copilot", desc: "Your personal AI assistant that plans your day, analyzes habits, and gives personalized advice" },
+  { emoji: "✅", title: "Smart Tasks", desc: "Organize tasks with priorities, categories, and AI-powered scheduling" },
+  { emoji: "📅", title: "Calendar", desc: "Visual weekly calendar with color-coded events and smart reminders" },
+  { emoji: "🧬", title: "Productivity DNA", desc: "Discover your unique productivity personality and optimize your workflow" },
+  { emoji: "🧘", title: "Zen Mode", desc: "8 ambient sounds, breathing exercises, and guided relaxation" },
+  { emoji: "📊", title: "Analytics", desc: "Track your productivity patterns with beautiful charts and insights" },
+  { emoji: "🎯", title: "Goal Setting", desc: "Set weekly, monthly, and yearly goals with visual progress tracking" },
+  { emoji: "📓", title: "Life Journal", desc: "Daily journal with mood tracking and AI-generated summaries" },
+  { emoji: "⚡", title: "Energy Map", desc: "Track your energy levels hourly to find your peak performance windows" },
+  { emoji: "🏆", title: "Weekly Wins", desc: "AI-graded weekly performance reports with actionable feedback" },
+  { emoji: "💵", title: "Budget Tracker", desc: "Track income and expenses with category breakdowns and AI tips" },
+  { emoji: "🔥", title: "Habit Tracker", desc: "Build powerful habits with streaks, visual grids, and accountability" },
+  { emoji: "🛡", title: "Focus Shield", desc: "Block distractions and protect deep work time with smart sessions" },
+  { emoji: "🍅", title: "Pomodoro Timer", desc: "Customizable focus cycles with break reminders and session stats" },
+  { emoji: "👨‍👩‍👧", title: "Family Mode", desc: "Manage meals, chores, and family budget all in one place" },
+  { emoji: "⚖️", title: "Life Balance", desc: "Radar chart across 8 life areas with AI coaching" },
+  { emoji: "🙏", title: "Gratitude Journal", desc: "Daily gratitude practice proven to increase happiness by 25%" },
+  { emoji: "💧", title: "Water Tracker", desc: "Stay hydrated with visual tracking, goals, and weekly charts" },
+  { emoji: "😴", title: "Sleep Tracker", desc: "Log sleep patterns and get AI insights for better rest" },
+  { emoji: "🏋️", title: "Workout Tracker", desc: "Log exercises with sets, reps, weight, and AI suggestions" },
+  { emoji: "🧠", title: "Flashcards", desc: "Create study decks or let AI generate cards from any topic" },
+  { emoji: "✉️", title: "Email Templates", desc: "AI writes perfect emails for any situation in your chosen tone" },
+  { emoji: "💡", title: "Idea Vault", desc: "Capture ideas instantly and let AI help develop the best ones" },
+  { emoji: "🎁", title: "Gift Planner", desc: "Never forget a birthday — AI suggests personalized gift ideas" },
+  { emoji: "📖", title: "Reading List", desc: "Track books with ratings, notes, and AI recommendations" },
+  { emoji: "🐷", title: "Savings Goals", desc: "Visual savings targets with deposits, deadlines, and AI advice" },
+  { emoji: "📋", title: "Bill Reminder", desc: "Track bills, due dates, auto-pay status, and payment history" },
+  { emoji: "🔗", title: "Link Saver", desc: "Organize bookmarks by category with search and favorites" },
+  { emoji: "🎲", title: "Daily Challenge", desc: "28 rotating challenges to push you outside your comfort zone" },
+  { emoji: "🎯", title: "Decision Maker", desc: "AI analyzes your options with pros, cons, and recommendations" },
+  { emoji: "⏳", title: "Countdown Timer", desc: "Live countdowns for events, deadlines, and exciting moments" },
+  { emoji: "☑️", title: "Daily Checklist", desc: "Morning and evening routines that reset daily with streaks" },
+  { emoji: "📝", title: "Quick Notes", desc: "Capture thoughts with colors, pins, search, and AI expand" },
+  { emoji: "🌙", title: "Night Report", desc: "AI-generated end-of-day summary with score and insights" },
+  { emoji: "⏰", title: "Autopilot", desc: "Kai plans your entire day based on your tasks and energy" },
+  { emoji: "💬", title: "Kai's Wisdom", desc: "Daily motivational quotes and advice personalized by AI" },
+  { emoji: "🧘", title: "Stretching Guide", desc: "5 guided routines with timers for every moment of your day" },
+  { emoji: "⏱", title: "Focus Music", desc: "Ambient soundscapes designed for deep concentration" },
+  { emoji: "🌅", title: "7 Themes", desc: "Midnight, Snow, Ocean, Forest, Rose, Amber, and Sunset" },
+  { emoji: "🚀", title: "+More Coming", desc: "We ship new features every week based on user feedback" },
+];
+
+const comparisons = [
+  { app: "Motion", features: 10, price: "$29/mo", wellness: false, family: false, finance: false },
+  { app: "Sunsama", features: 10, price: "$20/mo", wellness: false, family: false, finance: false },
+  { app: "Notion", features: 10, price: "$10/mo", wellness: false, family: false, finance: false },
+  { app: "DayLyft", features: 40, price: "FREE", wellness: true, family: true, finance: true, highlight: true },
+];
 
 export default function LandingPage() {
-  const [visible, setVisible] = useState(false);
+  const [visibleSections, setVisibleSections] = useState({});
+  const [featurePage, setFeaturePage] = useState(0);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const featuresPerPage = 8;
+  const totalPages = Math.ceil(features.length / featuresPerPage);
 
   useEffect(() => {
-    const checkAuth = async () => {
-      const { createClient } = await import("@supabase/supabase-js");
-      const supabase = createClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL,
-        process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-      );
-      const { data: { session } } = await supabase.auth.getSession();
-      if (session) {
-        window.location.href = "/dashboard";
-        return;
-      }
-      setVisible(true);
-    };
-    checkAuth();
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setVisibleSections((prev) => ({ ...prev, [entry.target.id]: true }));
+          }
+        });
+      },
+      { threshold: 0.1 }
+    );
+
+    document.querySelectorAll("[data-animate]").forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
   }, []);
 
-  const features = [
-    { icon: "✦", title: "AI Copilot — Kai", desc: "Learns how you work and optimizes your entire day automatically.", color: "#6C5CE7" },
-    { icon: "◉", title: "Smart Calendar", desc: "Organize your week and never miss a single deadline.", color: "#00CEC9" },
-    { icon: "◈", title: "Zen Mode", desc: "8 ambient sounds and breathing exercises to recharge.", color: "#fd79a8" },
-    { icon: "◇", title: "7 Color Themes", desc: "Beautiful dark and light themes to match your mood.", color: "#fdcb6e" },
-    { icon: "△", title: "Real Analytics", desc: "Track your productivity, completion rates, and growth.", color: "#a29bfe" },
-    { icon: "○", title: "Life Journal", desc: "AI-generated daily summaries and printable Life Book.", color: "#00CEC9" },
-  ];
-
-  const steps = [
-    { num: "1", title: "Sign up in 10 seconds", desc: "Email or Google. No credit card needed.", color: "#6C5CE7" },
-    { num: "2", title: "Add your tasks", desc: "Kai organizes everything by priority and deadline.", color: "#00CEC9" },
-    { num: "3", title: "Let Kai optimize your day", desc: "AI learns your patterns and builds your perfect schedule.", color: "#fd79a8" },
-    { num: "4", title: "Track your progress", desc: "See analytics, insights, and improvement over time.", color: "#fdcb6e" },
-  ];
-
-  if (!visible) {
-    return <div style={{ minHeight: "100vh", background: "#08080d" }} />;
-  }
+  const scrollTo = (id) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    setMobileMenuOpen(false);
+  };
 
   return (
-    <div style={{
-      minHeight: "100vh", background: "#08080d", fontFamily: "Outfit, sans-serif",
-      color: "#eaeaef", overflow: "hidden", position: "relative",
-    }}>
-      <div style={{ position: "fixed", top: 0, left: 0, width: "100%", height: "100%", pointerEvents: "none", zIndex: 0 }}>
-        <div style={{
-          position: "absolute", width: 300, height: 300, borderRadius: "50%",
-          background: "rgba(108,92,231,0.08)", filter: "blur(80px)",
-          left: "-5%", top: "5%",
-          animation: "float1 8s ease-in-out infinite",
-        }} />
-        <div style={{
-          position: "absolute", width: 250, height: 250, borderRadius: "50%",
-          background: "rgba(0,206,201,0.06)", filter: "blur(80px)",
-          right: "-5%", top: "30%",
-          animation: "float2 10s ease-in-out infinite",
-        }} />
-        <div style={{
-          position: "absolute", width: 200, height: 200, borderRadius: "50%",
-          background: "rgba(253,121,168,0.05)", filter: "blur(80px)",
-          left: "30%", bottom: "10%",
-          animation: "float3 9s ease-in-out infinite",
-        }} />
-        {[...Array(8)].map((_, i) => (
-          <div key={i} style={{
-            position: "absolute", width: 3, height: 3, borderRadius: "50%",
-            background: "rgba(108,92,231,0.4)",
-            left: `${10 + i * 12}%`, top: `${15 + (i % 3) * 25}%`,
-            animation: `pulse ${3 + i * 0.5}s ease-in-out infinite ${i * 0.3}s`,
-          }} />
-        ))}
-      </div>
-
+    <div style={{ background: "#0a0a0f", color: "#e8e8f0", fontFamily: "'Outfit', sans-serif", overflowX: "hidden" }}>
       <style>{`
-        @keyframes float1 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(30px,-40px) scale(1.1); } }
-        @keyframes float2 { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-25px,30px) scale(1.05); } }
-        @keyframes float3 { 0%,100% { transform: translate(0,0); } 50% { transform: translate(20px,-20px); } }
-        @keyframes pulse { 0%,100% { opacity: 0.2; transform: scale(1); } 50% { opacity: 0.7; transform: scale(1.5); } }
-        @keyframes progressBar { from { width: 0; } to { width: 100%; } }
-        @keyframes glowPulse { 0%,100% { box-shadow: 0 0 20px rgba(108,92,231,0.3); } 50% { box-shadow: 0 0 40px rgba(108,92,231,0.5); } }
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+        
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-20px); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(108,92,231,0.3); } 50% { box-shadow: 0 0 40px rgba(108,92,231,0.6); } }
+        @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
+        @keyframes count { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes gradientBg { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        .nav-link { color: #8a8a9a; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; cursor: pointer; }
+        .nav-link:hover { color: #e8e8f0; }
+        
+        .hero-btn { 
+          padding: 16px 36px; border-radius: 14px; font-size: 16px; font-weight: 700; 
+          cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.3s; border: none;
+          text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+        }
+        .hero-btn-primary { 
+          background: linear-gradient(135deg, #6C5CE7, #a29bfe); color: #fff; 
+        }
+        .hero-btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,92,231,0.4); }
+        .hero-btn-secondary { 
+          background: rgba(255,255,255,0.06); color: #e8e8f0; border: 1px solid rgba(255,255,255,0.1); 
+        }
+        .hero-btn-secondary:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.2); }
+        
+        .feature-card {
+          background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+          border-radius: 16px; padding: 24px; transition: all 0.3s; cursor: default;
+        }
+        .feature-card:hover { 
+          background: rgba(108,92,231,0.08); border-color: rgba(108,92,231,0.2);
+          transform: translateY(-4px);
+        }
+        
+        .section-animate { opacity: 0; transform: translateY(40px); transition: all 0.8s ease; }
+        .section-visible { opacity: 1; transform: translateY(0); }
+        
+        .glow-orb {
+          position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15;
+          animation: pulse 6s ease-in-out infinite;
+        }
+
+        .stat-number {
+          font-size: 56px; font-weight: 900; line-height: 1;
+          background: linear-gradient(135deg, #6C5CE7, #00CEC9);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+
+        @media (max-width: 768px) {
+          .hero-title { font-size: 36px !important; }
+          .hero-subtitle { font-size: 16px !important; }
+          .stat-number { font-size: 36px !important; }
+          .nav-desktop { display: none !important; }
+          .hero-buttons { flex-direction: column !important; }
+          .features-grid { grid-template-columns: 1fr !important; }
+          .comparison-table { overflow-x: auto; }
+          .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          .pricing-grid { grid-template-columns: 1fr !important; }
+          .footer-grid { grid-template-columns: 1fr !important; }
+        }
       `}</style>
 
-      <div style={{ position: "relative", zIndex: 1 }}>
-        <nav style={{
-          display: "flex", justifyContent: "space-between", alignItems: "center",
-          padding: "18px 24px", maxWidth: 1000, margin: "0 auto",
-          opacity: visible ? 1 : 0, transition: "opacity 0.8s ease",
+      {/* === NAVBAR === */}
+      <nav style={{
+        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
+        background: "rgba(10,10,15,0.85)", backdropFilter: "blur(20px)",
+        borderBottom: "1px solid rgba(255,255,255,0.05)",
+        padding: "0 24px",
+      }}>
+        <div style={{
+          maxWidth: 1200, margin: "0 auto", height: 64,
+          display: "flex", alignItems: "center", justifyContent: "space-between",
         }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{
-              width: 34, height: 34, borderRadius: 9,
+              width: 36, height: 36, borderRadius: 10,
               background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
               display: "flex", alignItems: "center", justifyContent: "center",
             }}>
-              <svg width={16} height={16} viewBox="0 0 24 24" fill="none">
+              <svg width={18} height={18} viewBox="0 0 24 24" fill="none">
                 <circle cx="8" cy="8" r="3" fill="white" />
                 <circle cx="16" cy="14" r="3" fill="white" />
                 <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
               </svg>
             </div>
-            <span style={{ fontSize: 18, fontWeight: 700, color: "#eaeaef" }}>DayLyft</span>
+            <span style={{ fontSize: 20, fontWeight: 800, color: "#fff" }}>DayLyft</span>
           </div>
-          <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-            <button onClick={() => window.location.href = "/login"} style={{
-              padding: "8px 18px", borderRadius: 18, border: "1px solid #1c1c2a",
-              background: "transparent", color: "#6b6b80", fontSize: 13,
-              fontWeight: 500, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-            }}>Sign in</button>
-            <button onClick={() => window.location.href = "/login"} style={{
-              padding: "8px 18px", borderRadius: 18, border: "none",
-              background: "#6C5CE7", color: "#fff", fontSize: 13,
-              fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-            }}>Get started</button>
-          </div>
-        </nav>
 
-        <section style={{
-          textAlign: "center", padding: "50px 20px 40px", maxWidth: 700, margin: "0 auto",
+          <div className="nav-desktop" style={{ display: "flex", alignItems: "center", gap: 32 }}>
+            <span className="nav-link" onClick={() => scrollTo("features")}>Features</span>
+            <span className="nav-link" onClick={() => scrollTo("compare")}>Compare</span>
+            <span className="nav-link" onClick={() => scrollTo("pricing")}>Pricing</span>
+            <a href="/login" style={{
+              padding: "8px 20px", borderRadius: 10, fontSize: 14, fontWeight: 600,
+              background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+              textDecoration: "none", transition: "all 0.3s",
+            }}>Get Started Free</a>
+          </div>
+
+          <div className="nav-mobile" style={{ display: "none" }} onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2">
+              <line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="18" x2="21" y2="18" />
+            </svg>
+          </div>
+        </div>
+      </nav>
+
+      <style>{`@media (max-width: 768px) { .nav-desktop { display: none !important; } .nav-mobile { display: block !important; } }`}</style>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div style={{
+          position: "fixed", top: 64, left: 0, right: 0, bottom: 0, zIndex: 99,
+          background: "rgba(10,10,15,0.95)", backdropFilter: "blur(20px)",
+          display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 24,
         }}>
+          <span className="nav-link" style={{ fontSize: 20 }} onClick={() => scrollTo("features")}>Features</span>
+          <span className="nav-link" style={{ fontSize: 20 }} onClick={() => scrollTo("compare")}>Compare</span>
+          <span className="nav-link" style={{ fontSize: 20 }} onClick={() => scrollTo("pricing")}>Pricing</span>
+          <a href="/login" className="hero-btn hero-btn-primary" style={{ marginTop: 16 }}>Get Started Free</a>
+        </div>
+      )}
+
+      {/* === HERO === */}
+      <section style={{
+        position: "relative", minHeight: "100vh", display: "flex", alignItems: "center",
+        justifyContent: "center", textAlign: "center", padding: "120px 24px 80px",
+        overflow: "hidden",
+      }}>
+        {/* Background Orbs */}
+        <div className="glow-orb" style={{ width: 500, height: 500, background: "#6C5CE7", top: -100, left: -100 }} />
+        <div className="glow-orb" style={{ width: 400, height: 400, background: "#00CEC9", bottom: -100, right: -100, animationDelay: "3s" }} />
+        <div className="glow-orb" style={{ width: 300, height: 300, background: "#fd79a8", top: "40%", right: "20%", animationDelay: "1.5s" }} />
+
+        <div style={{ position: "relative", zIndex: 1, maxWidth: 800 }}>
+          {/* Badge */}
           <div style={{
-            display: "inline-block", padding: "5px 16px", borderRadius: 20,
-            background: "rgba(108,92,231,0.1)", border: "1px solid rgba(108,92,231,0.2)",
-            fontSize: 12, color: "#a29bfe", fontWeight: 500, marginBottom: 20,
-            opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s ease 0.2s",
+            display: "inline-flex", alignItems: "center", gap: 8,
+            padding: "6px 16px", borderRadius: 100, marginBottom: 24,
+            background: "rgba(108,92,231,0.12)", border: "1px solid rgba(108,92,231,0.25)",
+            animation: "slideUp 0.6s ease",
           }}>
-            ✦ Meet Kai — your AI productivity copilot
+            <span style={{ width: 8, height: 8, borderRadius: "50%", background: "#00CEC9", animation: "pulse 2s ease-in-out infinite" }} />
+            <span style={{ fontSize: 13, fontWeight: 500, color: "#a29bfe" }}>40 features · 100% free to start</span>
           </div>
 
-          <h1 style={{
-            fontSize: "clamp(34px, 7vw, 54px)", fontWeight: 800,
-            lineHeight: 1.08, marginBottom: 18, letterSpacing: "-0.03em",
-            opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s ease 0.4s",
+          {/* Title */}
+          <h1 className="hero-title" style={{
+            fontSize: 64, fontWeight: 900, lineHeight: 1.1, marginBottom: 20,
+            animation: "slideUp 0.8s ease",
           }}>
-            Think less.<br />
+            <span style={{ color: "#fff" }}>Your life.</span>
+            <br />
+            <span style={{
+              background: "linear-gradient(135deg, #6C5CE7, #00CEC9, #fd79a8)",
+              backgroundSize: "200% auto",
+              WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
+              animation: "gradientBg 4s ease infinite",
+            }}>One app.</span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="hero-subtitle" style={{
+            fontSize: 20, color: "#8a8a9a", lineHeight: 1.7, maxWidth: 600,
+            margin: "0 auto 36px", animation: "slideUp 1s ease",
+          }}>
+            Productivity. Wellness. Finances. Family. Fitness. Learning.
+            <br />
+            <span style={{ color: "#a29bfe" }}>All powered by Kai, your AI copilot.</span>
+          </p>
+
+          {/* Buttons */}
+          <div className="hero-buttons" style={{
+            display: "flex", gap: 16, justifyContent: "center",
+            animation: "slideUp 1.2s ease",
+          }}>
+            <a href="/login" className="hero-btn hero-btn-primary">
+              Start free — No credit card
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+            </a>
+            <button className="hero-btn hero-btn-secondary" onClick={() => scrollTo("features")}>
+              See all 40 features
+            </button>
+          </div>
+
+          {/* Social Proof */}
+          <div style={{
+            marginTop: 48, display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+            animation: "slideUp 1.4s ease",
+          }}>
+            <div style={{ display: "flex" }}>
+              {["#6C5CE7", "#00CEC9", "#fd79a8", "#fdcb6e"].map((color, i) => (
+                <div key={i} style={{
+                  width: 32, height: 32, borderRadius: "50%", border: "2px solid #0a0a0f",
+                  background: `linear-gradient(135deg, ${color}, ${color}aa)`,
+                  marginLeft: i > 0 ? -10 : 0, display: "flex", alignItems: "center", justifyContent: "center",
+                  fontSize: 12, fontWeight: 700, color: "#fff",
+                }}>
+                  {["J", "M", "A", "S"][i]}
+                </div>
+              ))}
+            </div>
+            <span style={{ fontSize: 14, color: "#8a8a9a" }}>Join early adopters using DayLyft</span>
+          </div>
+        </div>
+      </section>
+
+      {/* === STATS BAR === */}
+      <section style={{
+        borderTop: "1px solid rgba(255,255,255,0.05)",
+        borderBottom: "1px solid rgba(255,255,255,0.05)",
+        padding: "48px 24px",
+        background: "rgba(108,92,231,0.03)",
+      }}>
+        <div className="stats-grid" style={{
+          maxWidth: 1000, margin: "0 auto",
+          display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 24,
+          textAlign: "center",
+        }}>
+          {[
+            { number: "40+", label: "Features" },
+            { number: "$0", label: "To start" },
+            { number: "1", label: "App for everything" },
+            { number: "24/7", label: "AI Copilot" },
+          ].map((stat, i) => (
+            <div key={i}>
+              <div className="stat-number">{stat.number}</div>
+              <div style={{ fontSize: 14, color: "#8a8a9a", marginTop: 4 }}>{stat.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* === FEATURES === */}
+      <section id="features" data-animate style={{
+        padding: "100px 24px", maxWidth: 1200, margin: "0 auto",
+        ...(visibleSections.features ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
+      }}>
+        <div style={{ textAlign: "center", marginBottom: 60 }}>
+          <div style={{
+            display: "inline-block", padding: "6px 16px", borderRadius: 100, marginBottom: 16,
+            background: "rgba(0,206,201,0.1)", border: "1px solid rgba(0,206,201,0.2)",
+            fontSize: 13, fontWeight: 600, color: "#00CEC9",
+          }}>40 FEATURES</div>
+          <h2 style={{ fontSize: 42, fontWeight: 800, color: "#fff", marginBottom: 12 }}>
+            Everything you need.
+            <br />
+            <span style={{ color: "#8a8a9a" }}>Nothing you don't.</span>
+          </h2>
+          <p style={{ fontSize: 16, color: "#8a8a9a", maxWidth: 500, margin: "0 auto" }}>
+            Productivity, wellness, finances, fitness, learning, and family — all in one beautiful app.
+          </p>
+        </div>
+
+        <div className="features-grid" style={{
+          display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 16,
+        }}>
+          {features.slice(featurePage * featuresPerPage, (featurePage + 1) * featuresPerPage).map((feature, i) => (
+            <div key={i} className="feature-card" style={{ animationDelay: `${i * 0.05}s` }}>
+              <div style={{ fontSize: 32, marginBottom: 12 }}>{feature.emoji}</div>
+              <div style={{ fontSize: 15, fontWeight: 700, color: "#fff", marginBottom: 6 }}>{feature.title}</div>
+              <div style={{ fontSize: 13, color: "#8a8a9a", lineHeight: 1.6 }}>{feature.desc}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* Feature Pagination */}
+        <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 32 }}>
+          {Array.from({ length: totalPages }, (_, i) => (
+            <button key={i} onClick={() => setFeaturePage(i)} style={{
+              width: featurePage === i ? 32 : 10, height: 10, borderRadius: 5, border: "none",
+              background: featurePage === i ? "#6C5CE7" : "rgba(255,255,255,0.15)",
+              cursor: "pointer", transition: "all 0.3s",
+            }} />
+          ))}
+        </div>
+        <div style={{ textAlign: "center", marginTop: 12, fontSize: 13, color: "#8a8a9a" }}>
+          Showing {featurePage * featuresPerPage + 1}-{Math.min((featurePage + 1) * featuresPerPage, features.length)} of {features.length} features
+        </div>
+      </section>
+
+      {/* === COMPARISON === */}
+      <section id="compare" data-animate style={{
+        padding: "100px 24px",
+        background: "rgba(255,255,255,0.02)",
+        borderTop: "1px solid rgba(255,255,255,0.05)",
+        ...(visibleSections.compare ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
+      }}>
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <div style={{
+              display: "inline-block", padding: "6px 16px", borderRadius: 100, marginBottom: 16,
+              background: "rgba(255,107,107,0.1)", border: "1px solid rgba(255,107,107,0.2)",
+              fontSize: 13, fontWeight: 600, color: "#ff6b6b",
+            }}>VS THE COMPETITION</div>
+            <h2 style={{ fontSize: 42, fontWeight: 800, color: "#fff", marginBottom: 12 }}>
+              4x more features.
+              <br />
+              <span style={{ color: "#8a8a9a" }}>4x less price.</span>
+            </h2>
+          </div>
+
+          <div className="comparison-table" style={{
+            background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
+            borderRadius: 20, overflow: "hidden",
+          }}>
+            {/* Header */}
+            <div style={{
+              display: "grid", gridTemplateColumns: "1fr 80px 100px 70px 70px 70px",
+              padding: "16px 24px", borderBottom: "1px solid rgba(255,255,255,0.06)",
+              fontSize: 12, fontWeight: 600, color: "#8a8a9a", textTransform: "uppercase", letterSpacing: "0.05em",
+            }}>
+              <div>App</div>
+              <div style={{ textAlign: "center" }}>Features</div>
+              <div style={{ textAlign: "center" }}>Price</div>
+              <div style={{ textAlign: "center" }}>Wellness</div>
+              <div style={{ textAlign: "center" }}>Family</div>
+              <div style={{ textAlign: "center" }}>Finance</div>
+            </div>
+
+            {/* Rows */}
+            {comparisons.map((comp, i) => (
+              <div key={i} style={{
+                display: "grid", gridTemplateColumns: "1fr 80px 100px 70px 70px 70px",
+                padding: "18px 24px", alignItems: "center",
+                borderBottom: i < comparisons.length - 1 ? "1px solid rgba(255,255,255,0.04)" : "none",
+                background: comp.highlight ? "rgba(108,92,231,0.08)" : "transparent",
+              }}>
+                <div style={{
+                  fontSize: 16, fontWeight: comp.highlight ? 800 : 500,
+                  color: comp.highlight ? "#fff" : "#8a8a9a",
+                  display: "flex", alignItems: "center", gap: 8,
+                }}>
+                  {comp.highlight && <span style={{ fontSize: 12, padding: "2px 8px", borderRadius: 6, background: "#6C5CE7", color: "#fff" }}>YOU</span>}
+                  {comp.app}
+                </div>
+                <div style={{
+                  textAlign: "center", fontSize: 18, fontWeight: 700,
+                  color: comp.highlight ? "#6C5CE7" : "#8a8a9a",
+                }}>{comp.features}</div>
+                <div style={{
+                  textAlign: "center", fontSize: 16, fontWeight: 700,
+                  color: comp.highlight ? "#00CEC9" : "#ff6b6b",
+                }}>{comp.price}</div>
+                <div style={{ textAlign: "center", fontSize: 18 }}>{comp.wellness ? "✅" : "❌"}</div>
+                <div style={{ textAlign: "center", fontSize: 18 }}>{comp.family ? "✅" : "❌"}</div>
+                <div style={{ textAlign: "center", fontSize: 18 }}>{comp.finance ? "✅" : "❌"}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* === KAI SECTION === */}
+      <section data-animate id="kai" style={{
+        padding: "100px 24px", position: "relative", overflow: "hidden",
+        ...(visibleSections.kai ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
+      }}>
+        <div className="glow-orb" style={{ width: 400, height: 400, background: "#6C5CE7", top: "20%", left: -100 }} />
+
+        <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 1 }}>
+          <div style={{
+            width: 80, height: 80, borderRadius: 20, margin: "0 auto 24px",
+            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            animation: "glow 3s ease-in-out infinite",
+          }}>
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
+          </div>
+
+          <h2 style={{ fontSize: 42, fontWeight: 800, color: "#fff", marginBottom: 12 }}>
+            Meet Kai.
+            <br />
+            <span style={{ color: "#a29bfe" }}>Your AI copilot.</span>
+          </h2>
+          <p style={{ fontSize: 18, color: "#8a8a9a", lineHeight: 1.7, maxWidth: 600, margin: "0 auto 36px" }}>
+            Kai plans your day, analyzes your habits, writes your emails, suggests workouts, recommends books, and gives you personalized advice across every area of your life.
+          </p>
+
+          <div style={{
+            display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16,
+            maxWidth: 700, margin: "0 auto",
+          }}>
+            {[
+              { emoji: "🌅", text: "Plans your morning" },
+              { emoji: "📧", text: "Writes your emails" },
+              { emoji: "💪", text: "Suggests workouts" },
+              { emoji: "📊", text: "Analyzes your habits" },
+              { emoji: "💰", text: "Budgets your money" },
+              { emoji: "🌙", text: "Reviews your day" },
+            ].map((item, i) => (
+              <div key={i} style={{
+                padding: "16px", borderRadius: 14,
+                background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+                fontSize: 14, color: "#e8e8f0", display: "flex", alignItems: "center", gap: 8,
+              }}>
+                <span style={{ fontSize: 20 }}>{item.emoji}</span> {item.text}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* === PRICING === */}
+      <section id="pricing" data-animate style={{
+        padding: "100px 24px",
+        background: "rgba(255,255,255,0.02)",
+        borderTop: "1px solid rgba(255,255,255,0.05)",
+        ...(visibleSections.pricing ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
+      }}>
+        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <div style={{
+              display: "inline-block", padding: "6px 16px", borderRadius: 100, marginBottom: 16,
+              background: "rgba(253,203,110,0.1)", border: "1px solid rgba(253,203,110,0.2)",
+              fontSize: 13, fontWeight: 600, color: "#fdcb6e",
+            }}>PRICING</div>
+            <h2 style={{ fontSize: 42, fontWeight: 800, color: "#fff", marginBottom: 12 }}>
+              Start free.
+              <br />
+              <span style={{ color: "#8a8a9a" }}>Upgrade when you're hooked.</span>
+            </h2>
+          </div>
+
+          <div className="pricing-grid" style={{
+            display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20, alignItems: "start",
+          }}>
+            {/* Starter */}
+            <div style={{
+              background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 20, padding: 32,
+            }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#8a8a9a", marginBottom: 8 }}>Starter</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+                <span style={{ fontSize: 48, fontWeight: 900, color: "#fff" }}>$0</span>
+                <span style={{ fontSize: 16, color: "#8a8a9a" }}>/forever</span>
+              </div>
+              <div style={{ fontSize: 13, color: "#8a8a9a", marginBottom: 24 }}>Everything you need to get started</div>
+              <a href="/login" className="hero-btn hero-btn-secondary" style={{
+                width: "100%", justifyContent: "center", padding: "14px", marginBottom: 24,
+              }}>Get started free</a>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {["11 core features", "Kai Chat (10/day)", "3 color themes", "Pomodoro Timer", "Water Tracker", "Daily Checklist", "Gratitude Journal", "Zen Mode (3 sounds)"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#8a8a9a" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00CEC9" strokeWidth="2"><polyline points="20 6 9 17 4 12" /></svg>
+                    {f}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Pro */}
+            <div style={{
+              background: "rgba(108,92,231,0.08)", border: "2px solid rgba(108,92,231,0.3)",
+              borderRadius: 20, padding: 32, position: "relative",
+              boxShadow: "0 0 60px rgba(108,92,231,0.15)",
+            }}>
+              <div style={{
+                position: "absolute", top: -12, left: "50%", transform: "translateX(-50%)",
+                padding: "4px 16px", borderRadius: 100,
+                background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+                fontSize: 11, fontWeight: 700, color: "#fff", letterSpacing: "0.05em",
+              }}>MOST POPULAR</div>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#a29bfe", marginBottom: 8 }}>Pro</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+                <span style={{ fontSize: 48, fontWeight: 900, color: "#fff" }}>$6.99</span>
+                <span style={{ fontSize: 16, color: "#8a8a9a" }}>/month</span>
+              </div>
+              <div style={{ fontSize: 13, color: "#8a8a9a", marginBottom: 24 }}>All 40 features, unlimited everything</div>
+              <a href="/login" className="hero-btn hero-btn-primary" style={{
+                width: "100%", justifyContent: "center", padding: "14px", marginBottom: 24,
+              }}>Start free trial</a>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {["All 40 features", "Unlimited Kai AI", "7 premium themes", "All Zen sounds + breathing", "Journal + AI summaries", "DNA + Autopilot + Night Report", "Budget + Savings + Bills", "Workout + Sleep + Energy", "Flashcards + Email Templates", "Priority support"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#e8e8f0" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" strokeWidth="2"><polyline points="20 6 9 17 4 12" /></svg>
+                    {f}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Business */}
+            <div style={{
+              background: "rgba(255,255,255,0.03)", border: "1px solid rgba(255,255,255,0.06)",
+              borderRadius: 20, padding: 32,
+            }}>
+              <div style={{ fontSize: 14, fontWeight: 600, color: "#8a8a9a", marginBottom: 8 }}>Business</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+                <span style={{ fontSize: 48, fontWeight: 900, color: "#fff" }}>$12.99</span>
+                <span style={{ fontSize: 16, color: "#8a8a9a" }}>/user/mo</span>
+              </div>
+              <div style={{ fontSize: 13, color: "#8a8a9a", marginBottom: 24 }}>For teams that want to win together</div>
+              <a href="/login" className="hero-btn hero-btn-secondary" style={{
+                width: "100%", justifyContent: "center", padding: "14px", marginBottom: 24,
+              }}>Contact us</a>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {["Everything in Pro", "Team Dashboard", "Shared Tasks", "Team Analytics", "Admin Panel", "Custom Branding", "Priority Support", "Export Reports"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#8a8a9a" }}>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00CEC9" strokeWidth="2"><polyline points="20 6 9 17 4 12" /></svg>
+                    {f}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* === FINAL CTA === */}
+      <section style={{
+        padding: "100px 24px", textAlign: "center", position: "relative", overflow: "hidden",
+      }}>
+        <div className="glow-orb" style={{ width: 500, height: 500, background: "#6C5CE7", top: "50%", left: "50%", transform: "translate(-50%, -50%)" }} />
+
+        <div style={{ position: "relative", zIndex: 1, maxWidth: 600, margin: "0 auto" }}>
+          <h2 style={{ fontSize: 48, fontWeight: 900, color: "#fff", marginBottom: 16 }}>
+            Ready to
+            <br />
             <span style={{
               background: "linear-gradient(135deg, #6C5CE7, #00CEC9)",
               WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-            }}>Do more.</span><br />
-            Live fully.
-          </h1>
-
-          <p style={{
-            fontSize: "clamp(14px, 2vw, 17px)", color: "#6b6b80", lineHeight: 1.7,
-            maxWidth: 480, margin: "0 auto 24px",
-            opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s ease 0.6s",
-          }}>
-            The AI copilot that organizes your work, protects your rest, and manages your life — for less than a coffee per month.
+            }}>lift your day?</span>
+          </h2>
+          <p style={{ fontSize: 18, color: "#8a8a9a", marginBottom: 32, lineHeight: 1.7 }}>
+            Join thousands of people who are already using DayLyft to be more productive, healthier, and happier.
           </p>
+          <a href="/login" className="hero-btn hero-btn-primary" style={{ fontSize: 18, padding: "18px 44px" }}>
+            Get Started — It's Free
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
+          </a>
+          <div style={{ marginTop: 16, fontSize: 13, color: "#636e72" }}>No credit card required · Free forever plan available</div>
+        </div>
+      </section>
 
-          <div style={{
-            display: "flex", gap: 10, justifyContent: "center", flexWrap: "wrap",
-            opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)",
-            transition: "all 0.8s ease 0.8s",
+      {/* === FOOTER === */}
+      <footer style={{
+        borderTop: "1px solid rgba(255,255,255,0.05)",
+        padding: "48px 24px 24px",
+      }}>
+        <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+          <div className="footer-grid" style={{
+            display: "grid", gridTemplateColumns: "2fr 1fr 1fr 1fr", gap: 40, marginBottom: 40,
           }}>
-            <button onClick={() => window.location.href = "/login"} style={{
-              padding: "13px 28px", borderRadius: 14, border: "none",
-              background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
-              fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-              animation: visible ? "glowPulse 3s ease-in-out infinite 2s" : "none",
-            }}>Start free — no card needed</button>
-            <button onClick={() => window.location.href = "/pricing"} style={{
-              padding: "13px 28px", borderRadius: 14,
-              border: "1px solid #1c1c2a", background: "rgba(255,255,255,0.03)",
-              color: "#eaeaef", fontSize: 15, fontWeight: 600,
-              cursor: "pointer", fontFamily: "Outfit, sans-serif",
-            }}>See pricing</button>
+            <div>
+              <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+                <div style={{
+                  width: 32, height: 32, borderRadius: 9,
+                  background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                }}>
+                  <svg width={14} height={14} viewBox="0 0 24 24" fill="none">
+                    <circle cx="8" cy="8" r="3" fill="white" />
+                    <circle cx="16" cy="14" r="3" fill="white" />
+                    <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+                  </svg>
+                </div>
+                <span style={{ fontSize: 18, fontWeight: 800, color: "#fff" }}>DayLyft</span>
+              </div>
+              <p style={{ fontSize: 14, color: "#636e72", lineHeight: 1.7, maxWidth: 280 }}>
+                The AI-powered super app for productivity, wellness, and life management. 40+ features. One app.
+              </p>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 16 }}>Product</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {["Features", "Pricing", "Compare", "Changelog"].map((item, i) => (
+                  <span key={i} style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>{item}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 16 }}>Company</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {["About", "Blog", "Careers", "Contact"].map((item, i) => (
+                  <span key={i} style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>{item}</span>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 16 }}>Legal</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {["Privacy", "Terms", "Security"].map((item, i) => (
+                  <span key={i} style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>{item}</span>
+                ))}
+              </div>
+            </div>
           </div>
-
-          <p style={{
-            fontSize: 12, color: "#6b6b80", marginTop: 14,
-            opacity: visible ? 1 : 0, transition: "opacity 0.8s ease 1s",
-          }}>Free forever plan available. No credit card required.</p>
-        </section>
-
-        <div style={{ padding: "0 20%", marginBottom: 40 }}>
-          <div style={{ height: 2, borderRadius: 2, overflow: "hidden", background: "#1c1c2a" }}>
-            <div style={{
-              height: "100%",
-              background: "linear-gradient(90deg, #6C5CE7, #00CEC9, #fd79a8)",
-              animation: visible ? "progressBar 2s ease 1.2s both" : "none",
-            }} />
+          <div style={{
+            borderTop: "1px solid rgba(255,255,255,0.05)", paddingTop: 24,
+            display: "flex", justifyContent: "space-between", alignItems: "center",
+          }}>
+            <span style={{ fontSize: 13, color: "#636e72" }}>© 2026 DayLyft. All rights reserved.</span>
+            <span style={{ fontSize: 13, color: "#636e72" }}>Made with ❤️ in Miami</span>
           </div>
         </div>
-
-        <section style={{
-          display: "flex", justifyContent: "center", gap: "clamp(24px, 5vw, 50px)", padding: "0 20px 40px",
-          flexWrap: "wrap",
-          opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(20px)",
-          transition: "all 0.8s ease 1.4s",
-        }}>
-          {[
-            { num: "$6.99", label: "/month for Pro", color: "#6C5CE7" },
-            { num: "46+", label: "features", color: "#00CEC9" },
-            { num: "24/7", label: "AI copilot", color: "#fd79a8" },
-            { num: "100%", label: "data privacy", color: "#fdcb6e" },
-          ].map((s, i) => (
-            <div key={i} style={{ textAlign: "center" }}>
-              <div style={{ fontSize: "clamp(24px, 3vw, 30px)", fontWeight: 700, color: s.color }}>{s.num}</div>
-              <div style={{ fontSize: 12, color: "#6b6b80" }}>{s.label}</div>
-            </div>
-          ))}
-        </section>
-
-        <section style={{ padding: "20px 20px 50px", maxWidth: 900, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 28 }}>
-            <div style={{ fontSize: 12, color: "#6C5CE7", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 6 }}>FEATURES</div>
-            <h2 style={{ fontSize: "clamp(22px, 4vw, 30px)", fontWeight: 700, color: "#eaeaef" }}>Everything you need. Nothing you don't.</h2>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 12 }}>
-            {features.map((f, i) => (
-              <div key={i} style={{
-                background: "#111118", border: "1px solid #1c1c2a",
-                borderRadius: 14, padding: 20, cursor: "pointer",
-                opacity: visible ? 1 : 0, transform: visible ? "scale(1)" : "scale(0.85)",
-                transition: `all 0.6s ease ${1.6 + i * 0.15}s`,
-              }}
-                onMouseEnter={(e) => { e.currentTarget.style.transform = "translateY(-4px)"; e.currentTarget.style.borderColor = f.color; }}
-                onMouseLeave={(e) => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.borderColor = "#1c1c2a"; }}
-              >
-                <div style={{
-                  width: 38, height: 38, borderRadius: 10,
-                  background: `${f.color}15`, display: "flex",
-                  alignItems: "center", justifyContent: "center",
-                  fontSize: 18, color: f.color, marginBottom: 10,
-                }}>{f.icon}</div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: "#eaeaef", marginBottom: 4 }}>{f.title}</div>
-                <div style={{ fontSize: 12, color: "#6b6b80", lineHeight: 1.6 }}>{f.desc}</div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section style={{ padding: "20px 20px 50px", maxWidth: 700, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 28 }}>
-            <div style={{ fontSize: 12, color: "#00CEC9", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 6 }}>HOW IT WORKS</div>
-            <h2 style={{ fontSize: "clamp(22px, 4vw, 30px)", fontWeight: 700, color: "#eaeaef" }}>Four steps to flow state</h2>
-          </div>
-          <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-            {steps.map((s, i) => (
-              <div key={i} style={{
-                display: "flex", gap: 16, alignItems: "center",
-                background: "#111118", border: "1px solid #1c1c2a",
-                borderRadius: 12, padding: "14px 18px",
-                opacity: visible ? 1 : 0, transform: visible ? "translateX(0)" : "translateX(-30px)",
-                transition: `all 0.6s ease ${2.5 + i * 0.15}s`,
-              }}>
-                <div style={{
-                  width: 36, height: 36, borderRadius: "50%", flexShrink: 0,
-                  background: `${s.color}15`, border: `1px solid ${s.color}30`,
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 14, fontWeight: 600, color: s.color,
-                }}>{s.num}</div>
-                <div>
-                  <div style={{ fontSize: 14, fontWeight: 600, color: "#eaeaef" }}>{s.title}</div>
-                  <div style={{ fontSize: 12, color: "#6b6b80" }}>{s.desc}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        <section style={{
-          padding: "40px 20px", textAlign: "center",
-          background: "linear-gradient(180deg, transparent, rgba(108,92,231,0.05))",
-          borderTop: "1px solid #1c1c2a",
-        }}>
-          <h2 style={{ fontSize: "clamp(20px, 3vw, 28px)", fontWeight: 700, color: "#eaeaef", marginBottom: 6 }}>
-            Ready to meet Kai?
-          </h2>
-          <p style={{ fontSize: 14, color: "#6b6b80", marginBottom: 20 }}>
-            Join DayLyft today. Free forever, upgrade when you're ready.
-          </p>
-          <button onClick={() => window.location.href = "/login"} style={{
-            padding: "14px 32px", borderRadius: 14, border: "none",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
-            fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "Outfit, sans-serif",
-            animation: "glowPulse 3s ease-in-out infinite",
-          }}>Get started free</button>
-        </section>
-
-        <footer style={{ padding: "20px", textAlign: "center", borderTop: "1px solid #1c1c2a" }}>
-          <p style={{ fontSize: 11, color: "#6b6b80" }}>
-            © 2026 DayLyft. Your data is yours. We never sell it. Privacy Policy · Terms of Service
-          </p>
-        </footer>
-      </div>
+      </footer>
     </div>
   );
 }
