@@ -118,6 +118,7 @@ export default function DashboardLayout({ children }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [collapsedGroups, setCollapsedGroups] = useState({});
+  const [currentPath, setCurrentPath] = useState("");
 
   useEffect(() => {
     const checkSize = () => setIsMobile(window.innerWidth < 768);
@@ -138,6 +139,7 @@ export default function DashboardLayout({ children }) {
 
   useEffect(() => {
     const path = window.location.pathname;
+    setCurrentPath(path);
     const segments = path.split("/").filter(Boolean);
     if (segments.length === 1 && segments[0] === "dashboard") {
       setActiveNav("dashboard");
@@ -299,6 +301,10 @@ export default function DashboardLayout({ children }) {
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
       <style>{`
         @keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+        @keyframes pageEnter {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
         ::-webkit-scrollbar { width: 4px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
@@ -380,7 +386,11 @@ export default function DashboardLayout({ children }) {
             )}
           </div>
         </div>
-        <div style={{ padding: isMobile ? "16px" : "24px 28px" }}>{children}</div>
+
+        <div key={currentPath} style={{
+          padding: isMobile ? "16px" : "24px 28px",
+          animation: "pageEnter 0.4s ease",
+        }}>{children}</div>
       </div>
     </div>
   );
