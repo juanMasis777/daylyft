@@ -129,6 +129,28 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: background 0.3s ease, color 0.3s ease;
+  position: relative;
+}
+
+/* Animated background for glassmorphism depth */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(108, 92, 231, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(0, 206, 201, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(253, 121, 168, 0.04) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+#__next, main, [class*="dashboard"] {
+  position: relative;
+  z-index: 1;
 }
 
 /* Scrollbar */
@@ -192,9 +214,29 @@ body {
   100% { transform: scale(1); opacity: 1; }
 }
 
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* GLASSMORPHISM - Applied to all main cards */
+/* Cards with surface background get glass treatment */
+div[style*="var(--fm-surface)"] {
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+}
+
+/* Hover effect for cards */
+div[style*="borderRadius: 14"]:hover,
+div[style*="borderRadius: 16"]:hover,
+div[style*="borderRadius: 20"]:hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Global Input Styles */
 input, textarea, select {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  backdrop-filter: blur(10px);
 }
 
 input:focus, textarea:focus, select:focus {
@@ -209,6 +251,7 @@ button {
 
 button:hover:not(:disabled) {
   filter: brightness(1.1);
+  transform: translateY(-1px);
 }
 
 button:active:not(:disabled) {
@@ -220,14 +263,27 @@ a {
   transition: color 0.2s ease, opacity 0.2s ease;
 }
 
-/* Cards hover effect */
-[style*="borderRadius: 14"], [style*="borderRadius: 16"], [style*="borderRadius: 12"] {
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
-}
-
 /* Smooth theme transition */
 div, span, p, h1, h2, h3, h4, h5, h6, nav, section, main, aside, header, footer {
   transition: background-color 0.3s ease, border-color 0.3s ease, color 0.15s ease;
+}
+
+/* Glass effect class - use on specific cards */
+.glass {
+  background: rgba(255, 255, 255, 0.03) !important;
+  backdrop-filter: blur(20px) saturate(150%);
+  -webkit-backdrop-filter: blur(20px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Glass card with subtle accent */
+.glass-accent {
+  background: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(162, 155, 254, 0.03)) !important;
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(108, 92, 231, 0.15) !important;
+  box-shadow: 0 8px 32px 0 rgba(108, 92, 231, 0.1);
 }
 
 /* Mobile optimizations */
@@ -238,7 +294,7 @@ div, span, p, h1, h2, h3, h4, h5, h6, nav, section, main, aside, header, footer 
   }
   
   input, textarea, select {
-    font-size: 16px !important; /* Prevents iOS zoom */
+    font-size: 16px !important;
   }
 }
 
