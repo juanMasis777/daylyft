@@ -1,48 +1,47 @@
-import "./globals.css";
+"use client";
+
+import { useState, useEffect } from "react";
 import { ThemeProvider } from "@/context/ThemeContext";
-
-export const metadata = {
-  title: "DayLyft — AI Copilot for Productivity",
-  description: "Your AI copilot that organizes your day, learns your patterns, and helps you achieve more.",
-  manifest: "/manifest.json",
-  themeColor: "#6C5CE7",
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: "black-translucent",
-    title: "DayLyft",
-  },
-};
-
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-  maximumScale: 1,
-  themeColor: "#6C5CE7",
-};
+import SplashScreen from "@/app/components/SplashScreen";
+import "./globals.css";
 
 export default function RootLayout({ children }) {
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const splashSeen = sessionStorage.getItem("daylyft-splash-seen");
+      if (splashSeen) {
+        setShowSplash(false);
+      }
+    }
+  }, []);
+
+  const handleSplashComplete = () => {
+    setShowSplash(false);
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem("daylyft-splash-seen", "true");
+    }
+  };
+
   return (
     <html lang="en">
       <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap"
-          rel="stylesheet"
-        />
+        <title>DayLyft — Your AI copilot for life</title>
+        <meta name="description" content="40+ features for productivity, wellness, finance, and more. Powered by Kai AI." />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+        <meta name="theme-color" content="#0a0a12" />
+        <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                window.addEventListener('load', () => {
-                  navigator.serviceWorker.register('/sw.js');
-                });
-              }
-            `,
-          }}
-        />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <meta name="apple-mobile-web-app-title" content="DayLyft" />
       </head>
       <body>
-        <ThemeProvider>{children}</ThemeProvider>
+        <ThemeProvider>
+          {showSplash && <SplashScreen onComplete={handleSplashComplete} />}
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
