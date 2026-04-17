@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { supabase } from "@/lib/supabase";
+import Onboarding from "@/app/components/Onboarding";
 
 function Logo() {
   return (
@@ -119,6 +120,8 @@ export default function DashboardLayout({ children }) {
   const [searchQuery, setSearchQuery] = useState("");
   const [collapsedGroups, setCollapsedGroups] = useState({});
   const [currentPath, setCurrentPath] = useState("");
+  const [showOnboarding, setShowOnboarding] = useState(false);
+  const [onboardingPrefs, setOnboardingPrefs] = useState(null);
 
   useEffect(() => {
     const checkSize = () => setIsMobile(window.innerWidth < 768);
@@ -133,6 +136,13 @@ export default function DashboardLayout({ children }) {
       if (!session) { window.location.href = "/login"; return; }
       setUser(session.user);
       setLoading(false);
+
+      const onboarding = localStorage.getItem("daylyft-onboarding");
+      if (!onboarding) {
+        setShowOnboarding(true);
+      } else {
+        setOnboardingPrefs(JSON.parse(onboarding));
+      }
     };
     checkUser();
   }, []);
@@ -310,6 +320,16 @@ export default function DashboardLayout({ children }) {
         ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
       `}</style>
+
+      {showOnboarding && (
+        <Onboarding
+          userName={userName}
+          onComplete={(prefs) => {
+            setOnboardingPrefs(prefs);
+            setShowOnboarding(false);
+          }}
+        />
+      )}
 
       {!isMobile && (
         <div style={{
