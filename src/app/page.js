@@ -304,24 +304,20 @@ export default function LandingPage() {
                 <span onClick={() => scrollTo("features")} style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>Features</span>
                 <span onClick={() => scrollTo("pricing")} style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>Pricing</span>
                 <span onClick={() => scrollTo("compare")} style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>Compare</span>
-                <span style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>Changelog</span>
               </div>
             </div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 16 }}>Company</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                <span style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>About</span>
-                <span style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>Blog</span>
-                <span style={{ fontSize: 13, color: "#636e72", cursor: "pointer" }}>Careers</span>
-                <a href="mailto:juanmasis777@gmail.com" style={{ fontSize: 13, color: "#636e72", cursor: "pointer", textDecoration: "none" }}>Contact</a>
+                <a href="/about" style={{ fontSize: 13, color: "#636e72", cursor: "pointer", textDecoration: "none" }}>About</a>
+                <a href="/contact" style={{ fontSize: 13, color: "#636e72", cursor: "pointer", textDecoration: "none" }}>Contact</a>
               </div>
             </div>
             <div>
               <div style={{ fontSize: 13, fontWeight: 600, color: "#fff", marginBottom: 16 }}>Legal</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
                 <a href="/privacy" style={{ fontSize: 13, color: "#636e72", cursor: "pointer", textDecoration: "none" }}>Privacy</a>
-                <a href="/privacy" style={{ fontSize: 13, color: "#636e72", cursor: "pointer", textDecoration: "none" }}>Terms</a>
-                <a href="/privacy" style={{ fontSize: 13, color: "#636e72", cursor: "pointer", textDecoration: "none" }}>Security</a>
+                <a href="/terms" style={{ fontSize: 13, color: "#636e72", cursor: "pointer", textDecoration: "none" }}>Terms</a>
               </div>
             </div>
           </div>
