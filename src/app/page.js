@@ -102,7 +102,7 @@ export default function LandingPage() {
   const filteredFeatures = featureFilter === "all" ? features : features.filter((f) => f.cat === featureFilter);
 
   return (
-    <div style={{ background: "#050508", color: "#e8e8f0", fontFamily: "'Outfit', sans-serif", overflowX: "hidden" }}>
+    <div style={{ background: "#dddde4", color: "#e8e8f0", fontFamily: "'Outfit', sans-serif", overflowX: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Sora:wght@400;500;600;700;800&display=swap');
         
