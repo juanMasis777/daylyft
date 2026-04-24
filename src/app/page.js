@@ -104,75 +104,27 @@ export default function LandingPage() {
     <div style={{ background: "#ffffff", color: "#1a1a2e", fontFamily: "'Outfit', sans-serif", overflowX: "hidden" }}>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Sora:wght@400;500;600;700;800&display=swap');
-        
         @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes gradientBg { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         @keyframes scaleIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
         @keyframes glow { 0%, 100% { box-shadow: 0 8px 30px rgba(108,92,231,0.15); } 50% { box-shadow: 0 8px 50px rgba(108,92,231,0.3); } }
-        
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html { scroll-behavior: smooth; }
-        
         .nav-link { color: #6b7280; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.3s; cursor: pointer; }
         .nav-link:hover { color: #1a1a2e; }
-        
-        .btn-primary {
-          padding: 14px 32px; border-radius: 12px; font-size: 14px; font-weight: 700;
-          cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.3s; border: none;
-          text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-          background: #6C5CE7; color: #fff;
-        }
+        .btn-primary { padding: 14px 32px; border-radius: 12px; font-size: 14px; font-weight: 700; cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.3s; border: none; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: #6C5CE7; color: #fff; }
         .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 40px rgba(108,92,231,0.3); background: #5a4bd6; }
-        
-        .btn-secondary {
-          padding: 14px 32px; border-radius: 12px; font-size: 14px; font-weight: 600;
-          cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.3s;
-          text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
-          background: #f4f4f8; color: #1a1a2e; border: 1px solid #e8e8f0;
-        }
+        .btn-secondary { padding: 14px 32px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: 'Outfit', sans-serif; transition: all 0.3s; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; background: #f4f4f8; color: #1a1a2e; border: 1px solid #e8e8f0; }
         .btn-secondary:hover { background: #eaeaef; border-color: #d0d0da; }
-        
-        .feature-card {
-          background: #ffffff; border: 1px solid #f0f0f5;
-          border-radius: 16px; padding: 24px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-          cursor: default; position: relative;
-        }
+        .feature-card { background: #ffffff; border: 1px solid #f0f0f5; border-radius: 16px; padding: 24px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); cursor: default; }
         .feature-card:hover { border-color: #6C5CE7; transform: translateY(-4px); box-shadow: 0 12px 40px rgba(108,92,231,0.08); }
-
-        .section-label {
-          display: inline-flex; align-items: center; gap: 6px;
-          padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 700;
-          letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px;
-        }
-
-        @media (max-width: 768px) {
-          .hero-title { font-size: 36px !important; }
-          .hero-sub { font-size: 15px !important; }
-          .stat-num { font-size: 36px !important; }
-          .nav-desktop { display: none !important; }
-          .hero-buttons { flex-direction: column !important; width: 100%; }
-          .hero-buttons > * { width: 100%; justify-content: center; }
-          .features-grid { grid-template-columns: 1fr !important; }
-          .stats-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .pricing-grid { grid-template-columns: 1fr !important; }
-          .footer-grid { grid-template-columns: 1fr !important; text-align: center; }
-          .kai-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .testimonial-grid { grid-template-columns: 1fr !important; }
-          .compare-row { grid-template-columns: 1fr 60px 80px 50px 50px 50px !important; font-size: 12px !important; }
-          .filter-tabs { overflow-x: auto; flex-wrap: nowrap !important; }
-        }
+        .section-label { display: inline-flex; align-items: center; gap: 6px; padding: 6px 16px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 20px; }
+        @media (max-width: 768px) { .hero-title { font-size: 36px !important; } .hero-sub { font-size: 15px !important; } .stat-num { font-size: 36px !important; } .nav-desktop { display: none !important; } .hero-buttons { flex-direction: column !important; width: 100%; } .hero-buttons > * { width: 100%; justify-content: center; } .features-grid { grid-template-columns: 1fr !important; } .stats-grid { grid-template-columns: repeat(2, 1fr) !important; } .pricing-grid { grid-template-columns: 1fr !important; } .footer-grid { grid-template-columns: 1fr !important; text-align: center; } .kai-grid { grid-template-columns: repeat(2, 1fr) !important; } .testimonial-grid { grid-template-columns: 1fr !important; } .compare-row { grid-template-columns: 1fr 60px 80px 50px 50px 50px !important; font-size: 12px !important; } .filter-tabs { overflow-x: auto; flex-wrap: nowrap !important; } }
       `}</style>
 
       {/* NAVBAR */}
-      <nav style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
-        background: scrollY > 50 ? "rgba(255,255,255,0.92)" : "transparent",
-        backdropFilter: scrollY > 50 ? "blur(20px)" : "none",
-        borderBottom: scrollY > 50 ? "1px solid #f0f0f5" : "1px solid transparent",
-        padding: "0 24px", transition: "all 0.4s ease",
-      }}>
+      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, background: scrollY > 50 ? "rgba(255,255,255,0.92)" : "transparent", backdropFilter: scrollY > 50 ? "blur(20px)" : "none", borderBottom: scrollY > 50 ? "1px solid #f0f0f5" : "1px solid transparent", padding: "0 24px", transition: "all 0.4s ease" }}>
         <div style={{ maxWidth: 1200, margin: "0 auto", height: 64, display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
             <div style={{ width: 34, height: 34, borderRadius: 10, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
@@ -207,14 +159,9 @@ export default function LandingPage() {
       )}
 
       {/* HERO */}
-      <section style={{
-        position: "relative", minHeight: "100vh", display: "flex", alignItems: "center",
-        justifyContent: "center", textAlign: "center", padding: "140px 24px 100px", overflow: "hidden",
-        background: "linear-gradient(180deg, #f8f7ff 0%, #ffffff 50%, #f4f8ff 100%)",
-      }}>
+      <section style={{ position: "relative", minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", padding: "140px 24px 100px", overflow: "hidden", background: "linear-gradient(180deg, #f8f7ff 0%, #ffffff 50%, #f4f8ff 100%)" }}>
         <div style={{ position: "absolute", top: -200, right: -200, width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(108,92,231,0.08) 0%, transparent 70%)" }} />
         <div style={{ position: "absolute", bottom: -200, left: -200, width: 500, height: 500, borderRadius: "50%", background: "radial-gradient(circle, rgba(0,206,201,0.06) 0%, transparent 70%)" }} />
-
         <div style={{ position: "relative", zIndex: 1, maxWidth: 800 }}>
           <div style={{ animation: "slideUp 0.6s ease" }}>
             <div className="section-label" style={{ background: "#f0eeff", color: "#6C5CE7", border: "1px solid #e0dcff" }}>
@@ -222,28 +169,14 @@ export default function LandingPage() {
               Now with 40+ features
             </div>
           </div>
-
-          <h1 className="hero-title" style={{
-            fontSize: 68, fontWeight: 900, lineHeight: 1.08, marginBottom: 24,
-            fontFamily: "Sora, sans-serif", letterSpacing: "-0.03em", color: "#1a1a2e",
-            animation: "slideUp 0.8s ease",
-          }}>
+          <h1 className="hero-title" style={{ fontSize: 68, fontWeight: 900, lineHeight: 1.08, marginBottom: 24, fontFamily: "Sora, sans-serif", letterSpacing: "-0.03em", color: "#1a1a2e", animation: "slideUp 0.8s ease" }}>
             One app for<br />
-            <span style={{
-              background: "linear-gradient(135deg, #6C5CE7 0%, #00CEC9 50%, #fd79a8 100%)",
-              backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent",
-              animation: "gradientBg 5s ease infinite",
-            }}>your entire life</span>
+            <span style={{ background: "linear-gradient(135deg, #6C5CE7 0%, #00CEC9 50%, #fd79a8 100%)", backgroundSize: "200% auto", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent", animation: "gradientBg 5s ease infinite" }}>your entire life</span>
           </h1>
-
-          <p className="hero-sub" style={{
-            fontSize: 18, color: "#6b7280", lineHeight: 1.8, maxWidth: 520,
-            margin: "0 auto 40px", animation: "slideUp 1s ease",
-          }}>
+          <p className="hero-sub" style={{ fontSize: 18, color: "#6b7280", lineHeight: 1.8, maxWidth: 520, margin: "0 auto 40px", animation: "slideUp 1s ease" }}>
             Productivity, wellness, finances, fitness, family, and learning —
             all powered by <span style={{ color: "#6C5CE7", fontWeight: 600 }}>Kai</span>, your AI copilot.
           </p>
-
           <div className="hero-buttons" style={{ display: "flex", gap: 14, justifyContent: "center", animation: "slideUp 1.2s ease" }}>
             <a href="/login" className="btn-primary" style={{ padding: "16px 36px", fontSize: 15 }}>
               Start free
@@ -251,16 +184,10 @@ export default function LandingPage() {
             </a>
             <button className="btn-secondary" style={{ padding: "16px 32px" }} onClick={() => scrollTo("features")}>Explore features</button>
           </div>
-
           <div style={{ marginTop: 56, animation: "slideUp 1.4s ease" }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 6 }}>
               {["#6C5CE7", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894"].map((c, i) => (
-                <div key={i} style={{
-                  width: 30, height: 30, borderRadius: "50%", border: "2px solid #fff",
-                  background: c, marginLeft: i > 0 ? -8 : 0, boxShadow: "0 2px 8px rgba(0,0,0,0.1)",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  fontSize: 10, fontWeight: 700, color: "#fff",
-                }}>{["J", "S", "M", "A", "R"][i]}</div>
+                <div key={i} style={{ width: 30, height: 30, borderRadius: "50%", border: "2px solid #fff", background: c, marginLeft: i > 0 ? -8 : 0, boxShadow: "0 2px 8px rgba(0,0,0,0.1)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 10, fontWeight: 700, color: "#fff" }}>{["J", "S", "M", "A", "R"][i]}</div>
               ))}
               <span style={{ fontSize: 13, color: "#9ca3af", marginLeft: 8 }}>Free forever · No credit card</span>
             </div>
@@ -301,17 +228,13 @@ export default function LandingPage() {
       </section>
 
       {/* FEATURES */}
-      <section id="features" data-animate style={{
-        padding: "80px 24px 100px", maxWidth: 1200, margin: "0 auto",
-        ...(visibleSections.features ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
-      }}>
+      <section id="features" data-animate style={{ padding: "80px 24px 100px", maxWidth: 1200, margin: "0 auto", ...(visibleSections.features ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }) }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <div className="section-label" style={{ background: "#e8fff8", color: "#00b894", border: "1px solid #c8f5e6" }}>FEATURES</div>
           <h2 style={{ fontSize: 42, fontWeight: 800, color: "#1a1a2e", marginBottom: 12, fontFamily: "Sora, sans-serif", letterSpacing: "-0.02em" }}>
             Everything you need.<br /><span style={{ color: "#c0c0ca" }}>Nothing you don't.</span>
           </h2>
         </div>
-
         <div className="filter-tabs" style={{ display: "flex", justifyContent: "center", gap: 6, marginBottom: 36, flexWrap: "wrap" }}>
           {filterTabs.map((tab) => (
             <button key={tab.id} onClick={() => setFeatureFilter(tab.id)} style={{
@@ -323,7 +246,6 @@ export default function LandingPage() {
             }}>{tab.label} {tab.id === "all" && `(${features.length})`}</button>
           ))}
         </div>
-
         <div className="features-grid" style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 14 }}>
           {filteredFeatures.map((feature, i) => (
             <div key={feature.title} className="feature-card" style={{ animation: `scaleIn 0.4s ease ${i * 0.03}s both` }}>
@@ -336,25 +258,14 @@ export default function LandingPage() {
       </section>
 
       {/* KAI */}
-      <section data-animate id="kai" style={{
-        padding: "100px 24px", background: "linear-gradient(180deg, #f8f7ff, #fff, #f8f7ff)",
-        ...(visibleSections.kai ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
-      }}>
+      <section data-animate id="kai" style={{ padding: "100px 24px", background: "linear-gradient(180deg, #f8f7ff, #fff, #f8f7ff)", ...(visibleSections.kai ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }) }}>
         <div style={{ maxWidth: 800, margin: "0 auto", textAlign: "center" }}>
           <div className="section-label" style={{ background: "#f0eeff", color: "#6C5CE7", border: "1px solid #e0dcff" }}>AI COPILOT</div>
-
-          <div style={{
-            width: 72, height: 72, borderRadius: 20, margin: "0 auto 28px",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            animation: "glow 4s ease-in-out infinite",
-          }}>
+          <div style={{ width: 72, height: 72, borderRadius: 20, margin: "0 auto 28px", background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center", animation: "glow 4s ease-in-out infinite" }}>
             <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
           </div>
-
           <h2 style={{ fontSize: 42, fontWeight: 800, color: "#1a1a2e", marginBottom: 12, fontFamily: "Sora, sans-serif" }}>Meet Kai</h2>
           <p style={{ fontSize: 16, color: "#9ca3af", lineHeight: 1.7, maxWidth: 480, margin: "0 auto 40px" }}>Your AI copilot that works across every area of your life — not just tasks.</p>
-
           <div className="kai-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 12, maxWidth: 650, margin: "0 auto" }}>
             {[
               { emoji: "🌅", text: "Plans your morning" },
@@ -364,11 +275,7 @@ export default function LandingPage() {
               { emoji: "💰", text: "Tracks your budget" },
               { emoji: "🌙", text: "Reviews your day" },
             ].map((item, i) => (
-              <div key={i} style={{
-                padding: 16, borderRadius: 14, background: "#fff", border: "1px solid #f0f0f5",
-                fontSize: 13, color: "#6b7280", display: "flex", alignItems: "center", gap: 10,
-                boxShadow: "0 2px 8px rgba(0,0,0,0.03)",
-              }}>
+              <div key={i} style={{ padding: 16, borderRadius: 14, background: "#fff", border: "1px solid #f0f0f5", fontSize: 13, color: "#6b7280", display: "flex", alignItems: "center", gap: 10, boxShadow: "0 2px 8px rgba(0,0,0,0.03)" }}>
                 <span style={{ fontSize: 18 }}>{item.emoji}</span>
                 <span style={{ fontWeight: 500 }}>{item.text}</span>
               </div>
@@ -378,10 +285,7 @@ export default function LandingPage() {
       </section>
 
       {/* COMPARISON */}
-      <section id="compare" data-animate style={{
-        padding: "100px 24px",
-        ...(visibleSections.compare ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
-      }}>
+      <section id="compare" data-animate style={{ padding: "100px 24px", ...(visibleSections.compare ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }) }}>
         <div style={{ maxWidth: 900, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div className="section-label" style={{ background: "#fff0f0", color: "#ff6b6b", border: "1px solid #ffd4d4" }}>COMPARE</div>
@@ -415,10 +319,7 @@ export default function LandingPage() {
       </section>
 
       {/* TESTIMONIALS */}
-      <section data-animate id="testimonials" style={{
-        padding: "100px 24px", background: "#fafaff",
-        ...(visibleSections.testimonials ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
-      }}>
+      <section data-animate id="testimonials" style={{ padding: "100px 24px", background: "#fafaff", ...(visibleSections.testimonials ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }) }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div className="section-label" style={{ background: "#fff8e8", color: "#e17055", border: "1px solid #ffe8d0" }}>TESTIMONIALS</div>
@@ -426,10 +327,7 @@ export default function LandingPage() {
           </div>
           <div className="testimonial-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
             {testimonials.map((t, i) => (
-              <div key={i} style={{
-                padding: 28, borderRadius: 18, background: "#fff", border: "1px solid #f0f0f5",
-                boxShadow: "0 2px 12px rgba(0,0,0,0.03)",
-              }}>
+              <div key={i} style={{ padding: 28, borderRadius: 18, background: "#fff", border: "1px solid #f0f0f5", boxShadow: "0 2px 12px rgba(0,0,0,0.03)" }}>
                 <div style={{ display: "flex", gap: 4, marginBottom: 16 }}>
                   {[...Array(5)].map((_, s) => (
                     <svg key={s} width="16" height="16" viewBox="0 0 24 24" fill="#fdcb6e"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z" /></svg>
@@ -454,7 +352,7 @@ export default function LandingPage() {
         padding: "100px 24px",
         ...(visibleSections.pricing ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
       }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
             <div className="section-label" style={{ background: "#e8fff8", color: "#00b894", border: "1px solid #c8f5e6" }}>PRICING</div>
             <h2 style={{ fontSize: 42, fontWeight: 800, color: "#1a1a2e", fontFamily: "Sora, sans-serif" }}>Simple pricing</h2>
@@ -462,42 +360,106 @@ export default function LandingPage() {
           </div>
 
           <div className="pricing-grid" style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16, alignItems: "start" }}>
+            {/* STARTER */}
             <div style={{ background: "#fff", border: "1px solid #f0f0f5", borderRadius: 20, padding: 32, boxShadow: "0 2px 12px rgba(0,0,0,0.03)" }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: "#9ca3af", marginBottom: 8 }}>Starter</div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}><span style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", fontFamily: "Sora" }}>$0</span><span style={{ fontSize: 14, color: "#c0c0ca" }}>/forever</span></div>
-              <div style={{ fontSize: 13, color: "#c0c0ca", marginBottom: 24 }}>Everything to get started</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+                <span style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", fontFamily: "Sora" }}>$0</span>
+                <span style={{ fontSize: 14, color: "#c0c0ca" }}>/forever</span>
+              </div>
+              <div style={{ fontSize: 13, color: "#c0c0ca", marginBottom: 24 }}>11 features to get you hooked</div>
               <a href="/login" className="btn-secondary" style={{ width: "100%", justifyContent: "center", padding: "13px", marginBottom: 24, fontSize: 13 }}>Get started free</a>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {["11 core features", "Kai Chat (10/day)", "3 color themes", "Pomodoro Timer", "Water Tracker", "Daily Checklist", "Gratitude Journal"].map((f, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#9ca3af" }}><span style={{ color: "#00CEC9", fontSize: 14 }}>✓</span>{f}</div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>Productivity</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
+                {["Smart Tasks (basic)", "Calendar", "Pomodoro Timer", "Daily Checklist", "Quick Notes"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#00CEC9", fontSize: 14 }}>✓</span>{f}</div>
+                ))}
+              </div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>Wellness</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
+                {["Water Tracker", "Gratitude Journal", "Zen Mode (3 sounds)"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#00CEC9", fontSize: 14 }}>✓</span>{f}</div>
+                ))}
+              </div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>AI & More</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {["Kai Chat (10 msgs/day)", "Countdown Timer", "Link Saver", "3 color themes"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#00CEC9", fontSize: 14 }}>✓</span>{f}</div>
                 ))}
               </div>
             </div>
 
+            {/* PRO */}
             <div style={{
               background: "#fff", border: "2px solid #6C5CE7", borderRadius: 20, padding: 32,
               position: "relative", boxShadow: "0 8px 40px rgba(108,92,231,0.12)",
             }}>
-              <div style={{ position: "absolute", top: -11, left: "50%", transform: "translateX(-50%)", padding: "4px 16px", borderRadius: 100, background: "#6C5CE7", fontSize: 10, fontWeight: 700, color: "#fff", letterSpacing: "0.08em" }}>POPULAR</div>
+              <div style={{ position: "absolute", top: -11, left: "50%", transform: "translateX(-50%)", padding: "4px 16px", borderRadius: 100, background: "#6C5CE7", fontSize: 10, fontWeight: 700, color: "#fff", letterSpacing: "0.08em" }}>MOST POPULAR</div>
               <div style={{ fontSize: 13, fontWeight: 600, color: "#6C5CE7", marginBottom: 8 }}>Pro</div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}><span style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", fontFamily: "Sora" }}>$6.99</span><span style={{ fontSize: 14, color: "#c0c0ca" }}>/month</span></div>
-              <div style={{ fontSize: 13, color: "#c0c0ca", marginBottom: 24 }}>All 40+ features, unlimited</div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+                <span style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", fontFamily: "Sora" }}>$6.99</span>
+                <span style={{ fontSize: 14, color: "#c0c0ca" }}>/month</span>
+              </div>
+              <div style={{ fontSize: 13, color: "#c0c0ca", marginBottom: 24 }}>All 40+ features, unlimited everything</div>
               <a href="/login" className="btn-primary" style={{ width: "100%", justifyContent: "center", padding: "13px", marginBottom: 24, fontSize: 13 }}>Start free trial</a>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {["All 40+ features", "Unlimited Kai AI", "7 premium themes", "All Zen sounds", "Journal + AI summaries", "Budget + Savings + Bills", "Workout + Sleep + Energy", "Flashcards + Email Writer", "Priority support"].map((f, i) => (
+
+              <div style={{ fontSize: 12, fontWeight: 600, color: "#6C5CE7", marginBottom: 12 }}>Everything in Starter, plus:</div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>AI Copilot (unlimited)</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 14 }}>
+                {["Unlimited Kai Chat", "Morning Autopilot", "Night Report", "Productivity DNA", "Weekly Wins", "Decision Maker", "Email Templates", "Kai's Wisdom"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#6C5CE7", fontSize: 14 }}>✓</span>{f}</div>
+                ))}
+              </div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>Productivity</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 14 }}>
+                {["Analytics", "Goal Setting", "Energy Map", "Focus Shield", "Habit Tracker"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#6C5CE7", fontSize: 14 }}>✓</span>{f}</div>
+                ))}
+              </div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>Wellness & Fitness</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 14 }}>
+                {["Sleep Tracker", "Workout Tracker", "Stretching Guide", "Daily Challenge", "Zen Mode (8 sounds + breathing)"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#6C5CE7", fontSize: 14 }}>✓</span>{f}</div>
+                ))}
+              </div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>Life & Finance</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 7, marginBottom: 14 }}>
+                {["Life Journal + AI summaries", "Life Balance Wheel", "Family Mode", "Gift Planner", "Idea Vault", "Budget Tracker", "Savings Goals", "Bill Reminder"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#6C5CE7", fontSize: 14 }}>✓</span>{f}</div>
+                ))}
+              </div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 10 }}>Learning & Extras</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+                {["Flashcards", "Reading List", "7 premium themes", "Priority support"].map((f, i) => (
                   <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#6C5CE7", fontSize: 14 }}>✓</span>{f}</div>
                 ))}
               </div>
             </div>
 
+            {/* BUSINESS */}
             <div style={{ background: "#fff", border: "1px solid #f0f0f5", borderRadius: 20, padding: 32, boxShadow: "0 2px 12px rgba(0,0,0,0.03)" }}>
               <div style={{ fontSize: 13, fontWeight: 600, color: "#9ca3af", marginBottom: 8 }}>Business</div>
-              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}><span style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", fontFamily: "Sora" }}>$12.99</span><span style={{ fontSize: 14, color: "#c0c0ca" }}>/user/mo</span></div>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+                <span style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", fontFamily: "Sora" }}>$12.99</span>
+                <span style={{ fontSize: 14, color: "#c0c0ca" }}>/user/mo</span>
+              </div>
               <div style={{ fontSize: 13, color: "#c0c0ca", marginBottom: 24 }}>For teams that win together</div>
               <a href="/login" className="btn-secondary" style={{ width: "100%", justifyContent: "center", padding: "13px", marginBottom: 24, fontSize: 13 }}>Contact us</a>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {["Everything in Pro", "Team Dashboard", "Shared Tasks", "Team Analytics", "Admin Panel", "Custom Branding", "Priority Support"].map((f, i) => (
-                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#9ca3af" }}><span style={{ color: "#00CEC9", fontSize: 14 }}>✓</span>{f}</div>
+
+              <div style={{ fontSize: 12, fontWeight: 600, color: "#00CEC9", marginBottom: 12 }}>Everything in Pro, plus:</div>
+
+              <div style={{ fontSize: 11, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>Team Features</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                {["Team Dashboard", "Shared Tasks & assign members", "Team Analytics & reports", "Admin Panel & permissions", "Custom Branding (logo + colors)", "Priority Support (< 4hr)", "Export Reports (PDF/CSV)"].map((f, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 12, color: "#6b7280" }}><span style={{ color: "#00CEC9", fontSize: 14 }}>✓</span>{f}</div>
                 ))}
               </div>
             </div>
@@ -506,10 +468,7 @@ export default function LandingPage() {
       </section>
 
       {/* FINAL CTA */}
-      <section style={{
-        padding: "120px 24px", textAlign: "center",
-        background: "linear-gradient(180deg, #fff, #f8f7ff)",
-      }}>
+      <section style={{ padding: "120px 24px", textAlign: "center", background: "linear-gradient(180deg, #fff, #f8f7ff)" }}>
         <div style={{ maxWidth: 580, margin: "0 auto" }}>
           <h2 style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", marginBottom: 16, fontFamily: "Sora, sans-serif", letterSpacing: "-0.03em", lineHeight: 1.1 }}>
             Ready to<br /><span style={{ color: "#6C5CE7" }}>lift your day?</span>
