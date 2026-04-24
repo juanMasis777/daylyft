@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { useTheme } from "@/context/ThemeContext";
 import { supabase } from "@/lib/supabase";
 
@@ -15,8 +16,10 @@ const themes = [
 ];
 
 export default function SettingsPage() {
+const router = useRouter();
 const { theme, setTheme } = useTheme();
 const [user, setUser] = useState(null);
+const [upgrading, setUpgrading] = useState(false);
 
 useEffect(() => {
 const getUser = async () => {
@@ -28,6 +31,43 @@ getUser();
 
 const userName = user?.user_metadata?.full_name || user?.email?.split("@")[0] || "User";
 const userEmail = user?.email || "";
+
+// ✅ Upgrade to Pro — uses the same /api/checkout endpoint as /pricing
+const handleUpgrade = async () => {
+setUpgrading(true);
+try {
+    const res = await fetch("/api/checkout", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ priceId: "price_1TIKDiJSvfMiVzPBzl9nAQU7" }),
+    });
+    const data = await res.json();
+    if (data.url) {
+    window.location.href = data.url;
+    } else {
+    alert("Error starting checkout. Please try again or visit /pricing");
+    setUpgrading(false);
+    }
+} catch (err) {
+    console.error("Checkout error:", err);
+    alert("Error starting checkout. Please try again.");
+    setUpgrading(false);
+}
+};
+
+// ✅ Theme click — if Pro theme, trigger upgrade flow instead of just showing alert
+const handleThemeClick = (t) => {
+if (t.free) {
+    setTheme(t.id);
+} else {
+    const confirmed = confirm(
+    `"${t.label}" is a Pro theme.\n\nUpgrade to Pro ($6.99/mo) to unlock this theme + all Pro features?`
+    );
+    if (confirmed) {
+    handleUpgrade();
+    }
+}
+};
 
 const handleExport = () => {
 const data = {};
@@ -113,6 +153,77 @@ return (
     </div>
     </div>
 
+    {/* ✅ NEW — Upgrade to Pro Card */}
+    <div style={{
+    background: "linear-gradient(135deg, rgba(108,92,231,0.15), rgba(162,155,254,0.08))",
+    border: "1px solid rgba(108,92,231,0.4)",
+    borderRadius: 16, padding: 20, marginBottom: 16,
+    position: "relative", overflow: "hidden",
+    }}>
+    {/* Decorative glow */}
+    <div style={{
+        position: "absolute", top: -40, right: -40,
+        width: 140, height: 140, borderRadius: "50%",
+        background: "radial-gradient(circle, rgba(108,92,231,0.3), transparent)",
+        pointerEvents: "none",
+    }} />
+
+    <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
+        <div style={{
+        padding: "3px 10px", borderRadius: 6,
+        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        fontSize: 10, fontWeight: 800, color: "#fff", letterSpacing: 0.5,
+        }}>PRO</div>
+        <div style={{ fontSize: 15, fontWeight: 700, color: "var(--fm-text)" }}>
+        Unlock the full DayLyft experience
+        </div>
+    </div>
+    <div style={{ fontSize: 13, color: "var(--fm-muted)", marginBottom: 14, maxWidth: 480 }}>
+        Unlimited Kai conversations, all 7 themes, Life Journal, Productivity DNA, Focus Shield & more.
+    </div>
+
+    <div style={{ display: "flex", alignItems: "center", gap: 12, flexWrap: "wrap" }}>
+        <button
+        onClick={handleUpgrade}
+        disabled={upgrading}
+        style={{
+            padding: "11px 20px", borderRadius: 10, border: "none",
+            background: upgrading ? "#555" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            color: "#fff", fontSize: 13, fontWeight: 700,
+            cursor: upgrading ? "not-allowed" : "pointer",
+            fontFamily: "Outfit, sans-serif",
+            display: "flex", alignItems: "center", gap: 8,
+            boxShadow: upgrading ? "none" : "0 4px 14px rgba(108,92,231,0.35)",
+            transition: "all 0.2s",
+        }}
+        >
+        {upgrading ? (
+            "Redirecting..."
+        ) : (
+            <>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Upgrade to Pro — $6.99/mo
+            </>
+        )}
+        </button>
+
+        <button
+        onClick={() => router.push("/pricing")}
+        style={{
+            padding: "11px 16px", borderRadius: 10,
+            border: "1px solid var(--fm-border)",
+            background: "transparent", color: "var(--fm-text)",
+            fontSize: 13, fontWeight: 500, cursor: "pointer",
+            fontFamily: "Outfit, sans-serif",
+        }}
+        >
+        Compare plans
+        </button>
+    </div>
+    </div>
+
     {/* Themes */}
     <div style={{
     background: "var(--fm-surface)", border: "1px solid var(--fm-border)",
@@ -122,7 +233,7 @@ return (
     <div style={{ fontSize: 12, color: "var(--fm-muted)", marginBottom: 14 }}>Choose your vibe — 3 free, 4 with Pro</div>
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(130px, 1fr))", gap: 10 }}>
         {themes.map((t) => (
-        <div key={t.id} onClick={() => t.free ? setTheme(t.id) : alert("Upgrade to Pro to unlock this theme!")} style={{
+        <div key={t.id} onClick={() => handleThemeClick(t)} style={{
             padding: 14, borderRadius: 14, cursor: "pointer",
             border: theme === t.id ? `2px solid ${t.accent}` : "2px solid var(--fm-border)",
             background: theme === t.id ? `${t.accent}10` : "var(--fm-card)",
