@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useTheme } from "@/context/ThemeContext";
 import { supabase } from "@/lib/supabase";
 import Onboarding from "@/app/components/Onboarding";
+import { ProGate, isProFeature } from "@/app/components/ProGate";
 
 function Logo() {
   return (
@@ -24,28 +25,28 @@ const navGroups = [
       { id: "dashboard", label: "Home", color: "#6C5CE7", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg> },
       { id: "tasks", label: "Tasks", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 12l2 2 4-4" /></svg> },
       { id: "calendar", label: "Calendar", color: "#fd79a8", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg> },
-      { id: "analytics", label: "Analytics", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg> },
+      { id: "analytics", label: "Analytics", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>, pro: true },
     ],
   },
   {
     label: "AI Copilot",
     items: [
       { id: "chat", label: "Kai Chat", color: "#a29bfe", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg> },
-      { id: "autopilot", label: "Autopilot", color: "#ff6b6b", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg> },
-      { id: "dna", label: "DNA", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 15c6.667-6 13.333 0 20-6" /><path d="M2 9c6.667 6 13.333 0 20 6" /></svg> },
-      { id: "wins", label: "Wins", color: "#ffc048", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 7 12 7s5-3 7.5-3a2.5 2.5 0 0 1 0 5H18" /><path d="M18 9v1a6 6 0 0 1-12 0V9" /></svg> },
-      { id: "nightreport", label: "Night Report", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg> },
-      { id: "wisdom", label: "Wisdom", color: "#fd79a8", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z" /></svg> },
-      { id: "decision", label: "Decision", color: "#6C5CE7", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg> },
-      { id: "emails", label: "Emails", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22 6 12 13 2 6" /></svg> },
+      { id: "autopilot", label: "Autopilot", color: "#ff6b6b", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>, pro: true },
+      { id: "dna", label: "DNA", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 15c6.667-6 13.333 0 20-6" /><path d="M2 9c6.667 6 13.333 0 20 6" /></svg>, pro: true },
+      { id: "wins", label: "Wins", color: "#ffc048", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 7 12 7s5-3 7.5-3a2.5 2.5 0 0 1 0 5H18" /><path d="M18 9v1a6 6 0 0 1-12 0V9" /></svg>, pro: true },
+      { id: "nightreport", label: "Night Report", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>, pro: true },
+      { id: "wisdom", label: "Wisdom", color: "#fd79a8", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z" /></svg>, pro: true },
+      { id: "decision", label: "Decision", color: "#6C5CE7", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>, pro: true },
+      { id: "emails", label: "Emails", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22 6 12 13 2 6" /></svg>, pro: true },
     ],
   },
   {
     label: "Focus",
     items: [
       { id: "pomodoro", label: "Pomodoro", color: "#ff6348", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="13" r="8" /><path d="M12 9v4l2 2" /><path d="M12 5V3" /><path d="M9 3h6" /></svg> },
-      { id: "focus", label: "Focus Shield", color: "#00b894", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg> },
-      { id: "energy", label: "Energy Map", color: "#f9ca24", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg> },
+      { id: "focus", label: "Focus Shield", color: "#00b894", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>, pro: true },
+      { id: "energy", label: "Energy Map", color: "#f9ca24", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>, pro: true },
     ],
   },
   {
@@ -53,42 +54,42 @@ const navGroups = [
     items: [
       { id: "zen", label: "Zen Mode", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /></svg> },
       { id: "water", label: "Water", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" /></svg> },
-      { id: "sleep", label: "Sleep", color: "#a29bfe", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg> },
-      { id: "stretching", label: "Stretch", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8a6 6 0 0 1-6 6" /><path d="M6 16a6 6 0 0 1 6-6" /></svg> },
-      { id: "workout", label: "Workout", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6.5 6.5L17.5 17.5" /><path d="M3 10l1-1 3 3" /><path d="M21 14l-1 1-3-3" /></svg> },
+      { id: "sleep", label: "Sleep", color: "#a29bfe", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>, pro: true },
+      { id: "stretching", label: "Stretch", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8a6 6 0 0 1-6 6" /><path d="M6 16a6 6 0 0 1 6-6" /></svg>, pro: true },
+      { id: "workout", label: "Workout", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6.5 6.5L17.5 17.5" /><path d="M3 10l1-1 3 3" /><path d="M21 14l-1 1-3-3" /></svg>, pro: true },
       { id: "gratitude", label: "Gratitude", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l7.78-7.78a5.5 5.5 0 0 0 0-7.78z" /></svg> },
-      { id: "challenge", label: "Challenge", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg> },
+      { id: "challenge", label: "Challenge", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z" /><line x1="4" y1="22" x2="4" y2="15" /></svg>, pro: true },
     ],
   },
   {
     label: "Life",
     items: [
-      { id: "journal", label: "Journal", color: "#00b894", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg> },
-      { id: "habits", label: "Habits", color: "#e84393", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg> },
+      { id: "journal", label: "Journal", color: "#00b894", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" /><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" /></svg>, pro: true },
+      { id: "habits", label: "Habits", color: "#e84393", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" /><polyline points="22 4 12 14.01 9 11.01" /></svg>, pro: true },
       { id: "checklist", label: "Checklist", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 11l3 3L22 4" /><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" /></svg> },
-      { id: "goals", label: "Goals", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg> },
-      { id: "balance", label: "Balance", color: "#55efc4", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg> },
-      { id: "family", label: "Family", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg> },
+      { id: "goals", label: "Goals", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="6" /><circle cx="12" cy="12" r="2" /></svg>, pro: true },
+      { id: "balance", label: "Balance", color: "#55efc4", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><line x1="12" y1="8" x2="12" y2="16" /><line x1="8" y1="12" x2="16" y2="12" /></svg>, pro: true },
+      { id: "family", label: "Family", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>, pro: true },
     ],
   },
   {
     label: "Finance",
     items: [
-      { id: "budget", label: "Budget", color: "#00b894", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg> },
-      { id: "savings", label: "Savings", color: "#00b894", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2" /></svg> },
-      { id: "bills", label: "Bills", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg> },
+      { id: "budget", label: "Budget", color: "#00b894", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="12" y1="1" x2="12" y2="23" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></svg>, pro: true },
+      { id: "savings", label: "Savings", color: "#00b894", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2" /></svg>, pro: true },
+      { id: "bills", label: "Bills", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="5" width="20" height="14" rx="2" /><line x1="2" y1="10" x2="22" y2="10" /></svg>, pro: true },
     ],
   },
   {
     label: "Learn & Plan",
     items: [
       { id: "notes", label: "Notes", color: "#a29bfe", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg> },
-      { id: "ideas", label: "Ideas", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18h6" /><path d="M10 22h4" /><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z" /></svg> },
-      { id: "reading", label: "Reading", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg> },
-      { id: "flashcards", label: "Flashcards", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M12 4v16" /></svg> },
+      { id: "ideas", label: "Ideas", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18h6" /><path d="M10 22h4" /><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z" /></svg>, pro: true },
+      { id: "reading", label: "Reading", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>, pro: true },
+      { id: "flashcards", label: "Flashcards", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M12 4v16" /></svg>, pro: true },
       { id: "links", label: "Links", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" /></svg> },
       { id: "countdown", label: "Countdown", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg> },
-      { id: "gifts", label: "Gifts", color: "#fd79a8", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 12 20 22 4 22 4 12" /><rect x="2" y="7" width="20" height="5" /><line x1="12" y1="22" x2="12" y2="7" /></svg> },
+      { id: "gifts", label: "Gifts", color: "#fd79a8", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="20 12 20 22 4 22 4 12" /><rect x="2" y="7" width="20" height="5" /><line x1="12" y1="22" x2="12" y2="7" /></svg>, pro: true },
     ],
   },
 ];
@@ -107,7 +108,7 @@ const allRoutes = {
   savings: "/dashboard/savings", countdown: "/dashboard/countdown", sleep: "/dashboard/sleep",
   links: "/dashboard/links", workout: "/dashboard/workout", bills: "/dashboard/bills",
   gifts: "/dashboard/gifts", flashcards: "/dashboard/flashcards", emails: "/dashboard/emails",
-  stretching: "/dashboard/stretching",
+  stretching: "/dashboard/stretching", pricing: "/pricing",
 };
 
 export default function DashboardLayout({ children }) {
@@ -122,6 +123,7 @@ export default function DashboardLayout({ children }) {
   const [currentPath, setCurrentPath] = useState("");
   const [showOnboarding, setShowOnboarding] = useState(false);
   const [onboardingPrefs, setOnboardingPrefs] = useState(null);
+  const [showProGate, setShowProGate] = useState(false);
 
   useEffect(() => {
     const checkSize = () => setIsMobile(window.innerWidth < 768);
@@ -136,7 +138,6 @@ export default function DashboardLayout({ children }) {
       if (!session) { window.location.href = "/login"; return; }
       setUser(session.user);
       setLoading(false);
-
       const onboarding = localStorage.getItem("daylyft-onboarding");
       if (!onboarding) {
         setShowOnboarding(true);
@@ -166,6 +167,10 @@ export default function DashboardLayout({ children }) {
   };
 
   const navigate = (id) => {
+    if (isProFeature(id)) {
+      setShowProGate(true);
+      return;
+    }
     setActiveNav(id);
     setMenuOpen(false);
     setSearchQuery("");
@@ -257,7 +262,14 @@ export default function DashboardLayout({ children }) {
                       fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left", transition: "all 0.15s ease",
                     }}>
                       <span style={{ color: activeNav === item.id ? item.color : `${item.color}80`, flexShrink: 0 }}>{item.icon}</span>
-                      <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{item.label}</span>
+                      <span style={{ overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", flex: 1 }}>{item.label}</span>
+                      {item.pro && (
+                        <span style={{
+                          fontSize: 8, padding: "1px 5px", borderRadius: 4, flexShrink: 0,
+                          background: "rgba(108,92,231,0.12)", color: "var(--fm-accent-light)",
+                          fontWeight: 700, letterSpacing: "0.05em",
+                        }}>PRO</span>
+                      )}
                     </button>
                   ))}
                 </div>
@@ -265,9 +277,19 @@ export default function DashboardLayout({ children }) {
             </div>
           );
         })}
+
         <div style={{ marginTop: 4, paddingTop: 8, borderTop: "1px solid var(--fm-border)" }}>
-          <button onClick={() => navigate("settings")} style={{
+          <button onClick={() => navigate("pricing")} style={{
             display: "flex", alignItems: "center", gap: 10, padding: "7px 10px",
+            background: "rgba(108,92,231,0.06)", border: "1px solid rgba(108,92,231,0.15)",
+            borderRadius: 8, cursor: "pointer", fontSize: 13, fontWeight: 600,
+            color: "#6C5CE7", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left",
+          }}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z" /></svg>
+            Upgrade to Pro
+          </button>
+          <button onClick={() => navigate("settings")} style={{
+            display: "flex", alignItems: "center", gap: 10, padding: "7px 10px", marginTop: 4,
             background: activeNav === "settings" ? "rgba(99,110,114,0.12)" : "transparent",
             border: activeNav === "settings" ? "1px solid rgba(99,110,114,0.25)" : "1px solid transparent",
             borderRadius: 8, cursor: "pointer", fontSize: 13, fontWeight: activeNav === "settings" ? 600 : 400,
@@ -311,25 +333,16 @@ export default function DashboardLayout({ children }) {
     <div style={{ display: "flex", height: "100vh", overflow: "hidden" }}>
       <style>{`
         @keyframes slideInLeft { from { transform: translateX(-100%); } to { transform: translateX(0); } }
-        @keyframes pageEnter {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+        @keyframes pageEnter { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInScale { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
       `}</style>
 
       {showOnboarding && (
-        <Onboarding
-          userName={userName}
-          onComplete={(prefs) => {
-            setOnboardingPrefs(prefs);
-            setShowOnboarding(false);
-          }}
-        />
+        <Onboarding userName={userName} onComplete={(prefs) => { setOnboardingPrefs(prefs); setShowOnboarding(false); }} />
       )}
+
+      <ProGate show={showProGate} onClose={() => setShowProGate(false)} />
 
       {!isMobile && (
         <div style={{
@@ -389,7 +402,7 @@ export default function DashboardLayout({ children }) {
             <div onClick={toggleTheme} style={{
               width: 36, height: 36, borderRadius: 10, border: "1px solid var(--fm-border)",
               display: "flex", alignItems: "center", justifyContent: "center",
-              color: "var(--fm-muted)", cursor: "pointer", background: "var(--fm-surface)", transition: "all 0.2s",
+              color: "var(--fm-muted)", cursor: "pointer", background: "var(--fm-surface)",
             }}>
               {theme === "snow" ? (
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>

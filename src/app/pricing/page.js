@@ -1,342 +1,113 @@
 "use client";
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+const freeFeatures = [
+"Smart Tasks (basic)", "Calendar", "Pomodoro Timer", "Daily Checklist",
+"Quick Notes", "Water Tracker", "Gratitude Journal", "Zen Mode (3 sounds)",
+"Kai Chat (10 msgs/day)", "Countdown Timer", "Link Saver", "3 color themes",
+];
 
-export default function PricingPage() {
-const router = useRouter();
-const [billing, setBilling] = useState("monthly");
-const [loading, setLoading] = useState(false);
-
-const handleUpgrade = async () => {
-setLoading(true);
-try {
-    const res = await fetch("/api/checkout", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ priceId: "price_1TIKDiJSvfMiVzPBzl9nAQU7" }),
-    });
-    const data = await res.json();
-    if (data.url) {
-    window.location.href = data.url;
-    }
-} catch (err) {
-    console.error("Checkout error:", err);
-}
-setLoading(false);
+const proFeatures = {
+"AI Copilot (unlimited)": ["Unlimited Kai Chat", "Morning Autopilot", "Night Report", "Productivity DNA", "Weekly Wins", "Decision Maker", "Email Templates", "Kai's Wisdom"],
+"Productivity": ["Analytics", "Goal Setting", "Energy Map", "Focus Shield", "Habit Tracker"],
+"Wellness & Fitness": ["Sleep Tracker", "Workout Tracker", "Stretching Guide", "Daily Challenge", "Zen Mode (8 sounds + breathing)"],
+"Life & Finance": ["Life Journal + AI summaries", "Life Balance Wheel", "Family Mode", "Gift Planner", "Idea Vault", "Budget Tracker", "Savings Goals", "Bill Reminder"],
+"Learning & Extras": ["Flashcards", "Reading List", "7 premium themes", "Priority support"],
 };
 
-const proPrice = billing === "monthly" ? "$6.99" : "$5.59";
-const bizPrice = billing === "monthly" ? "$12.99" : "$10.39";
-
+export default function PricingPage() {
 return (
-<div
-    style={{
-    minHeight: "100vh",
-    background: "#0a0a0f",
-    fontFamily: "Outfit, sans-serif",
-    padding: "40px 20px",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    }}
->
-    {/* Logo */}
-    <div
-    onClick={() => router.push("/")}
-    style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        marginBottom: 40,
-        cursor: "pointer",
-    }}
-    >
-    <div
-        style={{
-        width: 36,
-        height: 36,
-        borderRadius: 10,
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        }}
-    >
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
-        <circle cx="12" cy="12" r="3" />
-        <circle cx="4" cy="6" r="2" />
-        <circle cx="20" cy="6" r="2" />
-        <circle cx="4" cy="18" r="2" />
-        <circle cx="20" cy="18" r="2" />
-        <line x1="6" y1="6" x2="10" y2="10" />
-        <line x1="18" y1="6" x2="14" y2="10" />
-        <line x1="6" y1="18" x2="10" y2="14" />
-        <line x1="18" y1="18" x2="14" y2="14" />
-        </svg>
-    </div>
-    <span style={{ fontSize: 20, fontWeight: 700, color: "#fff" }}>DayLyft</span>
-    </div>
-
-    {/* Header */}
-    <h1 style={{ fontSize: 36, fontWeight: 800, color: "#fff", margin: "0 0 12px", textAlign: "center" }}>
-    Choose your plan
-    </h1>
-    <p style={{ fontSize: 16, color: "#888", margin: "0 0 32px", textAlign: "center" }}>
-    Start free, upgrade when you're ready. Cancel anytime.
-    </p>
-
-    {/* Billing Toggle */}
-    <div
-    style={{
-        display: "flex",
-        background: "#1a1a2e",
-        borderRadius: 50,
-        padding: 4,
-        marginBottom: 48,
-        border: "1px solid #2a2a4a",
-    }}
-    >
-    {["monthly", "annual"].map((b) => (
-        <button
-        key={b}
-        onClick={() => setBilling(b)}
-        style={{
-            padding: "8px 24px",
-            borderRadius: 50,
-            border: "none",
-            background: billing === b ? "linear-gradient(135deg, #6C5CE7, #a29bfe)" : "transparent",
-            color: billing === b ? "#fff" : "#888",
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: "pointer",
-            fontFamily: "Outfit, sans-serif",
-            transition: "all 0.2s",
-        }}
-        >
-        {b === "monthly" ? "Monthly" : "Annual (save 20%)"}
-        </button>
-    ))}
-    </div>
-
-    {/* Plans */}
-    <div
-    style={{
-        display: "flex",
-        gap: 20,
-        flexWrap: "wrap",
-        justifyContent: "center",
-        maxWidth: 1000,
-        width: "100%",
-    }}
-    >
-    {/* Starter */}
-    <div
-        style={{
-        background: "#111118",
-        border: "1px solid #2a2a4a",
-        borderRadius: 20,
-        padding: 32,
-        flex: 1,
-        minWidth: 260,
-        maxWidth: 300,
-        }}
-    >
-        <div style={{ fontSize: 14, fontWeight: 600, color: "#888", marginBottom: 8 }}>Starter</div>
-        <div style={{ fontSize: 42, fontWeight: 800, color: "#fff", marginBottom: 4 }}>Free</div>
-        <div style={{ fontSize: 13, color: "#666", marginBottom: 28 }}>Get started with basic productivity</div>
-
-        <button
-        style={{
-            width: "100%",
-            padding: "13px",
-            borderRadius: 12,
-            border: "1px solid #2a2a4a",
-            background: "transparent",
-            color: "#888",
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: "default",
-            fontFamily: "Outfit, sans-serif",
-        }}
-        >
-        Current plan
-        </button>
-
-        <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
-        {[
-            "5 tasks per day",
-            "Basic Kai conversations (10/day)",
-            "2 color themes (Midnight + Snow)",
-            "Basic calendar view",
-            "Zen Mode (2 sounds)",
-        ].map((f) => (
-            <div key={f} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-            </svg>
-            <span style={{ fontSize: 13, color: "#aaa" }}>{f}</span>
-            </div>
-        ))}
-        </div>
-    </div>
-
-    {/* Pro */}
-    <div
-        style={{
-        background: "#111118",
-        border: "2px solid #6C5CE7",
-        borderRadius: 20,
-        padding: 32,
-        flex: 1,
-        minWidth: 260,
-        maxWidth: 300,
-        position: "relative",
-        }}
-    >
-        <div
-        style={{
-            position: "absolute",
-            top: -14,
-            left: "50%",
-            transform: "translateX(-50%)",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-            color: "#fff",
-            fontSize: 11,
-            fontWeight: 700,
-            padding: "4px 16px",
-            borderRadius: 50,
-            whiteSpace: "nowrap",
-        }}
-        >
-        Most popular
-        </div>
-
-        <div style={{ fontSize: 14, fontWeight: 600, color: "#a29bfe", marginBottom: 8 }}>Pro</div>
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 4, marginBottom: 4 }}>
-        <span style={{ fontSize: 42, fontWeight: 800, color: "#fff" }}>{proPrice}</span>
-        <span style={{ fontSize: 14, color: "#666", marginBottom: 10 }}>/month</span>
-        </div>
-        <div style={{ fontSize: 13, color: "#666", marginBottom: 28 }}>Full AI copilot experience</div>
-
-        <button
-        onClick={handleUpgrade}
-        disabled={loading}
-        style={{
-            width: "100%",
-            padding: "13px",
-            borderRadius: 12,
-            border: "none",
-            background: loading ? "#555" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
-            color: "#fff",
-            fontSize: 14,
-            fontWeight: 700,
-            cursor: loading ? "not-allowed" : "pointer",
-            fontFamily: "Outfit, sans-serif",
-            transition: "all 0.2s",
-        }}
-        >
-        {loading ? "Redirecting..." : "Upgrade to Pro"}
-        </button>
-
-        <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
-        {[
-            "Unlimited tasks",
-            "Unlimited Kai AI conversations",
-            "All 7 color themes",
-            "Life Journal & Ghostwriter",
-            "Productivity DNA card",
-            "Focus Shield auto-replies",
-            "Smart Energy Map",
-            "All Zen Mode sounds",
-            "Priority support",
-        ].map((f) => (
-            <div key={f} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-            </svg>
-            <span style={{ fontSize: 13, color: "#aaa" }}>{f}</span>
-            </div>
-        ))}
-        </div>
-    </div>
-
-    {/* Business */}
-    <div
-        style={{
-        background: "#111118",
-        border: "1px solid #2a2a4a",
-        borderRadius: 20,
-        padding: 32,
-        flex: 1,
-        minWidth: 260,
-        maxWidth: 300,
-        }}
-    >
-        <div style={{ fontSize: 14, fontWeight: 600, color: "#888", marginBottom: 8 }}>Business</div>
-        <div style={{ display: "flex", alignItems: "flex-end", gap: 4, marginBottom: 4 }}>
-        <span style={{ fontSize: 42, fontWeight: 800, color: "#fff" }}>{bizPrice}</span>
-        <span style={{ fontSize: 14, color: "#666", marginBottom: 10 }}>/user/month</span>
-        </div>
-        <div style={{ fontSize: 13, color: "#666", marginBottom: 28 }}>For teams that want to win together</div>
-
-        <button
-        style={{
-            width: "100%",
-            padding: "13px",
-            borderRadius: 12,
-            border: "1px solid #2a2a4a",
-            background: "transparent",
-            color: "#888",
-            fontSize: 14,
-            fontWeight: 600,
-            cursor: "default",
-            fontFamily: "Outfit, sans-serif",
-        }}
-        >
-        Coming soon
-        </button>
-
-        <div style={{ marginTop: 28, display: "flex", flexDirection: "column", gap: 12 }}>
-        {[
-            "Everything in Pro",
-            "Team dashboard",
-            "AI workload balancing",
-            "Shared task management",
-            "Team analytics",
-            "Admin controls",
-            "Dedicated support",
-        ].map((f) => (
-            <div key={f} style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" strokeWidth="2.5">
-                <polyline points="20 6 9 17 4 12" />
-            </svg>
-            <span style={{ fontSize: 13, color: "#aaa" }}>{f}</span>
-            </div>
-        ))}
-        </div>
-    </div>
-    </div>
-
-    {/* Back */}
-    <div
-    onClick={() => router.push("/")}
-    style={{
-        marginTop: 48,
-        fontSize: 14,
-        color: "#666",
-        cursor: "pointer",
-        display: "flex",
-        alignItems: "center",
-        gap: 6,
-    }}
-    >
-    ← Back to home
-    </div>
-
+<div style={{ minHeight: "100vh", background: "#ffffff", fontFamily: "'Outfit', sans-serif", padding: "80px 24px" }}>
     <style>{`
-    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Sora:wght@400;500;600;700;800&display=swap');
+    @media (max-width: 768px) { .pricing-cols { grid-template-columns: 1fr !important; } }
     `}</style>
+
+    <div style={{ maxWidth: 900, margin: "0 auto" }}>
+    <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#6C5CE7", textDecoration: "none", fontSize: 14, marginBottom: 32 }}>← Back to DayLyft</a>
+
+    <div style={{ textAlign: "center", marginBottom: 48 }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "6px 16px", borderRadius: 100, background: "#e8fff8", border: "1px solid #c8f5e6", fontSize: 11, fontWeight: 700, letterSpacing: "0.1em", color: "#00b894", textTransform: "uppercase", marginBottom: 20 }}>PRICING</div>
+        <h1 style={{ fontSize: 42, fontWeight: 800, color: "#1a1a2e", marginBottom: 12, fontFamily: "Sora, sans-serif" }}>Simple pricing</h1>
+        <p style={{ fontSize: 16, color: "#9ca3af" }}>Start free. Upgrade when you're ready.</p>
+    </div>
+
+    <div className="pricing-cols" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 20 }}>
+        {/* FREE */}
+        <div style={{ background: "#fff", border: "1px solid #f0f0f5", borderRadius: 20, padding: 32, boxShadow: "0 2px 12px rgba(0,0,0,0.03)" }}>
+        <div style={{ fontSize: 13, fontWeight: 600, color: "#9ca3af", marginBottom: 8 }}>Starter</div>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+            <span style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", fontFamily: "Sora" }}>$0</span>
+            <span style={{ fontSize: 14, color: "#c0c0ca" }}>/forever</span>
+        </div>
+        <div style={{ fontSize: 13, color: "#c0c0ca", marginBottom: 24 }}>11 features to get you hooked</div>
+
+        <a href="/login" style={{
+            display: "block", padding: "13px", borderRadius: 12, textAlign: "center",
+            background: "#f4f4f8", border: "1px solid #e8e8f0", color: "#1a1a2e",
+            fontSize: 14, fontWeight: 600, textDecoration: "none", marginBottom: 24,
+        }}>Get started free</a>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+            {freeFeatures.map((f, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#6b7280" }}>
+                <span style={{ color: "#00CEC9", fontSize: 14 }}>✓</span>{f}
+            </div>
+            ))}
+        </div>
+        </div>
+
+        {/* PRO */}
+        <div style={{
+        background: "#fff", border: "2px solid #6C5CE7", borderRadius: 20, padding: 32,
+        position: "relative", boxShadow: "0 8px 40px rgba(108,92,231,0.12)",
+        }}>
+        <div style={{ position: "absolute", top: -11, left: "50%", transform: "translateX(-50%)", padding: "4px 16px", borderRadius: 100, background: "#6C5CE7", fontSize: 10, fontWeight: 700, color: "#fff", letterSpacing: "0.08em" }}>MOST POPULAR</div>
+        <div style={{ fontSize: 13, fontWeight: 600, color: "#6C5CE7", marginBottom: 8 }}>Pro</div>
+        <div style={{ display: "flex", alignItems: "baseline", gap: 4, marginBottom: 4 }}>
+            <span style={{ fontSize: 48, fontWeight: 900, color: "#1a1a2e", fontFamily: "Sora" }}>$6.99</span>
+            <span style={{ fontSize: 14, color: "#c0c0ca" }}>/month</span>
+        </div>
+        <div style={{ fontSize: 13, color: "#c0c0ca", marginBottom: 24 }}>All 40+ features, unlimited everything</div>
+
+        <a href="https://buy.stripe.com/8x25kE2pK5Ho4Wo25AaR205" style={{
+            display: "block", padding: "13px", borderRadius: 12, textAlign: "center",
+            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            fontSize: 14, fontWeight: 700, textDecoration: "none", marginBottom: 24,
+        }}>Upgrade to Pro</a>
+
+        <div style={{ fontSize: 12, fontWeight: 600, color: "#6C5CE7", marginBottom: 14 }}>Everything in Starter, plus:</div>
+
+        {Object.entries(proFeatures).map(([category, items]) => (
+            <div key={category} style={{ marginBottom: 16 }}>
+            <div style={{ fontSize: 10, fontWeight: 700, color: "#9ca3af", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 8 }}>{category}</div>
+            <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+                {items.map((f, i) => (
+                <div key={i} style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 13, color: "#6b7280" }}>
+                    <span style={{ color: "#6C5CE7", fontSize: 14 }}>✓</span>{f}
+                </div>
+                ))}
+            </div>
+            </div>
+        ))}
+        </div>
+    </div>
+
+    <div style={{
+        marginTop: 24, padding: 20, borderRadius: 16,
+        background: "#fafaff", border: "1px solid #f0f0f5", textAlign: "center",
+    }}>
+        <div style={{ fontSize: 14, color: "#6b7280" }}>
+        Need DayLyft for your team?{" "}
+        <a href="mailto:juanmasis777@gmail.com?subject=DayLyft Business Plan" style={{ color: "#6C5CE7", textDecoration: "none", fontWeight: 600 }}>
+            Contact us about Business ($12.99/user/mo)
+        </a>
+        </div>
+    </div>
+
+    <div style={{ marginTop: 48, textAlign: "center" }}>
+        <p style={{ fontSize: 13, color: "#c0c0ca" }}>© 2026 DayLyft. All rights reserved.</p>
+    </div>
+    </div>
 </div>
 );
 }
