@@ -306,13 +306,6 @@ export default function LandingPage() {
           transition: color 0.2s; cursor: pointer;
         }
         .nav-link:hover { color: #0a2818; }
-        .nav-link-dark {
-          color: rgba(207,252,224,0.7);
-          text-decoration: none;
-          font-size: 14px; font-weight: 500;
-          transition: color 0.2s; cursor: pointer;
-        }
-        .nav-link-dark:hover { color: #fff; }
 
         /* ─── Mockup neumorphic stage (dark mint) ─── */
         .mockup-neumorphic {
@@ -380,7 +373,7 @@ export default function LandingPage() {
       `}</style>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* NAVBAR — floating mint bar                              */}
+      {/* NAVBAR                                                  */}
       {/* ═══════════════════════════════════════════════════════ */}
       <nav style={{
         position: "fixed", top: 16, left: "50%", transform: "translateX(-50%)",
@@ -454,7 +447,7 @@ export default function LandingPage() {
       )}
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* HERO — Mint cream with deep depth                       */}
+      {/* HERO                                                    */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section className="hero" style={{
         position: "relative",
@@ -484,20 +477,6 @@ export default function LandingPage() {
           width: 1200, height: 600,
           background: "radial-gradient(ellipse, rgba(34,197,94,0.18) 0%, transparent 60%)",
           filter: "blur(40px)",
-          pointerEvents: "none",
-        }} />
-        <div style={{
-          position: "absolute", bottom: 100, right: -100,
-          width: 500, height: 500,
-          background: "radial-gradient(circle, rgba(34,197,94,0.1) 0%, transparent 70%)",
-          filter: "blur(60px)",
-          pointerEvents: "none",
-        }} />
-        <div style={{
-          position: "absolute", top: "30%", left: -100,
-          width: 400, height: 400,
-          background: "radial-gradient(circle, rgba(34,197,94,0.08) 0%, transparent 70%)",
-          filter: "blur(60px)",
           pointerEvents: "none",
         }} />
 
@@ -548,7 +527,7 @@ export default function LandingPage() {
             Built for an intentional day.
           </p>
 
-          {/* CTAs */}
+          {/* CTA — Solo un botón, sin Watch Demo */}
           <div className="hero-buttons" style={{
             display: "flex", gap: 12, justifyContent: "center", alignItems: "center",
             animation: "slideUp 1.2s ease both", animationDelay: "0.5s",
@@ -559,10 +538,6 @@ export default function LandingPage() {
                 <line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" />
               </svg>
             </a>
-            <button className="btn-skeuo-secondary" style={{ padding: "16px 32px", fontSize: 15 }} onClick={() => scrollTo("features")}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polygon points="5 3 19 12 5 21 5 3" /></svg>
-              Watch demo
-            </button>
           </div>
 
           {/* Trust line */}
@@ -773,7 +748,7 @@ export default function LandingPage() {
       </div>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* STATS — mint cards                                       */}
+      {/* STATS                                                   */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section data-animate id="stats" style={{
         padding: "100px 24px",
@@ -862,7 +837,7 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* KAI section — DARK mint                                 */}
+      {/* KAI section — DARK                                      */}
       {/* ═══════════════════════════════════════════════════════ */}
       <section data-animate id="kai" style={{
         padding: "120px 24px",
@@ -1063,12 +1038,11 @@ export default function LandingPage() {
       </section>
 
       {/* ═══════════════════════════════════════════════════════ */}
-      {/* PRICING                                                 */}
+      {/* PRICING — SIEMPRE VISIBLE                               */}
       {/* ═══════════════════════════════════════════════════════ */}
-      <section id="pricing" data-animate style={{
+      <section id="pricing" style={{
         padding: "100px 24px",
         background: "linear-gradient(180deg, #f4faf6 0%, #e8f5ee 100%)",
-        ...(visibleSections.pricing ? { opacity: 1, transform: "translateY(0)", transition: "all 0.8s ease" } : { opacity: 0, transform: "translateY(40px)" }),
       }}>
         <div style={{ maxWidth: 1100, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 48 }}>
@@ -1086,7 +1060,7 @@ export default function LandingPage() {
                 <span style={{ fontSize: 14, color: "#86b89a" }}>/forever</span>
               </div>
               <div style={{ fontSize: 13, color: "#86b89a", marginBottom: 24 }}>11 features to get you hooked</div>
-              <a href="/login" className="btn-skeuo-secondary" style={{ width: "100%", justifyContent: "center", padding: "13px", marginBottom: 28, fontSize: 13 }}>Get started free</a>
+              <a href="/login" className="btn-skeuo-secondary" style={{ width: "100%", justifyContent: "center", padding: "13px", marginBottom: 28, fontSize: 13, textDecoration: "none" }}>Get started free</a>
 
               <div className="mono" style={{ fontSize: 10, fontWeight: 700, color: "#4a6b58", letterSpacing: "0.08em", textTransform: "uppercase", marginBottom: 12 }}>// Productivity</div>
               <div style={{ display: "flex", flexDirection: "column", gap: 8, marginBottom: 16 }}>
@@ -1200,7 +1174,7 @@ export default function LandingPage() {
                 <span style={{ fontSize: 14, color: "#86b89a" }}>/user/mo</span>
               </div>
               <div style={{ fontSize: 13, color: "#86b89a", marginBottom: 24 }}>For teams that win together</div>
-              <a href="mailto:juanmasis777@gmail.com?subject=DayLyft Business - Early Access" className="btn-skeuo-secondary" style={{ width: "100%", justifyContent: "center", padding: "13px", marginBottom: 28, fontSize: 13 }}>Join the waitlist</a>
+              <a href="mailto:juanmasis777@gmail.com?subject=DayLyft Business - Early Access" className="btn-skeuo-secondary" style={{ width: "100%", justifyContent: "center", padding: "13px", marginBottom: 28, fontSize: 13, textDecoration: "none" }}>Join the waitlist</a>
 
               <div className="mono" style={{ fontSize: 11, fontWeight: 600, color: "#4a6b58", marginBottom: 14 }}>{`> Everything in Pro, plus:`}</div>
 
