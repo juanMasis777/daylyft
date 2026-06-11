@@ -14,6 +14,19 @@
   --fm-danger: #ff6b6b;
 }
 
+/* DayLyft premium landing variables */
+:root {
+  --dl-bg: #e8f5ee;
+  --dl-bg-soft: #f4faf6;
+  --dl-dark: #051f10;
+  --dl-dark-2: #0a2818;
+  --dl-green: #22c55e;
+  --dl-green-soft: #86efac;
+  --dl-text: #0a2818;
+  --dl-muted: #4a6b58;
+  --dl-border: rgba(34, 197, 94, 0.15);
+}
+
 [data-theme="midnight"] {
   --fm-bg: #0a0a12;
   --fm-surface: #12121e;
@@ -123,188 +136,99 @@ html {
 }
 
 body {
-  background: var(--fm-bg);
-  color: var(--fm-text);
+  background: var(--dl-bg);
+  color: var(--dl-text);
   font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: background 0.3s ease, color 0.3s ease;
-  position: relative;
+  overflow-x: hidden;
 }
 
-/* Animated background for glassmorphism depth */
 body::before {
-  content: "";
-  position: fixed;
-  top: -50px;
-  left: -50px;
-  right: -50px;
-  bottom: -50px;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(108, 92, 231, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 85% 75%, rgba(0, 206, 201, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(253, 121, 168, 0.1) 0%, transparent 55%);
-  pointer-events: none;
-  z-index: 0;
+  display: none;
 }
 
-@keyframes orbFloat {
-  0%, 100% { transform: translate(0, 0); opacity: 1; }
-  33% { transform: translate(30px, -30px); opacity: 0.9; }
-  66% { transform: translate(-20px, 20px); opacity: 1.1; }
+a {
+  color: inherit;
 }
 
-#__next, main, [class*="dashboard"] {
-  position: relative;
-  z-index: 1;
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar { width: 5px; height: 5px; }
-::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: rgba(108,92,231,0.2); border-radius: 10px; }
-::-webkit-scrollbar-thumb:hover { background: rgba(108,92,231,0.4); }
-
-/* Selection */
-::selection { background: rgba(108,92,231,0.3); color: #fff; }
-
-/* Animations */
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInScale {
-  from { opacity: 0; transform: scale(0.95); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-@keyframes slideUp {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideDown {
-  from { opacity: 0; transform: translateY(-20px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes slideInLeft {
-  from { transform: translateX(-100%); }
-  to { transform: translateX(0); }
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-@keyframes glow {
-  0%, 100% { box-shadow: 0 0 12px rgba(108,92,231,0.2); }
-  50% { box-shadow: 0 0 24px rgba(108,92,231,0.4); }
-}
-
-@keyframes bounceIn {
-  0% { transform: scale(0.3); opacity: 0; }
-  50% { transform: scale(1.05); }
-  70% { transform: scale(0.9); }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes pageEnter {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-/* GLASSMORPHISM - Applied to all main cards */
-/* Cards with surface background get glass treatment */
-div[style*="var(--fm-surface)"] {
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-}
-
-/* Hover effect for cards */
-div[style*="borderRadius: 14"]:hover,
-div[style*="borderRadius: 16"]:hover,
-div[style*="borderRadius: 20"]:hover {
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Global Input Styles */
-input, textarea, select {
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  backdrop-filter: blur(10px);
-}
-
-input:focus, textarea:focus, select:focus {
-  border-color: var(--fm-accent) !important;
-  box-shadow: 0 0 0 3px rgba(108,92,231,0.1);
-}
-
-/* Global Button Hover */
 button {
   transition: all 0.2s ease;
 }
 
 button:hover:not(:disabled) {
-  filter: brightness(1.1);
-  transform: translateY(-1px);
+  filter: brightness(1.05);
 }
 
-button:active:not(:disabled) {
-  transform: scale(0.98);
+::selection {
+  background: rgba(34, 197, 94, 0.25);
+  color: #051f10;
 }
 
-/* Links */
-a {
-  transition: color 0.2s ease, opacity 0.2s ease;
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
 }
 
-/* Smooth theme transition */
-div, span, p, h1, h2, h3, h4, h5, h6, nav, section, main, aside, header, footer {
-  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.15s ease;
+::-webkit-scrollbar-track {
+  background: #e8f5ee;
 }
 
-/* Glass effect class - use on specific cards */
-.glass {
-  background: rgba(255, 255, 255, 0.03) !important;
-  backdrop-filter: blur(20px) saturate(150%);
-  -webkit-backdrop-filter: blur(20px) saturate(150%);
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+::-webkit-scrollbar-thumb {
+  background: rgba(34, 197, 94, 0.35);
+  border-radius: 999px;
 }
 
-/* Glass card with subtle accent */
-.glass-accent {
-  background: linear-gradient(135deg, rgba(108, 92, 231, 0.08), rgba(162, 155, 254, 0.03)) !important;
-  backdrop-filter: blur(20px) saturate(180%);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  border: 1px solid rgba(108, 92, 231, 0.15) !important;
-  box-shadow: 0 8px 32px 0 rgba(108, 92, 231, 0.1);
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(34, 197, 94, 0.6);
 }
 
-/* Mobile optimizations */
+/* Keep dashboard pages compatible */
+#__next,
+main {
+  position: relative;
+  z-index: 1;
+}
+
+/* Inputs */
+input,
+textarea,
+select {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--fm-accent) !important;
+  box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.1);
+}
+
+/* Mobile fixes */
 @media (max-width: 768px) {
   body {
     -webkit-tap-highlight-color: transparent;
     -webkit-touch-callout: none;
   }
-  
-  input, textarea, select {
+
+  input,
+  textarea,
+  select {
     font-size: 16px !important;
   }
 }
 
-/* Print styles */
+/* Print */
 @media print {
-  body { background: #fff; color: #000; }
+  body {
+    background: #ffffff;
+    color: #000000;
+  }
 }
