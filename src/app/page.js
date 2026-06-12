@@ -1,153 +1,298 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useMemo, useState } from "react";
 
-const features = [
-  { emoji: "🤖", title: "Kai AI Copilot", desc: "Plan your day, write emails, review habits, and get personalized guidance.", cat: "ai" },
-  { emoji: "✅", title: "Smart Tasks", desc: "Prioritize your work with categories, focus modes, and AI scheduling.", cat: "prod" },
-  { emoji: "📅", title: "Calendar", desc: "Visual weekly planning with events, blocks, and routines.", cat: "prod" },
-  { emoji: "🧬", title: "Productivity DNA", desc: "Discover how you work best and build your day around your strengths.", cat: "ai" },
-  { emoji: "🧘", title: "Zen Mode", desc: "Ambient sounds, breathing, and guided relaxation for better balance.", cat: "well" },
-  { emoji: "📊", title: "Analytics", desc: "Track patterns, progress, consistency, and personal insights.", cat: "prod" },
-  { emoji: "🎯", title: "Goal Setting", desc: "Weekly, monthly, and yearly goals with clean progress tracking.", cat: "prod" },
-  { emoji: "📓", title: "Life Journal", desc: "Mood tracking, reflections, and AI-generated summaries.", cat: "life" },
-  { emoji: "⚡", title: "Energy Map", desc: "Find your best hours for deep work and high-focus sessions.", cat: "prod" },
-  { emoji: "🏆", title: "Weekly Wins", desc: "AI-graded weekly performance reports to help you improve.", cat: "ai" },
-  { emoji: "💵", title: "Budget Tracker", desc: "Track income, expenses, categories, and monthly goals.", cat: "fin" },
-  { emoji: "🔥", title: "Habit Tracker", desc: "Build streaks, visual grids, and daily accountability.", cat: "life" },
-  { emoji: "🛡", title: "Focus Shield", desc: "Protect deep work blocks and reduce distractions.", cat: "prod" },
-  { emoji: "🍅", title: "Pomodoro Timer", desc: "Focus cycles, breaks, and session tracking.", cat: "prod" },
-  { emoji: "👨‍👩‍👧", title: "Family Mode", desc: "Meals, chores, family planning, and shared organization.", cat: "life" },
-  { emoji: "⚖️", title: "Life Balance", desc: "Radar-style tracking across the most important areas of life.", cat: "life" },
-  { emoji: "🙏", title: "Gratitude Journal", desc: "A simple daily practice to build positivity and reflection.", cat: "well" },
-  { emoji: "💧", title: "Water Tracker", desc: "Stay hydrated with daily and weekly visual tracking.", cat: "well" },
-  { emoji: "😴", title: "Sleep Tracker", desc: "Log sleep patterns and get AI-powered insights.", cat: "well" },
-  { emoji: "🏋️", title: "Workout Tracker", desc: "Exercises, sets, reps, and AI fitness suggestions.", cat: "well" },
-  { emoji: "🧠", title: "Flashcards", desc: "Create study decks manually or generate them with AI.", cat: "learn" },
-  { emoji: "✉️", title: "Email Templates", desc: "Kai helps you write emails in the right tone.", cat: "ai" },
-  { emoji: "💡", title: "Idea Vault", desc: "Capture ideas and turn them into plans with AI.", cat: "learn" },
-  { emoji: "🎁", title: "Gift Planner", desc: "Get personalized gift ideas and reminders.", cat: "life" },
-  { emoji: "📖", title: "Reading List", desc: "Track books and get AI-powered recommendations.", cat: "learn" },
-  { emoji: "🐷", title: "Savings Goals", desc: "Set targets, deadlines, and savings progress.", cat: "fin" },
-  { emoji: "📋", title: "Bill Reminder", desc: "Never miss a payment again.", cat: "fin" },
-  { emoji: "🔗", title: "Link Saver", desc: "Save and organize useful links with search.", cat: "learn" },
-  { emoji: "🎲", title: "Daily Challenge", desc: "Small daily growth challenges for better consistency.", cat: "well" },
-  { emoji: "🎯", title: "Decision Maker", desc: "Let AI compare options, pros, cons, and next steps.", cat: "ai" },
-  { emoji: "⏳", title: "Countdown Timer", desc: "Track important events and exciting moments.", cat: "life" },
-  { emoji: "☑️", title: "Daily Checklist", desc: "Morning and evening routines with streaks.", cat: "prod" },
-  { emoji: "📝", title: "Quick Notes", desc: "Capture notes, pin ideas, search, and expand with AI.", cat: "learn" },
-  { emoji: "🌙", title: "Night Report", desc: "AI end-of-day summary with score and reflection.", cat: "ai" },
-  { emoji: "⏰", title: "Autopilot", desc: "Kai can plan your entire day around your priorities.", cat: "ai" },
-  { emoji: "💬", title: "Kai's Wisdom", desc: "Daily personalized quotes and motivation.", cat: "ai" },
-  { emoji: "🧘", title: "Stretching Guide", desc: "Guided routines with timers and reminders.", cat: "well" },
-  { emoji: "⏱", title: "Focus Music", desc: "Ambient sounds for deep work and concentration.", cat: "prod" },
-  { emoji: "🌅", title: "7 Themes", desc: "Midnight, Snow, Ocean, Forest, Rose, Amber, and Sunset.", cat: "prod" },
-  { emoji: "🚀", title: "+ More Coming", desc: "New tools and upgrades added regularly.", cat: "prod" },
+const featurePillars = [
+  {
+    title: "Plan",
+    desc: "Organize your tasks, calendar, reminders, and daily priorities with clarity.",
+    icon: "calendar",
+  },
+  {
+    title: "Focus",
+    desc: "Reduce distractions, use Pomodoro, and protect your deep work sessions.",
+    icon: "target",
+  },
+  {
+    title: "Track",
+    desc: "Measure habits, sleep, workouts, budget, goals, and daily progress.",
+    icon: "chart",
+  },
+  {
+    title: "Improve",
+    desc: "Get AI-powered insights to make smarter decisions and grow consistently.",
+    icon: "arrow",
+  },
 ];
 
-const filterTabs = [
-  { id: "all", label: "All" },
-  { id: "prod", label: "Productivity" },
-  { id: "ai", label: "AI Copilot" },
-  { id: "well", label: "Wellness" },
-  { id: "life", label: "Life" },
-  { id: "fin", label: "Finance" },
-  { id: "learn", label: "Learning" },
-];
-
-const comparisons = [
-  { app: "Motion", price: "$29/mo", tasks: true, calendar: true, notes: false, habits: false, finance: false, ai: false },
-  { app: "Sunsama", price: "$20/mo", tasks: true, calendar: true, notes: false, habits: false, finance: false, ai: false },
-  { app: "Notion", price: "$10/mo", tasks: true, calendar: false, notes: true, habits: false, finance: false, ai: false },
-  { app: "Habit App", price: "$8/mo", tasks: false, calendar: false, notes: false, habits: true, finance: false, ai: false },
-  { app: "Budget App", price: "$8/mo", tasks: false, calendar: false, notes: false, habits: false, finance: true, ai: false },
-  { app: "DayLyft", price: "$0+", tasks: true, calendar: true, notes: true, habits: true, finance: true, ai: true, highlight: true },
+const compareApps = [
+  {
+    app: "Motion",
+    price: "$29/mo",
+    tasks: true,
+    calendar: true,
+    notes: false,
+    habits: false,
+    finance: false,
+    ai: false,
+  },
+  {
+    app: "Sunsama",
+    price: "$20/mo",
+    tasks: true,
+    calendar: true,
+    notes: false,
+    habits: false,
+    finance: false,
+    ai: false,
+  },
+  {
+    app: "Notion",
+    price: "$10/mo",
+    tasks: true,
+    calendar: false,
+    notes: true,
+    habits: false,
+    finance: false,
+    ai: false,
+  },
+  {
+    app: "Habit App",
+    price: "$8/mo",
+    tasks: false,
+    calendar: false,
+    notes: false,
+    habits: true,
+    finance: false,
+    ai: false,
+  },
+  {
+    app: "Budget App",
+    price: "$8/mo",
+    tasks: false,
+    calendar: false,
+    notes: false,
+    habits: false,
+    finance: true,
+    ai: false,
+  },
+  {
+    app: "DayLyft",
+    price: "$0+",
+    tasks: true,
+    calendar: true,
+    notes: true,
+    habits: true,
+    finance: true,
+    ai: true,
+    highlight: true,
+  },
 ];
 
 const testimonials = [
   {
-    name: "Sarah K.",
-    role: "Freelance Designer",
-    text: "DayLyft replaced multiple apps for me. Kai literally helps me plan my mornings.",
-    avatar: "SK",
+    quote:
+      "DayLyft replaced different apps I was using. Everything I need is in one place, with an AI that actually gets me.",
+    name: "Sarah J.",
+    role: "Product Manager",
+    initials: "SJ",
   },
   {
-    name: "Marcus T.",
-    role: "Startup Founder",
-    text: "It feels like a life dashboard. Tasks, habits, focus, budget, and AI in one place.",
-    avatar: "MT",
+    quote:
+      "Kai's insights have been a game changer. I'm more focused, saving more, and finally building real habits.",
+    name: "David L.",
+    role: "Entrepreneur",
+    initials: "DL",
   },
   {
-    name: "Ana R.",
-    role: "Student",
-    text: "Flashcards, Pomodoro, habits, and notes in one app. It made my routine easier.",
-    avatar: "AR",
+    quote:
+      "The best investment in myself this year. DayLyft keeps me organized and motivated every single day.",
+    name: "Priya K.",
+    role: "Marketing Director",
+    initials: "PK",
   },
 ];
 
-const appPillars = [
+const pricing = [
   {
-    icon: "✦",
-    title: "Kai AI Copilot",
-    desc: "Plan, write, reflect, organize, and make better decisions with one AI assistant for your life.",
+    name: "Starter",
+    price: "$0",
+    suffix: "/month",
+    desc: "Everything you need to get started.",
+    button: "Get started free",
+    href: "/login",
+    highlighted: false,
+    items: [
+      "Unlimited tasks",
+      "Calendar integration",
+      "Habit tracking",
+      "Basic finance tracking",
+      "Community support",
+    ],
   },
   {
-    icon: "⚡",
-    title: "Productivity",
-    desc: "Smart tasks, calendar, Pomodoro, focus shield, notes, goals, analytics, and routines.",
+    name: "Pro",
+    price: "$6.99",
+    suffix: "/month",
+    desc: "For individuals who want to do more.",
+    button: "Start 7-day free trial",
+    href: "https://buy.stripe.com/8x25kE2pK5Ho4Wo25AaR205",
+    highlighted: true,
+    items: [
+      "Everything in Starter",
+      "AI Copilot Kai",
+      "Advanced analytics",
+      "Health tracking",
+      "Priority support",
+    ],
   },
   {
-    icon: "💚",
-    title: "Wellness",
-    desc: "Track habits, sleep, water, gratitude, workouts, stretching, breathing, and balance.",
-  },
-  {
-    icon: "💼",
-    title: "Life Management",
-    desc: "Budget tracker, savings goals, bill reminders, family mode, gift planner, and more.",
+    name: "Business",
+    price: "$12.99",
+    suffix: "/user /month",
+    desc: "For teams and families.",
+    button: "Join the waitlist",
+    href: "mailto:juanmasis777@gmail.com?subject=DayLyft Business Early Access",
+    highlighted: false,
+    items: [
+      "Everything in Pro",
+      "Team collaboration",
+      "Admin controls",
+      "Custom reports",
+      "Dedicated support",
+    ],
   },
 ];
+
+function Icon({ name, size = 22 }) {
+  const common = {
+    width: size,
+    height: size,
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+  };
+
+  if (name === "calendar") {
+    return (
+      <svg {...common}>
+        <rect x="3" y="4" width="18" height="18" rx="3" />
+        <path d="M16 2v4M8 2v4M3 10h18" />
+      </svg>
+    );
+  }
+
+  if (name === "target") {
+    return (
+      <svg {...common}>
+        <circle cx="12" cy="12" r="9" />
+        <circle cx="12" cy="12" r="5" />
+        <circle cx="12" cy="12" r="1" />
+      </svg>
+    );
+  }
+
+  if (name === "chart") {
+    return (
+      <svg {...common}>
+        <path d="M4 19V5" />
+        <path d="M4 19h16" />
+        <rect x="7" y="11" width="3" height="5" rx="1" />
+        <rect x="12" y="8" width="3" height="8" rx="1" />
+        <rect x="17" y="5" width="3" height="11" rx="1" />
+      </svg>
+    );
+  }
+
+  if (name === "arrow") {
+    return (
+      <svg {...common}>
+        <path d="M7 17L17 7" />
+        <path d="M8 7h9v9" />
+      </svg>
+    );
+  }
+
+  if (name === "check") {
+    return (
+      <svg {...common}>
+        <path d="M20 6L9 17l-5-5" />
+      </svg>
+    );
+  }
+
+  if (name === "spark") {
+    return (
+      <svg {...common}>
+        <path d="M12 2l2.2 6.1L20 10l-5.8 1.9L12 18l-2.2-6.1L4 10l5.8-1.9L12 2z" />
+      </svg>
+    );
+  }
+
+  if (name === "menu") {
+    return (
+      <svg {...common}>
+        <path d="M4 7h16M4 17h16" />
+      </svg>
+    );
+  }
+
+  if (name === "close") {
+    return (
+      <svg {...common}>
+        <path d="M18 6L6 18M6 6l12 12" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg {...common}>
+      <circle cx="12" cy="12" r="9" />
+    </svg>
+  );
+}
+
+function CheckMark() {
+  return (
+    <span className="check-mark">
+      <Icon name="check" size={13} />
+    </span>
+  );
+}
+
+function CompareValue({ value }) {
+  return <span className={value ? "compare-yes" : "compare-no"}>{value ? "✓" : "—"}</span>;
+}
 
 export default function LandingPage() {
-  const [featureFilter, setFeatureFilter] = useState("all");
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const filteredFeatures =
-    featureFilter === "all"
-      ? features
-      : features.filter((feature) => feature.cat === featureFilter);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
-    handleScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const apps = useMemo(() => compareApps, []);
 
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMobileMenuOpen(false);
+    setMobileOpen(false);
   };
 
   return (
-    <main className="dl-page">
+    <main className="daylyft-page">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
         :root {
-          --dl-bg: #f4faf6;
-          --dl-bg-2: #e8f6ee;
-          --dl-dark: #03180c;
-          --dl-dark-2: #062514;
-          --dl-dark-3: #0b351f;
-          --dl-green: #22c55e;
-          --dl-green-2: #4ade80;
-          --dl-green-3: #86efac;
-          --dl-text: #071f12;
-          --dl-muted: #4e6d5a;
-          --dl-border: rgba(34, 197, 94, 0.16);
-          --dl-shadow: 0 24px 80px rgba(7, 31, 18, 0.12);
+          --bg: #ffffff;
+          --soft: #f6f8f6;
+          --mint: #eaf8ee;
+          --dark: #050807;
+          --dark-2: #08100d;
+          --green: #39d968;
+          --green-2: #22c55e;
+          --text: #080b0a;
+          --muted: #66736c;
+          --line: rgba(5, 8, 7, 0.1);
         }
 
         * {
@@ -160,144 +305,46 @@ export default function LandingPage() {
 
         body {
           margin: 0;
-          background: var(--dl-bg);
+          background: #ffffff;
         }
 
-        .dl-page {
+        .daylyft-page {
           min-height: 100vh;
-          background:
-            radial-gradient(circle at 18% 12%, rgba(34,197,94,0.18), transparent 32%),
-            radial-gradient(circle at 85% 18%, rgba(134,239,172,0.22), transparent 30%),
-            linear-gradient(180deg, #f6fbf8 0%, #eaf7ef 45%, #f6fbf8 100%);
-          color: var(--dl-text);
-          font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+          background: #ffffff;
+          color: var(--text);
+          font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
           overflow-x: hidden;
         }
 
-        .dl-container {
-          width: min(1180px, calc(100% - 40px));
+        a {
+          color: inherit;
+        }
+
+        button {
+          font-family: inherit;
+        }
+
+        .container {
+          width: min(1180px, calc(100% - 44px));
           margin: 0 auto;
         }
 
-        .mono {
-          font-family: "JetBrains Mono", monospace;
-        }
-
-        .gradient-text {
-          background: linear-gradient(135deg, #22c55e 0%, #0f7a38 100%);
-          -webkit-background-clip: text;
-          background-clip: text;
-          -webkit-text-fill-color: transparent;
-        }
-
-        .section-kicker {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 8px 14px;
-          border-radius: 999px;
-          border: 1px solid rgba(34,197,94,0.18);
-          background: rgba(255,255,255,0.74);
-          color: #0d572d;
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.95), 0 10px 24px rgba(34,197,94,0.1);
-          font-size: 11px;
-          font-weight: 700;
-          letter-spacing: 0.09em;
-          text-transform: uppercase;
-          font-family: "JetBrains Mono", monospace;
-          backdrop-filter: blur(16px);
-        }
-
-        .section-kicker.dark {
-          color: #bbf7d0;
-          border-color: rgba(134,239,172,0.16);
-          background: rgba(255,255,255,0.06);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.07), 0 16px 40px rgba(0,0,0,0.22);
-        }
-
-        .kicker-dot {
-          width: 7px;
-          height: 7px;
-          border-radius: 50%;
-          background: var(--dl-green);
-          box-shadow: 0 0 18px rgba(34,197,94,0.9);
-        }
-
-        .btn-primary,
-        .btn-secondary,
-        .btn-light {
-          text-decoration: none;
-          border: 0;
-          cursor: pointer;
-          font-family: inherit;
-          font-weight: 800;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          border-radius: 14px;
-          transition: transform 0.18s ease, box-shadow 0.18s ease, filter 0.18s ease;
-          white-space: nowrap;
-        }
-
-        .btn-primary {
-          padding: 16px 28px;
-          color: white;
-          background: linear-gradient(180deg, #0c3b22 0%, #03180c 100%);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.12),
-            0 16px 40px rgba(3,24,12,0.22),
-            0 0 0 1px rgba(34,197,94,0.18);
-        }
-
-        .btn-primary:hover,
-        .btn-secondary:hover,
-        .btn-light:hover {
-          transform: translateY(-2px);
-          filter: brightness(1.03);
-        }
-
-        .btn-secondary {
-          padding: 16px 26px;
-          color: #062514;
-          background: linear-gradient(180deg, #ffffff 0%, #e4f6ea 100%);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.95),
-            0 12px 28px rgba(34,197,94,0.12),
-            0 0 0 1px rgba(34,197,94,0.18);
-        }
-
-        .btn-light {
-          padding: 16px 30px;
-          color: #052010;
-          background: linear-gradient(180deg, #69f596 0%, #22c55e 100%);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.4),
-            0 18px 48px rgba(34,197,94,0.35);
-        }
-
-        .dl-nav {
+        .nav {
           position: fixed;
-          top: 18px;
-          left: 50%;
-          transform: translateX(-50%);
-          width: min(1180px, calc(100% - 32px));
-          z-index: 50;
-          border-radius: 18px;
-          transition: all 0.25s ease;
+          top: 0;
+          left: 0;
+          right: 0;
+          z-index: 100;
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          background: rgba(5,8,7,0.88);
+          backdrop-filter: blur(22px);
         }
 
-        .dl-nav-inner {
-          min-height: 64px;
-          padding: 0 18px;
+        .nav-inner {
+          height: 68px;
           display: flex;
           align-items: center;
           justify-content: space-between;
-          border-radius: 18px;
-          border: 1px solid rgba(34,197,94,0.16);
-          background: rgba(246,251,248,0.76);
-          backdrop-filter: blur(22px) saturate(160%);
-          box-shadow: ${scrolled ? "0 20px 60px rgba(7,31,18,0.12)" : "0 8px 30px rgba(7,31,18,0.06)"};
         }
 
         .brand {
@@ -305,756 +352,836 @@ export default function LandingPage() {
           align-items: center;
           gap: 10px;
           text-decoration: none;
-          color: var(--dl-text);
+          color: white;
+          font-weight: 900;
+          letter-spacing: -0.04em;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: 24px;
         }
 
         .brand-mark {
-          width: 34px;
-          height: 34px;
-          border-radius: 11px;
+          width: 32px;
+          height: 32px;
+          border-radius: 10px;
           display: grid;
           place-items: center;
-          background: linear-gradient(180deg, #4ade80, #16a34a);
-          color: white;
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.38), 0 12px 28px rgba(34,197,94,0.25);
-          font-weight: 900;
-        }
-
-        .brand-name {
-          font-family: "Space Grotesk", sans-serif;
-          font-size: 18px;
-          font-weight: 800;
-          letter-spacing: -0.03em;
+          background: linear-gradient(135deg, var(--green), #0b7d35);
+          color: #041008;
+          box-shadow: 0 0 30px rgba(57,217,104,0.45);
         }
 
         .nav-links {
           display: flex;
           align-items: center;
-          gap: 30px;
+          gap: 38px;
         }
 
         .nav-links button,
-        .nav-links a.link {
-          border: 0;
+        .nav-links a.nav-link {
           background: transparent;
-          color: var(--dl-muted);
+          border: 0;
+          color: rgba(255,255,255,0.86);
           text-decoration: none;
           font-size: 14px;
           font-weight: 700;
           cursor: pointer;
-          font-family: inherit;
+          transition: color 0.2s ease;
         }
 
         .nav-links button:hover,
-        .nav-links a.link:hover {
-          color: var(--dl-text);
+        .nav-links a.nav-link:hover {
+          color: var(--green);
         }
 
-        .nav-menu-btn {
+        .nav-cta {
+          padding: 12px 20px;
+          border-radius: 12px;
+          text-decoration: none;
+          background: linear-gradient(180deg, #53e779, #1fb954);
+          color: #041008;
+          font-size: 14px;
+          font-weight: 900;
+          box-shadow: 0 16px 40px rgba(57,217,104,0.28);
+          transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-cta:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 22px 55px rgba(57,217,104,0.38);
+        }
+
+        .menu-btn {
           display: none;
-          border: 0;
           background: transparent;
+          border: 0;
+          color: white;
           cursor: pointer;
-          color: var(--dl-text);
         }
 
         .mobile-menu {
           position: fixed;
           inset: 0;
-          z-index: 49;
-          background: rgba(246,251,248,0.96);
-          backdrop-filter: blur(24px);
+          z-index: 99;
+          background: rgba(5,8,7,0.97);
+          backdrop-filter: blur(20px);
           display: flex;
           flex-direction: column;
           align-items: center;
           justify-content: center;
-          gap: 28px;
+          gap: 30px;
         }
 
         .mobile-menu button,
         .mobile-menu a {
-          font-size: 22px;
-          font-weight: 800;
-          color: var(--dl-text);
+          color: white;
           background: transparent;
           border: 0;
           text-decoration: none;
+          font-size: 24px;
+          font-weight: 800;
           cursor: pointer;
+        }
+
+        .close-btn {
+          position: absolute;
+          right: 26px;
+          top: 26px;
         }
 
         .hero {
           position: relative;
-          padding: 150px 0 80px;
-          min-height: 100vh;
+          min-height: 760px;
+          padding: 126px 0 62px;
+          background:
+            radial-gradient(circle at 30% 55%, rgba(57,217,104,0.22), transparent 22%),
+            radial-gradient(circle at 82% 28%, rgba(57,217,104,0.12), transparent 28%),
+            linear-gradient(135deg, #070a09 0%, #020403 45%, #07130d 100%);
+          color: white;
           overflow: hidden;
         }
 
-        .hero-grid {
-          display: grid;
-          grid-template-columns: 0.95fr 1.05fr;
-          gap: 52px;
-          align-items: center;
-          position: relative;
-          z-index: 2;
-        }
-
-        .hero::before {
+        .hero::after {
           content: "";
           position: absolute;
           inset: 0;
-          background-image:
-            linear-gradient(rgba(34,197,94,0.06) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(34,197,94,0.06) 1px, transparent 1px);
-          background-size: 72px 72px;
-          mask-image: radial-gradient(circle at center, black 0%, transparent 72%);
+          background:
+            linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+          background-size: 64px 64px;
+          mask-image: radial-gradient(circle at 50% 40%, black, transparent 72%);
           pointer-events: none;
         }
 
-        .hero-glow {
+        .hero-wave {
           position: absolute;
-          width: 900px;
-          height: 900px;
-          top: -420px;
-          left: 50%;
-          transform: translateX(-50%);
-          background: radial-gradient(circle, rgba(34,197,94,0.22), transparent 62%);
-          filter: blur(30px);
+          right: -12%;
+          bottom: 0;
+          width: 75%;
+          height: 280px;
+          background:
+            repeating-radial-gradient(ellipse at center, transparent 0 16px, rgba(57,217,104,0.13) 17px 18px);
+          transform: rotate(-7deg);
+          opacity: 0.5;
           pointer-events: none;
         }
 
-        .hero h1 {
-          font-family: "Space Grotesk", sans-serif;
-          font-size: clamp(56px, 8vw, 96px);
-          line-height: 0.96;
-          letter-spacing: -0.07em;
-          margin: 22px 0 24px;
-          color: var(--dl-text);
+        .hero-grid {
+          position: relative;
+          z-index: 2;
+          display: grid;
+          grid-template-columns: 0.8fr 1.2fr;
+          gap: 50px;
+          align-items: center;
         }
 
-        .hero p {
+        .badge {
+          display: inline-flex;
+          align-items: center;
+          gap: 10px;
+          border-radius: 999px;
+          padding: 9px 13px;
+          color: rgba(255,255,255,0.86);
+          background: rgba(255,255,255,0.06);
+          border: 1px solid rgba(255,255,255,0.1);
+          font-size: 13px;
+          font-weight: 700;
+        }
+
+        .badge span {
+          color: var(--green);
+          font-weight: 900;
+        }
+
+        .hero-title {
+          margin: 34px 0 20px;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: clamp(48px, 6vw, 82px);
+          line-height: 0.96;
+          letter-spacing: -0.065em;
+          font-weight: 800;
+        }
+
+        .green-text {
+          color: var(--green);
+        }
+
+        .hero-subtitle {
+          max-width: 560px;
+          margin: 0 0 34px;
+          color: rgba(255,255,255,0.72);
           font-size: 19px;
           line-height: 1.7;
-          color: var(--dl-muted);
-          max-width: 590px;
-          margin: 0 0 34px;
+          font-weight: 500;
         }
 
         .hero-actions {
           display: flex;
           align-items: center;
-          gap: 12px;
+          gap: 14px;
           flex-wrap: wrap;
           margin-bottom: 30px;
         }
 
-        .trust-row {
+        .btn-primary,
+        .btn-outline,
+        .btn-white {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 10px;
+          min-height: 54px;
+          padding: 0 28px;
+          border-radius: 13px;
+          text-decoration: none;
+          border: 0;
+          cursor: pointer;
+          font-size: 15px;
+          font-weight: 900;
+          transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        .btn-primary {
+          background: linear-gradient(180deg, #53e779, #1fb954);
+          color: #041008;
+          box-shadow: 0 20px 50px rgba(57,217,104,0.32);
+        }
+
+        .btn-primary:hover,
+        .btn-outline:hover,
+        .btn-white:hover {
+          transform: translateY(-2px);
+        }
+
+        .btn-outline {
+          background: rgba(255,255,255,0.04);
+          color: white;
+          border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .hero-trust {
           display: flex;
+          gap: 28px;
           flex-wrap: wrap;
-          gap: 18px;
-          color: var(--dl-muted);
+          color: rgba(255,255,255,0.74);
           font-size: 13px;
           font-weight: 700;
         }
 
-        .trust-item {
+        .hero-trust span {
           display: inline-flex;
           align-items: center;
           gap: 8px;
         }
 
-        .trust-icon {
-          width: 24px;
-          height: 24px;
-          border-radius: 8px;
+        .mini-check {
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
           display: grid;
           place-items: center;
-          background: rgba(34,197,94,0.12);
-          color: #16a34a;
+          color: var(--green);
+          border: 1px solid rgba(57,217,104,0.42);
         }
 
-        .dashboard-shell {
-          position: relative;
-        }
-
-        .dashboard-card {
-          border-radius: 30px;
+        .dashboard {
+          border-radius: 24px;
           overflow: hidden;
-          background: linear-gradient(180deg, #0e3822 0%, #03180c 100%);
+          background: #0b0f0d;
+          border: 1px solid rgba(255,255,255,0.12);
           box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.09),
-            0 38px 120px rgba(3,24,12,0.38),
-            0 0 0 1px rgba(134,239,172,0.12);
-          transform: rotate(1.2deg);
-        }
-
-        .dashboard-card:hover {
-          transform: rotate(0deg) translateY(-4px);
-          transition: all 0.25s ease;
+            0 50px 130px rgba(0,0,0,0.58),
+            0 0 80px rgba(57,217,104,0.16);
         }
 
         .dashboard-top {
           height: 54px;
           display: flex;
           align-items: center;
-          gap: 10px;
+          justify-content: space-between;
           padding: 0 18px;
-          border-bottom: 1px solid rgba(134,239,172,0.1);
-          background: rgba(255,255,255,0.035);
+          border-bottom: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.03);
         }
 
-        .dot {
-          width: 11px;
-          height: 11px;
-          border-radius: 50%;
-          background: #22c55e;
+        .dashboard-brand {
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          font-weight: 900;
+          color: white;
         }
 
-        .dashboard-url {
-          margin-left: 8px;
-          padding: 6px 12px;
-          border-radius: 8px;
-          background: rgba(0,0,0,0.22);
-          color: #bbf7d0;
-          font-size: 11px;
-          font-family: "JetBrains Mono", monospace;
-        }
-
-        .dashboard-content {
-          padding: 22px;
+        .dashboard-brand-mark {
+          width: 24px;
+          height: 24px;
+          border-radius: 7px;
           display: grid;
-          grid-template-columns: 0.72fr 1fr 0.78fr;
+          place-items: center;
+          background: var(--green);
+          color: #07100a;
+        }
+
+        .dashboard-actions {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+        }
+
+        .dash-icon {
+          width: 28px;
+          height: 28px;
+          border-radius: 8px;
+          display: grid;
+          place-items: center;
+          color: rgba(255,255,255,0.78);
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .add-btn {
+          height: 30px;
+          padding: 0 14px;
+          border-radius: 8px;
+          border: 0;
+          color: #041008;
+          font-weight: 900;
+          background: var(--green);
+        }
+
+        .dashboard-body {
+          display: grid;
+          grid-template-columns: 145px 1fr;
+          min-height: 475px;
+        }
+
+        .sidebar {
+          padding: 18px 14px;
+          border-right: 1px solid rgba(255,255,255,0.08);
+          background: rgba(255,255,255,0.025);
+        }
+
+        .sidebar-link {
+          display: flex;
+          align-items: center;
+          gap: 9px;
+          padding: 10px 11px;
+          border-radius: 10px;
+          color: rgba(255,255,255,0.62);
+          font-size: 13px;
+          font-weight: 700;
+          margin-bottom: 4px;
+        }
+
+        .sidebar-link.active {
+          background: rgba(57,217,104,0.11);
+          color: var(--green);
+        }
+
+        .sidebar-dot {
+          width: 7px;
+          height: 7px;
+          border-radius: 50%;
+          background: currentColor;
+        }
+
+        .profile-mini {
+          margin-top: 70px;
+          padding: 12px;
+          border-radius: 14px;
+          background: rgba(255,255,255,0.05);
+          border: 1px solid rgba(255,255,255,0.08);
+          display: flex;
+          align-items: center;
+          gap: 9px;
+        }
+
+        .profile-avatar {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: linear-gradient(135deg, #f6c177, #8bd5ca);
+        }
+
+        .dash-main {
+          padding: 22px;
+        }
+
+        .dash-heading {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          gap: 16px;
+          margin-bottom: 18px;
+        }
+
+        .dash-heading h3 {
+          margin: 0 0 6px;
+          color: white;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: 25px;
+          letter-spacing: -0.04em;
+        }
+
+        .dash-heading p {
+          margin: 0;
+          color: rgba(255,255,255,0.56);
+          font-size: 13px;
+        }
+
+        .ask-kai {
+          border-radius: 999px;
+          border: 1px solid rgba(57,217,104,0.28);
+          color: var(--green);
+          background: rgba(57,217,104,0.08);
+          font-weight: 900;
+          padding: 8px 13px;
+        }
+
+        .dash-grid {
+          display: grid;
+          grid-template-columns: 1.15fr 0.85fr;
           gap: 14px;
         }
 
-        .dash-panel {
+        .dash-card {
           border-radius: 18px;
           padding: 16px;
-          background: linear-gradient(180deg, rgba(255,255,255,0.075), rgba(255,255,255,0.025));
-          border: 1px solid rgba(134,239,172,0.1);
+          background: rgba(255,255,255,0.045);
+          border: 1px solid rgba(255,255,255,0.08);
         }
 
-        .dash-title {
-          color: #86efac;
-          font-size: 10px;
-          letter-spacing: 0.1em;
-          text-transform: uppercase;
-          font-family: "JetBrains Mono", monospace;
-          font-weight: 800;
-          margin-bottom: 12px;
+        .dash-card h4 {
+          margin: 0 0 13px;
+          color: rgba(255,255,255,0.94);
+          font-size: 13px;
         }
 
-        .dash-big {
+        .task-row {
+          display: grid;
+          grid-template-columns: 1fr auto;
+          gap: 12px;
+          padding: 11px 0;
+          border-bottom: 1px solid rgba(255,255,255,0.07);
+          color: rgba(255,255,255,0.78);
+          font-size: 13px;
+        }
+
+        .task-row:last-child {
+          border-bottom: 0;
+        }
+
+        .task-row strong {
           color: white;
-          font-size: 32px;
+        }
+
+        .calendar-item {
+          padding: 11px;
+          border-radius: 12px;
+          margin-bottom: 9px;
+          background: rgba(57,217,104,0.11);
+          border: 1px solid rgba(57,217,104,0.14);
+          color: rgba(255,255,255,0.78);
+          font-size: 13px;
+        }
+
+        .small-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 14px;
+          margin-top: 14px;
+        }
+
+        .metric {
+          min-height: 120px;
+        }
+
+        .metric-value {
+          color: white;
           font-family: "Space Grotesk", sans-serif;
+          font-size: 26px;
           font-weight: 800;
           letter-spacing: -0.05em;
         }
 
-        .dash-small {
-          color: rgba(220,252,231,0.7);
-          font-size: 12px;
-          line-height: 1.5;
-        }
-
-        .schedule-item {
-          padding: 12px;
-          border-radius: 13px;
-          background: rgba(34,197,94,0.12);
-          border: 1px solid rgba(34,197,94,0.18);
-          margin-bottom: 9px;
-        }
-
-        .schedule-time {
-          font-size: 10px;
-          color: #86efac;
-          font-family: "JetBrains Mono", monospace;
-          margin-bottom: 4px;
-        }
-
-        .schedule-name {
-          font-size: 12px;
+        .progress-ring {
+          width: 78px;
+          height: 78px;
+          border-radius: 50%;
+          margin: 8px auto 0;
+          display: grid;
+          place-items: center;
+          background:
+            radial-gradient(circle, #0b0f0d 52%, transparent 54%),
+            conic-gradient(var(--green) 0deg 270deg, rgba(255,255,255,0.12) 270deg 360deg);
           color: white;
-          font-weight: 700;
+          font-weight: 900;
         }
 
-        .kai-bubble {
-          border-radius: 18px;
-          padding: 16px;
-          background: linear-gradient(180deg, rgba(34,197,94,0.18), rgba(34,197,94,0.08));
-          border: 1px solid rgba(74,222,128,0.22);
-        }
-
-        .bars {
+        .bar-row {
           display: flex;
-          gap: 5px;
           align-items: end;
+          gap: 5px;
           height: 58px;
-          margin-top: 14px;
+          margin-top: 15px;
         }
 
         .bar {
           flex: 1;
-          border-radius: 5px 5px 2px 2px;
-          background: linear-gradient(180deg, #4ade80, #16a34a);
-          box-shadow: 0 0 16px rgba(34,197,94,0.22);
+          border-radius: 6px 6px 2px 2px;
+          background: linear-gradient(180deg, var(--green), #15803d);
         }
 
-        .float-card {
-          position: absolute;
-          border-radius: 18px;
-          padding: 14px 16px;
-          background: rgba(255,255,255,0.78);
-          border: 1px solid rgba(34,197,94,0.18);
-          backdrop-filter: blur(18px);
-          box-shadow: var(--dl-shadow);
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          color: var(--dl-text);
-          font-size: 13px;
-          font-weight: 800;
-        }
-
-        .float-card.one {
-          left: -30px;
-          top: 80px;
-        }
-
-        .float-card.two {
-          right: -20px;
-          top: 165px;
-        }
-
-        .float-card.three {
-          left: 18px;
-          bottom: -26px;
-        }
-
-        .float-icon {
-          width: 34px;
-          height: 34px;
-          border-radius: 12px;
-          display: grid;
-          place-items: center;
-          background: linear-gradient(180deg, #ecfdf5, #bbf7d0);
-        }
-
-        .stats {
-          padding: 54px 0 90px;
-        }
-
-        .stats-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 16px;
-        }
-
-        .stat-card {
-          padding: 32px;
-          border-radius: 24px;
-          background: rgba(255,255,255,0.62);
-          border: 1px solid rgba(34,197,94,0.14);
-          box-shadow: 0 18px 55px rgba(7,31,18,0.07);
-          text-align: center;
-          backdrop-filter: blur(18px);
-        }
-
-        .stat-number {
-          font-size: 52px;
-          font-family: "Space Grotesk", sans-serif;
-          font-weight: 800;
-          letter-spacing: -0.06em;
-        }
-
-        .stat-label {
-          margin-top: 8px;
-          color: var(--dl-muted);
-          font-size: 12px;
-          font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          font-family: "JetBrains Mono", monospace;
-        }
-
-        .replace {
-          padding: 90px 0;
-          background: linear-gradient(180deg, #ffffff 0%, #f1faf4 100%);
-        }
-
-        .section-head {
-          text-align: center;
-          margin-bottom: 48px;
-        }
-
-        .section-title {
-          font-family: "Space Grotesk", sans-serif;
-          font-size: clamp(42px, 5vw, 68px);
-          line-height: 1;
-          letter-spacing: -0.06em;
-          margin: 20px 0 14px;
-        }
-
-        .section-subtitle {
-          color: var(--dl-muted);
-          font-size: 17px;
-          line-height: 1.7;
-          max-width: 680px;
-          margin: 0 auto;
-        }
-
-        .replace-box {
-          display: grid;
-          grid-template-columns: 1.1fr 0.9fr;
-          gap: 18px;
-          align-items: stretch;
-        }
-
-        .app-cloud,
-        .daylyft-system {
-          border-radius: 28px;
-          border: 1px solid rgba(34,197,94,0.16);
-          background: rgba(255,255,255,0.76);
-          box-shadow: 0 20px 70px rgba(7,31,18,0.08);
-          padding: 28px;
-        }
-
-        .app-icons {
-          display: grid;
-          grid-template-columns: repeat(5, 1fr);
-          gap: 12px;
-          margin-top: 22px;
-        }
-
-        .app-icon-card {
-          min-height: 82px;
-          border-radius: 18px;
-          display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          gap: 8px;
-          background: linear-gradient(180deg, #ffffff, #edf8f1);
-          border: 1px solid rgba(34,197,94,0.12);
-          color: var(--dl-muted);
-          font-size: 12px;
-          font-weight: 800;
-        }
-
-        .system-card {
-          height: 100%;
-          border-radius: 24px;
-          padding: 28px;
+        .line-chart {
+          height: 46px;
+          margin-top: 12px;
+          border-radius: 10px;
           background:
-            radial-gradient(circle at 70% 30%, rgba(34,197,94,0.22), transparent 34%),
-            linear-gradient(180deg, #0d351f, #03180c);
-          color: white;
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.08);
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
+            linear-gradient(135deg, transparent 0 28%, rgba(57,217,104,0.4) 29% 32%, transparent 33% 48%, rgba(57,217,104,0.55) 49% 52%, transparent 53% 66%, rgba(57,217,104,0.8) 67% 70%, transparent 71%),
+            rgba(57,217,104,0.06);
         }
 
-        .system-logo {
-          width: 64px;
-          height: 64px;
-          border-radius: 20px;
-          display: grid;
-          place-items: center;
-          background: linear-gradient(180deg, #4ade80, #16a34a);
-          font-size: 28px;
-          box-shadow: 0 20px 50px rgba(34,197,94,0.28);
+        .life-section {
+          background: white;
+          padding: 70px 0 68px;
         }
 
-        .pillars {
-          padding: 95px 0;
+        .section-heading {
+          text-align: center;
+          max-width: 760px;
+          margin: 0 auto 48px;
+        }
+
+        .section-heading h2 {
+          margin: 0 0 12px;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: clamp(34px, 4vw, 54px);
+          line-height: 1.02;
+          letter-spacing: -0.055em;
+        }
+
+        .section-heading p {
+          margin: 0;
+          color: var(--muted);
+          font-size: 16px;
+          line-height: 1.65;
         }
 
         .pillar-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 16px;
-        }
-
-        .pillar-card,
-        .feature-card,
-        .testimonial-card,
-        .pricing-card {
-          border-radius: 24px;
-          background: rgba(255,255,255,0.68);
-          border: 1px solid rgba(34,197,94,0.14);
-          box-shadow: 0 18px 55px rgba(7,31,18,0.07);
-          backdrop-filter: blur(18px);
+          gap: 24px;
         }
 
         .pillar-card {
-          padding: 28px;
-          transition: transform 0.18s ease, box-shadow 0.18s ease;
+          padding: 4px 22px 4px 0;
+          border-right: 1px solid rgba(0,0,0,0.12);
         }
 
-        .pillar-card:hover,
-        .feature-card:hover,
-        .testimonial-card:hover {
-          transform: translateY(-4px);
-          box-shadow: 0 26px 80px rgba(7,31,18,0.1);
+        .pillar-card:last-child {
+          border-right: 0;
         }
 
-        .pillar-icon,
-        .feature-icon {
+        .pillar-icon {
           width: 48px;
           height: 48px;
-          border-radius: 16px;
+          border-radius: 50%;
           display: grid;
           place-items: center;
-          background: linear-gradient(180deg, #ffffff, #dff8e8);
-          border: 1px solid rgba(34,197,94,0.12);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,1), 0 10px 22px rgba(34,197,94,0.12);
-          font-size: 22px;
-          margin-bottom: 18px;
+          background: #e7f8ea;
+          color: #0a8d3a;
+          margin-bottom: 20px;
         }
 
-        .pillar-card h3,
-        .feature-card h3 {
-          font-family: "Space Grotesk", sans-serif;
-          font-size: 20px;
-          letter-spacing: -0.03em;
+        .pillar-card h3 {
           margin: 0 0 10px;
+          font-size: 19px;
+          letter-spacing: -0.02em;
         }
 
-        .pillar-card p,
-        .feature-card p {
-          margin: 0;
-          color: var(--dl-muted);
+        .pillar-card p {
+          margin: 0 0 16px;
+          color: var(--muted);
           font-size: 14px;
-          line-height: 1.65;
+          line-height: 1.6;
         }
 
-        .features {
-          padding: 95px 0;
-          background: linear-gradient(180deg, #f6fbf8 0%, #eaf7ef 100%);
-        }
-
-        .filter-tabs {
-          display: flex;
-          justify-content: center;
-          gap: 8px;
-          flex-wrap: wrap;
-          margin-bottom: 34px;
-        }
-
-        .filter-btn {
-          border: 1px solid rgba(34,197,94,0.14);
-          border-radius: 999px;
-          padding: 10px 18px;
-          background: rgba(255,255,255,0.72);
-          color: var(--dl-muted);
-          font-size: 13px;
-          font-weight: 800;
-          cursor: pointer;
-          font-family: inherit;
-        }
-
-        .filter-btn.active {
-          color: white;
-          background: linear-gradient(180deg, #0d351f, #03180c);
-          box-shadow: 0 14px 34px rgba(3,24,12,0.18);
-        }
-
-        .features-grid {
-          display: grid;
-          grid-template-columns: repeat(4, 1fr);
-          gap: 14px;
-        }
-
-        .feature-card {
-          padding: 22px;
-        }
-
-        .feature-card h3 {
-          font-size: 16px;
-        }
-
-        .feature-card p {
-          font-size: 13px;
+        .learn-link {
+          color: #16a34a;
+          text-decoration: none;
+          font-weight: 900;
+          font-size: 14px;
         }
 
         .kai-section {
-          padding: 115px 0;
-          background:
-            radial-gradient(circle at 50% 40%, rgba(34,197,94,0.24), transparent 34%),
-            linear-gradient(180deg, #062514 0%, #03180c 100%);
-          color: white;
           position: relative;
           overflow: hidden;
+          background:
+            radial-gradient(circle at 46% 50%, rgba(57,217,104,0.23), transparent 26%),
+            linear-gradient(135deg, #060807, #020403 55%, #07130d);
+          color: white;
+          padding: 80px 0;
         }
 
         .kai-grid {
           display: grid;
-          grid-template-columns: 0.9fr 1.1fr;
-          gap: 40px;
+          grid-template-columns: 0.8fr 0.7fr 1fr;
           align-items: center;
+          gap: 34px;
         }
 
-        .kai-orb-wrap {
-          position: relative;
+        .kai-section h2 {
+          font-family: "Space Grotesk", sans-serif;
+          font-size: clamp(36px, 4vw, 58px);
+          line-height: 1;
+          letter-spacing: -0.06em;
+          margin: 0 0 16px;
+        }
+
+        .kai-section p {
+          color: rgba(255,255,255,0.72);
+          line-height: 1.7;
+        }
+
+        .kai-list {
           display: grid;
-          place-items: center;
-          min-height: 360px;
+          gap: 12px;
+          margin-top: 24px;
         }
 
-        .kai-ring {
-          position: absolute;
-          border: 1px solid rgba(134,239,172,0.18);
-          border-radius: 50%;
-        }
-
-        .kai-ring.one {
-          width: 260px;
-          height: 260px;
-        }
-
-        .kai-ring.two {
-          width: 360px;
-          height: 360px;
-        }
-
-        .kai-orb {
-          width: 150px;
-          height: 150px;
-          border-radius: 50%;
-          display: grid;
-          place-items: center;
-          background: radial-gradient(circle at 30% 22%, #bbf7d0 0%, #4ade80 22%, #16a34a 58%, #065f2b 100%);
-          font-size: 60px;
-          color: white;
-          box-shadow:
-            inset 0 3px 0 rgba(255,255,255,0.32),
-            0 0 80px rgba(34,197,94,0.5),
-            0 36px 90px rgba(0,0,0,0.36);
-        }
-
-        .kai-chat-stack {
-          display: grid;
-          gap: 14px;
-        }
-
-        .chat-card {
-          padding: 20px;
-          border-radius: 20px;
-          background: rgba(255,255,255,0.07);
-          border: 1px solid rgba(134,239,172,0.12);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.06);
-        }
-
-        .chat-label {
-          color: #86efac;
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          font-family: "JetBrains Mono", monospace;
-          font-weight: 800;
-          margin-bottom: 8px;
-        }
-
-        .chat-text {
-          color: rgba(255,255,255,0.9);
-          font-size: 15px;
-          line-height: 1.55;
-        }
-
-        .compare {
-          padding: 100px 0;
-          background: #f6fbf8;
-        }
-
-        .compare-layout {
-          display: grid;
-          grid-template-columns: 0.35fr 0.65fr;
-          gap: 24px;
-          align-items: center;
-        }
-
-        .compare-table {
-          overflow: hidden;
-          border-radius: 24px;
-          border: 1px solid rgba(34,197,94,0.14);
-          background: rgba(255,255,255,0.72);
-          box-shadow: 0 20px 70px rgba(7,31,18,0.08);
-        }
-
-        .compare-row {
-          display: grid;
-          grid-template-columns: 1.1fr 0.8fr repeat(6, 0.55fr);
+        .kai-list div {
+          display: flex;
           align-items: center;
           gap: 10px;
-          padding: 16px 18px;
-          border-bottom: 1px solid rgba(34,197,94,0.09);
-          color: var(--dl-muted);
-          font-size: 13px;
+          color: rgba(255,255,255,0.84);
+          font-size: 14px;
           font-weight: 700;
         }
 
-        .compare-row.header {
-          background: rgba(34,197,94,0.1);
-          color: var(--dl-text);
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 0.08em;
-          font-family: "JetBrains Mono", monospace;
+        .kai-orb {
+          width: 240px;
+          height: 240px;
+          margin: 0 auto;
+          border-radius: 50%;
+          background:
+            radial-gradient(circle, transparent 35%, rgba(157,247,180,0.9) 37%, rgba(57,217,104,0.72) 42%, transparent 48%),
+            radial-gradient(circle, rgba(57,217,104,0.14), transparent 70%);
+          box-shadow: 0 0 80px rgba(57,217,104,0.35);
+          position: relative;
         }
 
-        .compare-row.highlight {
-          background: linear-gradient(180deg, #0d351f, #03180c);
+        .kai-orb::before,
+        .kai-orb::after {
+          content: "";
+          position: absolute;
+          inset: 32px;
+          border-radius: 50%;
+          border: 1px solid rgba(157,247,180,0.25);
+        }
+
+        .kai-orb::after {
+          inset: 62px;
+        }
+
+        .chat-stack {
+          display: grid;
+          gap: 12px;
+        }
+
+        .chat-message {
+          padding: 14px 16px;
+          border-radius: 14px;
+          background: rgba(255,255,255,0.07);
+          border: 1px solid rgba(255,255,255,0.09);
+          color: rgba(255,255,255,0.84);
+          font-size: 14px;
+          line-height: 1.55;
+        }
+
+        .chat-message.user {
+          margin-left: 42px;
+          background: rgba(57,217,104,0.16);
+          border-color: rgba(57,217,104,0.24);
+          color: white;
+        }
+
+        .chat-input {
+          height: 44px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: 0 14px;
+          color: rgba(255,255,255,0.48);
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(0,0,0,0.2);
+          font-size: 13px;
+        }
+
+        .compare-section {
+          background:
+            radial-gradient(circle at 50% 25%, rgba(34,197,94,0.12), transparent 30%),
+            #f7fbf8;
+          padding: 90px 0;
+        }
+
+        .compare-title {
+          text-align: center;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: clamp(34px, 4vw, 54px);
+          letter-spacing: -0.055em;
+          margin: 0 0 14px;
+        }
+
+        .compare-subtitle {
+          text-align: center;
+          max-width: 620px;
+          margin: 0 auto 40px;
+          color: var(--muted);
+          line-height: 1.65;
+          font-size: 16px;
+        }
+
+        .compare-card {
+          max-width: 960px;
+          margin: 0 auto;
+          border-radius: 30px;
+          overflow: hidden;
+          background: rgba(255,255,255,0.78);
+          border: 1px solid rgba(34,197,94,0.16);
+          box-shadow: 0 38px 100px rgba(5, 8, 7, 0.08);
+        }
+
+        .compare-app-row {
+          display: grid;
+          grid-template-columns: 1.7fr 1.2fr repeat(5, 1fr);
+          min-height: 64px;
+          align-items: center;
+          border-bottom: 1px solid rgba(5, 8, 7, 0.08);
+          background: rgba(255,255,255,0.72);
+        }
+
+        .compare-app-row.header {
+          min-height: 58px;
+          background: #ddf3e7;
+          color: #10251a;
+          font-size: 12px;
+          letter-spacing: 0.12em;
+          text-transform: uppercase;
+          font-weight: 900;
+        }
+
+        .compare-app-row.highlight {
+          background: #042b16;
           color: white;
           border-bottom: 0;
         }
 
-        .check {
-          text-align: center;
-          color: #16a34a;
-          font-weight: 900;
+        .compare-app-row:last-child {
+          border-bottom: 0;
         }
 
-        .highlight .check {
+        .compare-app-cell {
+          padding: 0 22px;
+          font-size: 15px;
+          font-weight: 800;
+          color: #4c6b58;
+        }
+
+        .compare-app-row.header .compare-app-cell {
+          color: #10251a;
+          font-size: 12px;
+        }
+
+        .compare-app-row.highlight .compare-app-cell {
+          color: white;
+        }
+
+        .compare-center {
+          text-align: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+
+        .compare-yes {
+          color: #17b45c;
+          font-size: 21px;
+          font-weight: 900;
+          line-height: 1;
+        }
+
+        .compare-no {
+          color: #b7c5bd;
+          font-size: 24px;
+          font-weight: 600;
+          line-height: 1;
+        }
+
+        .compare-app-row.highlight .compare-yes {
           color: #4ade80;
         }
 
-        .dash {
-          text-align: center;
-          color: rgba(78,109,90,0.35);
+        .testimonials-section {
+          background: #ffffff;
+          padding: 34px 0 58px;
         }
 
-        .testimonials {
-          padding: 100px 0;
-          background:
-            radial-gradient(circle at 50% 0%, rgba(34,197,94,0.2), transparent 38%),
-            linear-gradient(180deg, #03180c 0%, #062514 100%);
-          color: white;
+        .testimonials-title {
+          text-align: center;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: clamp(28px, 3vw, 40px);
+          letter-spacing: -0.05em;
+          margin: 0 0 28px;
         }
 
         .testimonial-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 16px;
+          gap: 18px;
+          max-width: 920px;
+          margin: 0 auto;
         }
 
         .testimonial-card {
-          padding: 28px;
-          background: rgba(255,255,255,0.07);
-          border-color: rgba(134,239,172,0.12);
+          padding: 24px;
+          border-radius: 16px;
+          border: 1px solid rgba(0,0,0,0.08);
+          background: white;
+          box-shadow: 0 14px 40px rgba(0,0,0,0.06);
         }
 
-        .stars {
-          color: #4ade80;
-          letter-spacing: 4px;
-          margin-bottom: 18px;
+        .quote-mark {
+          color: var(--green-2);
+          font-size: 28px;
+          font-weight: 900;
+          line-height: 1;
         }
 
-        .testimonial-text {
-          color: rgba(255,255,255,0.9);
-          font-size: 15px;
-          line-height: 1.65;
-          margin-bottom: 24px;
+        .testimonial-card p {
+          color: #303632;
+          line-height: 1.6;
+          font-size: 14px;
+          margin: 8px 0 18px;
         }
 
         .person {
@@ -1064,224 +1191,343 @@ export default function LandingPage() {
         }
 
         .avatar {
-          width: 42px;
-          height: 42px;
-          border-radius: 14px;
+          width: 38px;
+          height: 38px;
+          border-radius: 50%;
           display: grid;
           place-items: center;
-          background: linear-gradient(180deg, #4ade80, #16a34a);
-          color: white;
+          font-size: 12px;
           font-weight: 900;
-          font-size: 13px;
-          box-shadow: 0 14px 30px rgba(34,197,94,0.22);
+          color: white;
+          background: linear-gradient(135deg, #134e2b, #22c55e);
         }
 
-        .pricing {
-          padding: 105px 0;
-          background: linear-gradient(180deg, #f6fbf8, #eaf7ef);
+        .person strong {
+          display: block;
+          font-size: 13px;
+        }
+
+        .person span {
+          display: block;
+          font-size: 12px;
+          color: var(--muted);
+        }
+
+        .pricing-section {
+          background: white;
+          padding: 35px 0 80px;
+        }
+
+        .pricing-title {
+          text-align: center;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: clamp(32px, 4vw, 48px);
+          letter-spacing: -0.055em;
+          margin: 0 0 8px;
+        }
+
+        .pricing-sub {
+          text-align: center;
+          color: var(--muted);
+          margin: 0 0 28px;
         }
 
         .pricing-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 18px;
-          align-items: start;
+          gap: 20px;
+          max-width: 920px;
+          margin: 0 auto;
         }
 
-        .pricing-card {
-          padding: 32px;
-        }
-
-        .pricing-card.pro {
-          background:
-            radial-gradient(circle at 70% 12%, rgba(74,222,128,0.24), transparent 34%),
-            linear-gradient(180deg, #0d351f, #03180c);
-          color: white;
-          transform: translateY(-18px);
-          box-shadow:
-            inset 0 1px 0 rgba(255,255,255,0.08),
-            0 34px 100px rgba(3,24,12,0.34);
+        .price-card {
           position: relative;
+          border-radius: 18px;
+          border: 1px solid rgba(0,0,0,0.1);
+          background: white;
+          padding: 28px;
+          box-shadow: 0 14px 44px rgba(0,0,0,0.06);
         }
 
-        .badge {
-          display: inline-flex;
-          padding: 7px 12px;
+        .price-card.highlighted {
+          border-color: rgba(34,197,94,0.7);
+          box-shadow:
+            0 22px 70px rgba(34,197,94,0.12),
+            inset 0 0 0 1px rgba(34,197,94,0.24);
+        }
+
+        .popular {
+          position: absolute;
+          top: -12px;
+          right: 18px;
+          padding: 6px 13px;
           border-radius: 999px;
-          background: rgba(34,197,94,0.14);
-          color: #16a34a;
-          font-size: 11px;
+          background: var(--green-2);
+          color: white;
+          font-size: 10px;
           font-weight: 900;
-          letter-spacing: 0.08em;
           text-transform: uppercase;
-          font-family: "JetBrains Mono", monospace;
-          margin-bottom: 16px;
         }
 
-        .pro .badge {
-          background: rgba(74,222,128,0.16);
-          color: #86efac;
+        .plan-name {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          font-weight: 900;
+          margin-bottom: 12px;
+        }
+
+        .plan-dot {
+          width: 18px;
+          height: 18px;
+          border-radius: 6px;
+          display: grid;
+          place-items: center;
+          background: #eaf8ee;
+          color: #16a34a;
         }
 
         .price {
           font-family: "Space Grotesk", sans-serif;
-          font-size: 54px;
-          letter-spacing: -0.06em;
+          font-size: 42px;
+          letter-spacing: -0.055em;
           font-weight: 800;
-          margin: 8px 0 4px;
+          margin-bottom: 4px;
         }
 
-        .price span {
-          font-size: 15px;
+        .price small {
+          font-family: Inter, sans-serif;
+          font-size: 13px;
+          color: var(--muted);
           letter-spacing: 0;
-          color: var(--dl-muted);
+          font-weight: 700;
         }
 
-        .pro .price span {
-          color: #86efac;
-        }
-
-        .pricing-desc {
-          color: var(--dl-muted);
+        .plan-desc {
+          color: var(--muted);
           font-size: 14px;
-          line-height: 1.6;
-          margin-bottom: 24px;
+          line-height: 1.55;
+          margin-bottom: 20px;
         }
 
-        .pro .pricing-desc {
-          color: rgba(220,252,231,0.76);
+        .price-button {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          min-height: 42px;
+          border-radius: 10px;
+          border: 1px solid rgba(0,0,0,0.16);
+          color: #101312;
+          text-decoration: none;
+          font-weight: 900;
+          font-size: 13px;
+          margin-bottom: 22px;
         }
 
-        .feature-list {
+        .price-card.highlighted .price-button {
+          background: linear-gradient(180deg, #53e779, #1fb954);
+          color: #041008;
+          border: 0;
+        }
+
+        .plan-list {
           display: grid;
           gap: 10px;
-          margin-top: 24px;
         }
 
-        .feature-list div {
+        .plan-list div {
           display: flex;
-          gap: 9px;
           align-items: flex-start;
-          color: var(--dl-muted);
-          font-size: 14px;
+          gap: 8px;
+          color: #303632;
+          font-size: 13px;
           line-height: 1.45;
         }
 
-        .pro .feature-list div {
-          color: rgba(255,255,255,0.82);
-        }
-
-        .feature-list span {
+        .check-mark {
+          width: 17px;
+          height: 17px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          flex: 0 0 auto;
           color: #16a34a;
-          font-weight: 900;
         }
 
-        .pro .feature-list span {
-          color: #4ade80;
+        .price-note {
+          margin-top: 20px;
+          text-align: center;
+          color: var(--muted);
+          font-size: 13px;
         }
 
         .final-cta {
-          padding: 100px 0;
+          position: relative;
+          overflow: hidden;
           background:
-            radial-gradient(circle at 50% 20%, rgba(34,197,94,0.22), transparent 36%),
-            linear-gradient(180deg, #062514, #03180c);
+            radial-gradient(circle at 70% 10%, rgba(57,217,104,0.28), transparent 28%),
+            linear-gradient(135deg, #07100a, #020403);
           color: white;
-          text-align: center;
+          padding: 52px 0;
         }
 
-        .final-box {
-          width: min(960px, calc(100% - 40px));
-          margin: 0 auto;
-          border-radius: 34px;
-          padding: 54px 34px;
-          border: 1px solid rgba(134,239,172,0.12);
-          background: rgba(255,255,255,0.055);
-          box-shadow: inset 0 1px 0 rgba(255,255,255,0.06), 0 34px 110px rgba(0,0,0,0.28);
-          backdrop-filter: blur(20px);
+        .final-cta::before {
+          content: "";
+          position: absolute;
+          left: 10%;
+          right: 10%;
+          bottom: -170px;
+          height: 270px;
+          border-radius: 50%;
+          background: radial-gradient(ellipse, rgba(57,217,104,0.55), transparent 62%);
+          filter: blur(20px);
+        }
+
+        .final-inner {
+          position: relative;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 24px;
+        }
+
+        .final-inner h2 {
+          margin: 0 0 6px;
+          font-family: "Space Grotesk", sans-serif;
+          font-size: clamp(30px, 4vw, 44px);
+          letter-spacing: -0.055em;
+        }
+
+        .final-inner p {
+          margin: 0;
+          color: rgba(255,255,255,0.68);
         }
 
         .footer {
-          background: #03180c;
-          color: #86efac;
-          padding: 58px 0 28px;
-          border-top: 1px solid rgba(134,239,172,0.08);
+          background: #050807;
+          color: rgba(255,255,255,0.7);
+          padding: 44px 0 26px;
         }
 
         .footer-grid {
           display: grid;
-          grid-template-columns: 2fr 1fr 1fr 1fr;
+          grid-template-columns: 1.6fr repeat(4, 1fr);
           gap: 34px;
-          margin-bottom: 42px;
+          margin-bottom: 34px;
+        }
+
+        .footer .brand {
+          margin-bottom: 14px;
+        }
+
+        .footer p {
+          margin: 0;
+          color: rgba(255,255,255,0.58);
+          font-size: 14px;
+          line-height: 1.65;
+          max-width: 300px;
         }
 
         .footer h4 {
-          margin: 0 0 16px;
-          font-size: 11px;
-          text-transform: uppercase;
-          letter-spacing: 0.1em;
-          font-family: "JetBrains Mono", monospace;
-          color: #bbf7d0;
+          color: white;
+          margin: 0 0 14px;
+          font-size: 13px;
         }
 
         .footer a,
         .footer button {
           display: block;
-          color: #86efac;
+          border: 0;
+          background: transparent;
+          color: rgba(255,255,255,0.58);
           text-decoration: none;
+          font-size: 13px;
+          padding: 0;
+          margin: 0 0 9px;
+          cursor: pointer;
+          font-family: inherit;
+        }
+
+        .newsletter {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          border-radius: 10px;
+          border: 1px solid rgba(255,255,255,0.12);
+          background: rgba(255,255,255,0.04);
+          padding: 6px;
+        }
+
+        .newsletter input {
+          flex: 1;
+          min-width: 0;
           background: transparent;
           border: 0;
-          cursor: pointer;
-          padding: 0;
-          font: inherit;
-          font-size: 14px;
-          margin-bottom: 10px;
+          outline: 0;
+          color: white;
+          font-size: 13px;
+          padding: 0 8px;
+        }
+
+        .newsletter button {
+          width: 32px;
+          height: 32px;
+          border-radius: 8px;
+          display: grid;
+          place-items: center;
+          margin: 0;
+          color: white;
+          background: rgba(255,255,255,0.08);
         }
 
         .footer-bottom {
-          border-top: 1px solid rgba(134,239,172,0.08);
-          padding-top: 24px;
+          border-top: 1px solid rgba(255,255,255,0.08);
+          padding-top: 22px;
           display: flex;
           justify-content: space-between;
-          gap: 14px;
+          gap: 18px;
           flex-wrap: wrap;
-          color: rgba(187,247,208,0.74);
           font-size: 12px;
-          font-family: "JetBrains Mono", monospace;
+          color: rgba(255,255,255,0.44);
         }
 
-        @media (max-width: 1024px) {
+        @media (max-width: 1050px) {
           .hero-grid,
-          .replace-box,
           .kai-grid,
-          .compare-layout {
+          .final-inner {
+            grid-template-columns: 1fr;
+          }
+
+          .dashboard-body {
+            grid-template-columns: 1fr;
+          }
+
+          .sidebar {
+            display: none;
+          }
+
+          .dash-grid {
+            grid-template-columns: 1fr;
+          }
+
+          .small-grid {
             grid-template-columns: 1fr;
           }
 
           .pillar-grid,
-          .features-grid {
+          .pricing-grid,
+          .testimonial-grid {
             grid-template-columns: repeat(2, 1fr);
           }
 
-          .pricing-grid,
-          .testimonial-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .pricing-card.pro {
-            transform: none;
-          }
-
-          .dashboard-content {
-            grid-template-columns: 1fr;
-          }
-
-          .float-card {
-            display: none;
+          .footer-grid {
+            grid-template-columns: repeat(2, 1fr);
           }
         }
 
-        @media (max-width: 768px) {
-          .dl-container {
+        @media (max-width: 760px) {
+          .container {
             width: min(100% - 28px, 1180px);
           }
 
@@ -1289,67 +1535,97 @@ export default function LandingPage() {
             display: none;
           }
 
-          .nav-menu-btn {
+          .menu-btn {
             display: block;
           }
 
           .hero {
-            padding: 126px 0 58px;
+            padding-top: 105px;
+            min-height: auto;
           }
 
-          .hero h1 {
-            font-size: 52px;
+          .hero-title {
+            font-size: 48px;
           }
 
-          .hero p {
+          .hero-subtitle {
             font-size: 16px;
           }
 
           .hero-actions {
-            flex-direction: column;
             align-items: stretch;
+            flex-direction: column;
           }
 
-          .stats-grid,
+          .btn-primary,
+          .btn-outline,
+          .btn-white {
+            width: 100%;
+          }
+
+          .hero-trust {
+            gap: 14px;
+            flex-direction: column;
+          }
+
+          .dashboard {
+            border-radius: 18px;
+          }
+
+          .dash-main {
+            padding: 16px;
+          }
+
+          .dashboard-top {
+            padding: 0 12px;
+          }
+
           .pillar-grid,
-          .features-grid,
-          .app-icons,
+          .pricing-grid,
+          .testimonial-grid,
           .footer-grid {
             grid-template-columns: 1fr;
           }
 
-          .compare-table {
+          .pillar-card {
+            border-right: 0;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+            padding: 0 0 22px;
+          }
+
+          .pillar-card:last-child {
+            border-bottom: 0;
+          }
+
+          .kai-orb {
+            width: 190px;
+            height: 190px;
+          }
+
+          .compare-card {
             overflow-x: auto;
-          }
-
-          .compare-row {
-            min-width: 780px;
-          }
-
-          .section-title {
-            font-size: 42px;
-          }
-
-          .dashboard-card {
-            transform: none;
             border-radius: 22px;
           }
 
-          .stat-card {
-            padding: 24px;
+          .compare-app-row {
+            min-width: 760px;
           }
 
-          .final-box {
-            padding: 38px 22px;
+          .final-inner {
+            flex-direction: column;
+            align-items: stretch;
+            text-align: center;
           }
         }
       `}</style>
 
-      <nav className="dl-nav">
-        <div className="dl-nav-inner">
-          <a className="brand" href="/">
-            <div className="brand-mark">✦</div>
-            <div className="brand-name">DayLyft</div>
+      <nav className="nav">
+        <div className="container nav-inner">
+          <a href="/" className="brand">
+            <span className="brand-mark">
+              <Icon name="spark" size={18} />
+            </span>
+            DayLyft
           </a>
 
           <div className="nav-links">
@@ -1357,53 +1633,49 @@ export default function LandingPage() {
             <button onClick={() => scrollTo("kai")}>Kai AI</button>
             <button onClick={() => scrollTo("compare")}>Compare</button>
             <button onClick={() => scrollTo("pricing")}>Pricing</button>
-            <a className="link" href="/about">About</a>
-            <a className="btn-primary" href="/login" style={{ padding: "11px 18px", borderRadius: 12 }}>
-              Get started →
-            </a>
+            <a className="nav-link" href="/about">About</a>
           </div>
 
-          <button className="nav-menu-btn" onClick={() => setMobileMenuOpen(true)} aria-label="Open menu">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M4 7h16M4 17h16" />
-            </svg>
+          <div className="nav-links" style={{ gap: 16 }}>
+            <a className="nav-cta" href="/login">Get started free</a>
+          </div>
+
+          <button className="menu-btn" onClick={() => setMobileOpen(true)} aria-label="Open menu">
+            <Icon name="menu" size={27} />
           </button>
         </div>
       </nav>
 
-      {mobileMenuOpen && (
+      {mobileOpen && (
         <div className="mobile-menu">
-          <button
-            onClick={() => setMobileMenuOpen(false)}
-            style={{ position: "absolute", top: 28, right: 28 }}
-            aria-label="Close menu"
-          >
-            ✕
+          <button className="close-btn" onClick={() => setMobileOpen(false)} aria-label="Close menu">
+            <Icon name="close" size={30} />
           </button>
           <button onClick={() => scrollTo("features")}>Features</button>
           <button onClick={() => scrollTo("kai")}>Kai AI</button>
           <button onClick={() => scrollTo("compare")}>Compare</button>
           <button onClick={() => scrollTo("pricing")}>Pricing</button>
-          <a href="/login" className="btn-primary">Get started free</a>
+          <a href="/about">About</a>
+          <a className="nav-cta" href="/login">Get started free</a>
         </div>
       )}
 
       <section className="hero">
-        <div className="hero-glow" />
-        <div className="dl-container hero-grid">
+        <div className="hero-wave" />
+
+        <div className="container hero-grid">
           <div>
-            <div className="section-kicker">
-              <span className="kicker-dot" />
-              v1.0 · 40+ tools · AI copilot
+            <div className="badge">
+              <span>NEW</span>
+              v1.0 — 40+ tools with AI Copilot
             </div>
 
-            <h1>
-              One app for <span className="gradient-text">your entire life.</span>
+            <h1 className="hero-title">
+              Your AI operating system for <span className="green-text">life.</span>
             </h1>
 
-            <p>
-              Plan your day, track your habits, manage your money, improve your wellness,
-              and grow with <strong style={{ color: "#071f12" }}>Kai</strong> — your AI copilot for life.
+            <p className="hero-subtitle">
+              Plan your day. Build habits. Manage money. Improve your health. Grow with Kai.
             </p>
 
             <div className="hero-actions">
@@ -1411,265 +1683,151 @@ export default function LandingPage() {
                 Start free
                 <span>→</span>
               </a>
-              <button className="btn-secondary" onClick={() => scrollTo("kai")}>
-                Meet Kai
-                <span>✦</span>
+
+              <button className="btn-outline" onClick={() => scrollTo("features")}>
+                See features
               </button>
             </div>
 
-            <div className="trust-row">
-              <div className="trust-item">
-                <span className="trust-icon">✓</span>
-                40+ tools
-              </div>
-              <div className="trust-item">
-                <span className="trust-icon">✦</span>
-                AI-powered
-              </div>
-              <div className="trust-item">
-                <span className="trust-icon">$</span>
-                $0 to start
-              </div>
+            <div className="hero-trust">
+              <span>
+                <span className="mini-check"><Icon name="check" size={12} /></span>
+                No credit card required
+              </span>
+              <span>
+                <span className="mini-check"><Icon name="check" size={12} /></span>
+                Free forever plan
+              </span>
             </div>
           </div>
 
-          <div className="dashboard-shell">
-            <div className="dashboard-card">
-              <div className="dashboard-top">
-                <span className="dot" />
-                <span className="dot" style={{ background: "#84cc16" }} />
-                <span className="dot" style={{ background: "#10b981" }} />
-                <span className="dashboard-url">daylyft.com/dashboard</span>
+          <div className="dashboard">
+            <div className="dashboard-top">
+              <div className="dashboard-brand">
+                <span className="dashboard-brand-mark">
+                  <Icon name="spark" size={14} />
+                </span>
+                DayLyft
               </div>
 
-              <div className="dashboard-content">
-                <div className="dash-panel">
-                  <div className="dash-title">// Today</div>
-                  <div className="dash-big">Thursday</div>
-                  <div className="dash-small">A focused day ahead.</div>
+              <div className="dashboard-actions">
+                <span className="dash-icon">⌕</span>
+                <span className="dash-icon">◔</span>
+                <button className="add-btn">+ Add</button>
+              </div>
+            </div>
 
-                  <div style={{ height: 18 }} />
+            <div className="dashboard-body">
+              <aside className="sidebar">
+                {["Home", "Tasks", "Calendar", "Habits", "Finance", "Health", "Kai AI", "Analytics", "Settings"].map((item, index) => (
+                  <div key={item} className={`sidebar-link ${index === 0 ? "active" : ""}`}>
+                    <span className="sidebar-dot" />
+                    {item}
+                  </div>
+                ))}
 
-                  {[
-                    ["🎯", "Focus blocks", "3 / 4"],
-                    ["⚡", "Energy", "High"],
-                    ["✅", "Tasks done", "7"],
-                  ].map((item) => (
-                    <div
-                      key={item[1]}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: 10,
-                        marginTop: 9,
-                        padding: 11,
-                        borderRadius: 13,
-                        background: "rgba(255,255,255,0.05)",
-                        border: "1px solid rgba(134,239,172,0.08)",
-                      }}
-                    >
-                      <span>{item[0]}</span>
-                      <span style={{ color: "rgba(220,252,231,0.72)", fontSize: 12 }}>{item[1]}</span>
-                      <strong style={{ color: "white", fontSize: 12 }}>{item[2]}</strong>
-                    </div>
-                  ))}
+                <div className="profile-mini">
+                  <div className="profile-avatar" />
+                  <div>
+                    <div style={{ color: "white", fontSize: 12, fontWeight: 800 }}>Alex Morgan</div>
+                    <div style={{ color: "rgba(255,255,255,0.44)", fontSize: 10 }}>alex@daylyft.com</div>
+                  </div>
+                </div>
+              </aside>
+
+              <div className="dash-main">
+                <div className="dash-heading">
+                  <div>
+                    <h3>Good morning, Alex</h3>
+                    <p>Thursday, May 15</p>
+                  </div>
+                  <button className="ask-kai">Ask Kai</button>
                 </div>
 
-                <div className="dash-panel">
-                  <div className="dash-title">// Smart schedule</div>
-                  {[
-                    ["9:00 — 11:00", "Deep work: Product launch"],
-                    ["11:00 — 11:30", "Team standup"],
-                    ["13:00 — 15:00", "Design iterations"],
-                    ["15:30 — 16:00", "Email batch"],
-                  ].map((item) => (
-                    <div className="schedule-item" key={item[1]}>
-                      <div className="schedule-time">{item[0]}</div>
-                      <div className="schedule-name">{item[1]}</div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="dash-panel">
-                  <div className="dash-title">// Kai AI</div>
-                  <div className="kai-bubble">
-                    <div style={{ color: "#86efac", fontWeight: 900, fontSize: 12, marginBottom: 8 }}>
-                      ✦ Morning briefing
-                    </div>
-                    <div className="dash-small" style={{ color: "rgba(255,255,255,0.86)" }}>
-                      Good morning, Juan. Your best focus window is 9–11am. I placed your launch prep there.
-                    </div>
+                <div className="dash-grid">
+                  <div className="dash-card">
+                    <h4>Today’s Plan</h4>
+                    {[
+                      ["Review Q2 roadmap", "9:00 AM"],
+                      ["Client call", "10:30 AM"],
+                      ["Workout", "12:30 PM"],
+                      ["Write newsletter", "2:00 PM"],
+                      ["Grocery shopping", "6:00 PM"],
+                    ].map(([task, time]) => (
+                      <div className="task-row" key={task}>
+                        <strong>{task}</strong>
+                        <span>{time}</span>
+                      </div>
+                    ))}
                   </div>
 
-                  <div className="bars">
-                    {[72, 48, 62, 84, 70, 58, 74, 92].map((height, index) => (
-                      <div className="bar" key={index} style={{ height: `${height}%` }} />
+                  <div className="dash-card">
+                    <h4>Calendar</h4>
+                    {[
+                      "Review Q2 roadmap · 9:00 AM",
+                      "Client call · 10:30 AM",
+                      "Workout · 12:30 PM",
+                      "Newsletter · 2:00 PM",
+                    ].map((item) => (
+                      <div className="calendar-item" key={item}>{item}</div>
                     ))}
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="float-card one">
-              <span className="float-icon">🤖</span>
-              Kai AI Copilot
-            </div>
-            <div className="float-card two">
-              <span className="float-icon">💵</span>
-              Budget on track
-            </div>
-            <div className="float-card three">
-              <span className="float-icon">🔥</span>
-              12 day habit streak
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="stats">
-        <div className="dl-container stats-grid">
-          {[
-            ["40+", "Features built"],
-            ["$0", "To get started"],
-            ["7", "Life categories"],
-            ["24/7", "AI copilot"],
-          ].map((stat) => (
-            <div className="stat-card" key={stat[1]}>
-              <div className="stat-number gradient-text">{stat[0]}</div>
-              <div className="stat-label">{stat[1]}</div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="replace">
-        <div className="dl-container">
-          <div className="section-head">
-            <div className="section-kicker">
-              <span className="kicker-dot" />
-              Replace scattered tools
-            </div>
-            <h2 className="section-title">Replace 10 apps with one.</h2>
-            <p className="section-subtitle">
-              DayLyft brings productivity, wellness, finances, family, fitness, learning,
-              and AI guidance into one clean life operating system.
-            </p>
-          </div>
-
-          <div className="replace-box">
-            <div className="app-cloud">
-              <h3 style={{ fontFamily: "Space Grotesk", fontSize: 28, letterSpacing: "-0.04em", margin: 0 }}>
-                Everything connected.
-              </h3>
-              <p style={{ color: "var(--dl-muted)", lineHeight: 1.7 }}>
-                Stop jumping between tools. Keep your day, habits, budget, health, notes, and goals together.
-              </p>
-
-              <div className="app-icons">
-                {[
-                  ["✅", "Tasks"],
-                  ["📅", "Calendar"],
-                  ["📝", "Notes"],
-                  ["🔥", "Habits"],
-                  ["💵", "Finance"],
-                  ["🎧", "Focus"],
-                  ["💚", "Wellness"],
-                  ["📓", "Journal"],
-                  ["📊", "Analytics"],
-                  ["✦", "AI"],
-                ].map((item) => (
-                  <div className="app-icon-card" key={item[1]}>
-                    <span style={{ fontSize: 24 }}>{item[0]}</span>
-                    {item[1]}
+                <div className="small-grid">
+                  <div className="dash-card metric">
+                    <h4>Focus</h4>
+                    <div style={{ color: "rgba(255,255,255,0.62)", fontSize: 12 }}>Deep Work</div>
+                    <div className="metric-value">2h 30m</div>
+                    <div className="progress-ring">75%</div>
                   </div>
-                ))}
-              </div>
-            </div>
 
-            <div className="daylyft-system">
-              <div className="system-card">
-                <div>
-                  <div className="system-logo">✦</div>
-                  <h3 style={{ fontFamily: "Space Grotesk", fontSize: 38, letterSpacing: "-0.06em", margin: "24px 0 10px" }}>
-                    DayLyft
-                  </h3>
-                  <p style={{ color: "#bbf7d0", lineHeight: 1.7, margin: 0 }}>
-                    One dashboard. One AI copilot. One system for your entire life.
-                  </p>
-                </div>
-
-                <div style={{ marginTop: 36, display: "grid", gap: 10 }}>
-                  {["Plan smarter", "Track everything", "Stay consistent", "Grow daily"].map((item) => (
-                    <div key={item} style={{ display: "flex", gap: 10, alignItems: "center", color: "#dcfce7", fontWeight: 800 }}>
-                      <span style={{ color: "#4ade80" }}>✓</span>
-                      {item}
+                  <div className="dash-card metric">
+                    <h4>Habits</h4>
+                    <div style={{ color: "rgba(255,255,255,0.62)", fontSize: 12 }}>Daily progress</div>
+                    <div className="metric-value">8/10</div>
+                    <div className="bar-row">
+                      {[38, 58, 74, 44, 86, 65, 90].map((height, index) => (
+                        <div className="bar" key={index} style={{ height: `${height}%` }} />
+                      ))}
                     </div>
-                  ))}
+                  </div>
+
+                  <div className="dash-card metric">
+                    <h4>Budget</h4>
+                    <div style={{ color: "rgba(255,255,255,0.62)", fontSize: 12 }}>This month</div>
+                    <div className="metric-value">$2,340</div>
+                    <div className="line-chart" />
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
-      <section className="pillars">
-        <div className="dl-container">
-          <div className="section-head">
-            <div className="section-kicker">
-              <span className="kicker-dot" />
-              Life system
-            </div>
-            <h2 className="section-title">Built around how real life works.</h2>
-            <p className="section-subtitle">
-              DayLyft is not just a to-do list. It connects your day, energy, focus, health, money, and goals.
+      <section className="life-section" id="features">
+        <div className="container">
+          <div className="section-heading">
+            <h2>
+              One place for <span className="green-text">everything</span><br />
+              that moves your life forward.
+            </h2>
+            <p>
+              DayLyft brings your tasks, calendar, habits, finances, and health together so you can focus on what truly matters.
             </p>
           </div>
 
           <div className="pillar-grid">
-            {appPillars.map((pillar) => (
-              <div className="pillar-card" key={pillar.title}>
-                <div className="pillar-icon">{pillar.icon}</div>
-                <h3>{pillar.title}</h3>
-                <p>{pillar.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="features" id="features">
-        <div className="dl-container">
-          <div className="section-head">
-            <div className="section-kicker">
-              <span className="kicker-dot" />
-              Features
-            </div>
-            <h2 className="section-title">
-              Everything you need. <br />
-              <span className="gradient-text">Nothing you don’t.</span>
-            </h2>
-          </div>
-
-          <div className="filter-tabs">
-            {filterTabs.map((tab) => (
-              <button
-                key={tab.id}
-                className={`filter-btn ${featureFilter === tab.id ? "active" : ""}`}
-                onClick={() => setFeatureFilter(tab.id)}
-              >
-                {tab.label}
-                {tab.id === "all" ? ` ${features.length}` : ""}
-              </button>
-            ))}
-          </div>
-
-          <div className="features-grid">
-            {filteredFeatures.map((feature) => (
-              <div className="feature-card" key={feature.title}>
-                <div className="feature-icon">{feature.emoji}</div>
-                <h3>{feature.title}</h3>
-                <p>{feature.desc}</p>
+            {featurePillars.map((item) => (
+              <div className="pillar-card" key={item.title}>
+                <div className="pillar-icon">
+                  <Icon name={item.icon} size={23} />
+                </div>
+                <h3>{item.title}</h3>
+                <p>{item.desc}</p>
+                <a className="learn-link" href="/login">Learn more →</a>
               </div>
             ))}
           </div>
@@ -1677,113 +1835,92 @@ export default function LandingPage() {
       </section>
 
       <section className="kai-section" id="kai">
-        <div className="dl-container kai-grid">
+        <div className="container kai-grid">
           <div>
-            <div className="section-kicker dark">
-              <span className="kicker-dot" />
-              AI Copilot
-            </div>
-            <h2 className="section-title" style={{ color: "white" }}>
-              Meet <span className="gradient-text">Kai.</span>
-            </h2>
-            <p className="section-subtitle" style={{ color: "#bbf7d0", margin: "0 0 30px" }}>
-              Your AI copilot that helps you plan, write, focus, track, reflect, and improve across every area of your life.
+            <h2>Meet <span className="green-text">Kai</span>, your AI copilot.</h2>
+            <p>
+              Kai understands your life, learns your patterns, and helps you make better decisions every day.
             </p>
-            <a href="/login" className="btn-light">Try Kai free →</a>
+
+            <div className="kai-list">
+              <div><CheckMark /> Plan smarter with AI recommendations</div>
+              <div><CheckMark /> Get insights across tasks, habits, money & health</div>
+              <div><CheckMark /> Stay accountable and build momentum</div>
+              <div><CheckMark /> Available 24/7, right in your dashboard</div>
+            </div>
           </div>
 
-          <div className="kai-chat-stack">
-            {[
-              ["Juan", "Kai, organize my day."],
-              ["Kai", "You have 3 priorities today. I moved deep work to your strongest focus window."],
-              ["Juan", "How is my budget this week?"],
-              ["Kai", "You’re on track. Food spending is 12% lower than last week."],
-              ["Juan", "Help me stay consistent."],
-              ["Kai", "Start with a 25-minute focus session and one habit check-in."],
-            ].map((chat, index) => (
-              <div className="chat-card" key={index}>
-                <div className="chat-label">{chat[0]}</div>
-                <div className="chat-text">{chat[1]}</div>
-              </div>
-            ))}
-          </div>
-        </div>
+          <div className="kai-orb" />
 
-        <div className="kai-orb-wrap" style={{ marginTop: 58 }}>
-          <div className="kai-ring one" />
-          <div className="kai-ring two" />
-          <div className="kai-orb">✦</div>
+          <div className="chat-stack">
+            <div className="chat-message">How can I help you today?</div>
+            <div className="chat-message user">I want to be more productive in the mornings.</div>
+            <div className="chat-message">
+              I noticed you’re most productive between 9–11 AM. How about blocking that time for deep work?
+            </div>
+            <div className="chat-message user">That makes sense. What should I focus on?</div>
+            <div className="chat-message">
+              Based on your goals, I recommend focusing on your Q2 roadmap and the client proposal.
+            </div>
+            <div className="chat-input">
+              Ask Kai anything...
+              <span>➜</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="compare" id="compare">
-        <div className="dl-container compare-layout">
-          <div>
-            <div className="section-kicker">
-              <span className="kicker-dot" />
-              Compare
-            </div>
-            <h2 className="section-title">
-              More value. <br />
-              <span className="gradient-text">Less cost.</span>
-            </h2>
-            <p style={{ color: "var(--dl-muted)", lineHeight: 1.75, fontSize: 16 }}>
-              DayLyft gives you the power of multiple apps in one clean platform.
-              Start free and upgrade only when you are ready.
-            </p>
-          </div>
+      <section className="compare-section" id="compare">
+        <div className="container">
+          <h2 className="compare-title">
+            More value. <span className="green-text">Less app switching.</span>
+          </h2>
+          <p className="compare-subtitle">
+            DayLyft brings tasks, calendar, notes, habits, finance, and AI together in one clean platform.
+          </p>
 
-          <div className="compare-table">
-            <div className="compare-row header">
-              <div>App</div>
-              <div>Price</div>
-              <div>Tasks</div>
-              <div>Calendar</div>
-              <div>Notes</div>
-              <div>Habits</div>
-              <div>Finance</div>
-              <div>AI</div>
+          <div className="compare-card">
+            <div className="compare-app-row header">
+              <div className="compare-app-cell">App</div>
+              <div className="compare-app-cell">Price</div>
+              <div className="compare-app-cell compare-center">Tasks</div>
+              <div className="compare-app-cell compare-center">Calendar</div>
+              <div className="compare-app-cell compare-center">Notes</div>
+              <div className="compare-app-cell compare-center">Habits</div>
+              <div className="compare-app-cell compare-center">Finance</div>
+              <div className="compare-app-cell compare-center">AI</div>
             </div>
 
-            {comparisons.map((item) => (
-              <div className={`compare-row ${item.highlight ? "highlight" : ""}`} key={item.app}>
-                <div style={{ fontWeight: 900 }}>{item.app}</div>
-                <div>{item.price}</div>
-                <div className={item.tasks ? "check" : "dash"}>{item.tasks ? "✓" : "—"}</div>
-                <div className={item.calendar ? "check" : "dash"}>{item.calendar ? "✓" : "—"}</div>
-                <div className={item.notes ? "check" : "dash"}>{item.notes ? "✓" : "—"}</div>
-                <div className={item.habits ? "check" : "dash"}>{item.habits ? "✓" : "—"}</div>
-                <div className={item.finance ? "check" : "dash"}>{item.finance ? "✓" : "—"}</div>
-                <div className={item.ai ? "check" : "dash"}>{item.ai ? "✓" : "—"}</div>
+            {apps.map((app) => (
+              <div key={app.app} className={`compare-app-row ${app.highlight ? "highlight" : ""}`}>
+                <div className="compare-app-cell">{app.app}</div>
+                <div className="compare-app-cell">{app.price}</div>
+                <div className="compare-app-cell compare-center"><CompareValue value={app.tasks} /></div>
+                <div className="compare-app-cell compare-center"><CompareValue value={app.calendar} /></div>
+                <div className="compare-app-cell compare-center"><CompareValue value={app.notes} /></div>
+                <div className="compare-app-cell compare-center"><CompareValue value={app.habits} /></div>
+                <div className="compare-app-cell compare-center"><CompareValue value={app.finance} /></div>
+                <div className="compare-app-cell compare-center"><CompareValue value={app.ai} /></div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="testimonials">
-        <div className="dl-container">
-          <div className="section-head">
-            <div className="section-kicker dark">
-              <span className="kicker-dot" />
-              Testimonials
-            </div>
-            <h2 className="section-title" style={{ color: "white" }}>Built for people who want more from their day.</h2>
-            <p className="section-subtitle" style={{ color: "#bbf7d0" }}>
-              Freelancers, founders, students, and families can use DayLyft to create better routines.
-            </p>
-          </div>
+      <section className="testimonials-section">
+        <div className="container">
+          <h2 className="testimonials-title">Trusted by people who want more from their day.</h2>
 
           <div className="testimonial-grid">
             {testimonials.map((testimonial) => (
               <div className="testimonial-card" key={testimonial.name}>
-                <div className="stars">★★★★★</div>
-                <div className="testimonial-text">“{testimonial.text}”</div>
+                <div className="quote-mark">“</div>
+                <p>{testimonial.quote}</p>
                 <div className="person">
-                  <div className="avatar">{testimonial.avatar}</div>
+                  <div className="avatar">{testimonial.initials}</div>
                   <div>
-                    <div style={{ color: "white", fontWeight: 900 }}>{testimonial.name}</div>
-                    <div style={{ color: "#86efac", fontSize: 13 }}>{testimonial.role}</div>
+                    <strong>{testimonial.name}</strong>
+                    <span>{testimonial.role}</span>
                   </div>
                 </div>
               </div>
@@ -1792,115 +1929,85 @@ export default function LandingPage() {
         </div>
       </section>
 
-      <section className="pricing" id="pricing">
-        <div className="dl-container">
-          <div className="section-head">
-            <div className="section-kicker">
-              <span className="kicker-dot" />
-              Pricing
-            </div>
-            <h2 className="section-title">Simple pricing. Start free.</h2>
-            <p className="section-subtitle">
-              Use DayLyft for free. Upgrade when you are ready for unlimited AI and the full life system.
-            </p>
-          </div>
+      <section className="pricing-section" id="pricing">
+        <div className="container">
+          <h2 className="pricing-title">Simple pricing. Powerful value.</h2>
+          <p className="pricing-sub">Start free. Upgrade when you’re ready.</p>
 
           <div className="pricing-grid">
-            <div className="pricing-card">
-              <div className="badge">Starter</div>
-              <div className="price">$0 <span>/forever</span></div>
-              <p className="pricing-desc">For anyone who wants to get organized and start building better routines.</p>
-              <a href="/login" className="btn-secondary" style={{ width: "100%" }}>Get started free</a>
-              <div className="feature-list">
-                {["Smart tasks", "Calendar", "Pomodoro timer", "Quick notes", "Water tracker", "Gratitude journal", "Kai chat limited"].map((item) => (
-                  <div key={item}><span>✓</span>{item}</div>
-                ))}
-              </div>
-            </div>
+            {pricing.map((plan) => (
+              <div className={`price-card ${plan.highlighted ? "highlighted" : ""}`} key={plan.name}>
+                {plan.highlighted && <div className="popular">Most popular</div>}
 
-            <div className="pricing-card pro">
-              <div className="badge">Most popular</div>
-              <div className="price">$6.99 <span>/month</span></div>
-              <p className="pricing-desc">For people who want unlimited Kai, deeper insights, and all 40+ tools.</p>
-              <a href="https://buy.stripe.com/8x25kE2pK5Ho4Wo25AaR205" className="btn-light" style={{ width: "100%" }}>
-                Try Pro free for 7 days →
-              </a>
-              <div className="feature-list">
-                {[
-                  "Everything in Starter",
-                  "Unlimited Kai AI Copilot",
-                  "Morning autopilot",
-                  "Night report",
-                  "Productivity DNA",
-                  "Budget tracker",
-                  "Workout tracker",
-                  "Life balance",
-                  "Family mode",
-                  "Premium themes",
-                ].map((item) => (
-                  <div key={item}><span>✓</span>{item}</div>
-                ))}
-              </div>
-            </div>
+                <div className="plan-name">
+                  <span className="plan-dot">
+                    <Icon name="spark" size={12} />
+                  </span>
+                  {plan.name}
+                </div>
 
-            <div className="pricing-card">
-              <div className="badge">Business</div>
-              <div className="price">$12.99 <span>/user</span></div>
-              <p className="pricing-desc">For teams, families, and groups that want shared dashboards and reports.</p>
-              <a
-                href="mailto:juanmasis777@gmail.com?subject=DayLyft Business - Early Access"
-                className="btn-secondary"
-                style={{ width: "100%" }}
-              >
-                Join the waitlist
-              </a>
-              <div className="feature-list">
-                {["Team dashboard", "Shared tasks", "Members and roles", "Team analytics", "Admin permissions", "Custom branding", "Export reports"].map((item) => (
-                  <div key={item}><span>✓</span>{item}</div>
-                ))}
+                <div className="price">
+                  {plan.price} <small>{plan.suffix}</small>
+                </div>
+
+                <p className="plan-desc">{plan.desc}</p>
+
+                <a href={plan.href} className="price-button">
+                  {plan.button}
+                </a>
+
+                <div className="plan-list">
+                  {plan.items.map((item) => (
+                    <div key={item}>
+                      <CheckMark />
+                      {item}
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            ))}
           </div>
+
+          <p className="price-note">
+            7-day free trial · Cancel anytime · Your data is always secure
+          </p>
         </div>
       </section>
 
       <section className="final-cta">
-        <div className="final-box">
-          <div className="section-kicker dark">
-            <span className="kicker-dot" />
-            Start today
+        <div className="container final-inner">
+          <div>
+            <h2>Ready to upgrade your life?</h2>
+            <p>Join DayLyft today and start your journey with Kai.</p>
           </div>
-          <h2 className="section-title" style={{ color: "white" }}>
-            Ready to <span className="gradient-text">lift your day?</span>
-          </h2>
-          <p className="section-subtitle" style={{ color: "#bbf7d0", marginBottom: 30 }}>
-            Replace scattered apps with one AI-powered system for your life.
-          </p>
-          <a href="/login" className="btn-light">Get started — it’s free →</a>
-          <div className="mono" style={{ color: "#86efac", marginTop: 16, fontSize: 12 }}>
-            $0 forever · No credit card required
-          </div>
+
+          <a className="btn-primary" href="/login">
+            Start free →
+          </a>
         </div>
       </section>
 
       <footer className="footer">
-        <div className="dl-container">
+        <div className="container">
           <div className="footer-grid">
             <div>
-              <a className="brand" href="/" style={{ color: "white", marginBottom: 14 }}>
-                <div className="brand-mark">✦</div>
-                <div className="brand-name">DayLyft</div>
+              <a href="/" className="brand">
+                <span className="brand-mark">
+                  <Icon name="spark" size={18} />
+                </span>
+                DayLyft
               </a>
-              <p style={{ maxWidth: 330, color: "#86efac", lineHeight: 1.7, fontSize: 14 }}>
-                AI-powered life operating system for productivity, wellness, finances, learning, and daily growth.
+              <p>
+                Your AI operating system for life. Plan better. Live better.
               </p>
             </div>
 
             <div>
               <h4>Product</h4>
               <button onClick={() => scrollTo("features")}>Features</button>
-              <button onClick={() => scrollTo("pricing")}>Pricing</button>
+              <button onClick={() => scrollTo("kai")}>Kai AI</button>
               <button onClick={() => scrollTo("compare")}>Compare</button>
+              <button onClick={() => scrollTo("pricing")}>Pricing</button>
             </div>
 
             <div>
@@ -1912,14 +2019,25 @@ export default function LandingPage() {
 
             <div>
               <h4>Legal</h4>
-              <a href="/privacy">Privacy</a>
-              <a href="/terms">Terms</a>
+              <a href="/privacy">Privacy Policy</a>
+              <a href="/terms">Terms of Service</a>
+            </div>
+
+            <div>
+              <h4>Stay in the loop</h4>
+              <p style={{ marginBottom: 12 }}>
+                Get tips and updates delivered to your inbox.
+              </p>
+              <div className="newsletter">
+                <input placeholder="Enter your email" />
+                <button aria-label="Subscribe">→</button>
+              </div>
             </div>
           </div>
 
           <div className="footer-bottom">
-            <span>© 2026 DayLyft. All rights reserved.</span>
-            <span>Made with ♥ in Miami</span>
+            <span>© 2026 DayLyft, Inc. All rights reserved.</span>
+            <span>Built for better days.</span>
           </div>
         </div>
       </footer>
