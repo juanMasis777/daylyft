@@ -51,7 +51,7 @@ return (
 
     <div style={{
         width: 64, height: 64, borderRadius: 18, margin: "0 auto 16px",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: "linear-gradient(135deg, #10b981, #34d399)",
         display: "flex", alignItems: "center", justifyContent: "center",
     }}>
         <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
@@ -69,7 +69,7 @@ return (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
         <a href="https://buy.stripe.com/8x25kE2pK5Ho4Wo25AaR205" style={{
         display: "block", padding: "14px 24px", borderRadius: 12,
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 15, fontWeight: 700, textDecoration: "none", textAlign: "center",
         }}>
         Upgrade to Pro — $6.99/mo

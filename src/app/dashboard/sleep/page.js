@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 const sleepQualities = [
 { id: "great", label: "Great", emoji: "😴", color: "#00CEC9" },
-{ id: "good", label: "Good", emoji: "🙂", color: "#6C5CE7" },
+{ id: "good", label: "Good", emoji: "🙂", color: "#10b981" },
 { id: "okay", label: "Okay", emoji: "😐", color: "#fdcb6e" },
 { id: "poor", label: "Poor", emoji: "😫", color: "#e17055" },
 { id: "terrible", label: "Terrible", emoji: "💀", color: "#ff6b6b" },
@@ -188,8 +188,8 @@ return (
 
     {/* Log Today */}
     <div style={{
-    background: todaySaved ? "linear-gradient(135deg, rgba(0,206,201,0.08), rgba(85,239,196,0.05))" : "linear-gradient(135deg, rgba(108,92,231,0.08), rgba(162,155,254,0.05))",
-    border: `1px solid ${todaySaved ? "rgba(0,206,201,0.2)" : "rgba(108,92,231,0.2)"}`,
+    background: todaySaved ? "linear-gradient(135deg, rgba(0,206,201,0.08), rgba(85,239,196,0.05))" : "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(52,211,153,0.05))",
+    border: `1px solid ${todaySaved ? "rgba(0,206,201,0.2)" : "rgba(16,185,129,0.2)"}`,
     borderRadius: 16, padding: 24, marginBottom: 20,
     }}>
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
@@ -253,7 +253,7 @@ return (
 
     <button onClick={saveEntry} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: todaySaved ? "rgba(0,206,201,0.15)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: todaySaved ? "rgba(0,206,201,0.15)" : "linear-gradient(135deg, #10b981, #34d399)",
         color: todaySaved ? "#00CEC9" : "#fff",
         border: todaySaved ? "1px solid rgba(0,206,201,0.3)" : "none",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
@@ -323,12 +323,12 @@ return (
     {entries.length >= 3 && (
     kaiMessage ? (
         <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20, marginBottom: 16,
         }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's sleep insight</span>
@@ -341,7 +341,7 @@ return (
         <div style={{ textAlign: "center", marginBottom: 16 }}>
         <button onClick={generateKaiInsight} disabled={generatingKai} style={{
             padding: "12px 24px", borderRadius: 12, border: "none",
-            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 13, fontWeight: 600,
             cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
             display: "inline-flex", alignItems: "center", gap: 8,
@@ -366,7 +366,7 @@ return (
     {entries.length < 3 && entries.length > 0 && (
     <div style={{
         textAlign: "center", padding: 16, marginBottom: 16,
-        background: "rgba(108,92,231,0.05)", border: "1px solid rgba(108,92,231,0.1)",
+        background: "rgba(16,185,129,0.05)", border: "1px solid rgba(16,185,129,0.1)",
         borderRadius: 14, fontSize: 13, color: "var(--fm-muted)",
     }}>
         Log {3 - entries.length} more night{3 - entries.length > 1 ? "s" : ""} to unlock Kai's sleep analysis

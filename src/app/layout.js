@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
         <title>DayLyft — Your AI copilot for life</title>
         <meta name="description" content="40+ features for productivity, wellness, finance, and more. Powered by Kai AI." />
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-        <meta name="theme-color" content="#0a0a12" />
+        <meta name="theme-color" content="#080d0b" />
         <link rel="manifest" href="/manifest.json" />
         <link rel="apple-touch-icon" href="/icon-192.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />

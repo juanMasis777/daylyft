@@ -3,11 +3,11 @@
 import { useState, useEffect } from "react";
 
 const billCategories = [
-{ id: "rent", label: "Rent", emoji: "🏠", color: "#6C5CE7" },
+{ id: "rent", label: "Rent", emoji: "🏠", color: "#10b981" },
 { id: "electricity", label: "Electricity", emoji: "💡", color: "#fdcb6e" },
 { id: "water", label: "Water", emoji: "💧", color: "#74b9ff" },
 { id: "internet", label: "Internet", emoji: "📶", color: "#00CEC9" },
-{ id: "phone", label: "Phone", emoji: "📱", color: "#a29bfe" },
+{ id: "phone", label: "Phone", emoji: "📱", color: "#34d399" },
 { id: "insurance", label: "Insurance", emoji: "🛡", color: "#00b894" },
 { id: "subscription", label: "Subscription", emoji: "🔄", color: "#fd79a8" },
 { id: "loan", label: "Loan", emoji: "🏦", color: "#e17055" },
@@ -164,7 +164,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeForm(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ Add Bill"}</button>
     </div>
@@ -215,7 +215,7 @@ return (
         <div style={{
             height: "100%", borderRadius: 6,
             width: `${bills.length > 0 ? (paidThisMonth.length / bills.length) * 100 : 0}%`,
-            background: paidThisMonth.length === bills.length ? "linear-gradient(135deg, #00CEC9, #55efc4)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: paidThisMonth.length === bills.length ? "linear-gradient(135deg, #00CEC9, #55efc4)" : "linear-gradient(135deg, #10b981, #34d399)",
             transition: "width 0.5s ease",
         }} />
         </div>
@@ -301,7 +301,7 @@ return (
 
         <button onClick={addBill} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingId ? "Update Bill" : "Add Bill"}</button>
     </div>

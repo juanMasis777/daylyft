@@ -51,7 +51,7 @@ await supabase.auth.signInWithOAuth({
 return (
 <div style={{
     minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
-    background: "#0a0a12", position: "relative", overflow: "hidden",
+    background: "#080d0b", position: "relative", overflow: "hidden",
     fontFamily: "'Outfit', sans-serif",
 }}>
     <style>{`
@@ -61,7 +61,7 @@ return (
     @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
     @keyframes slideIn { from { opacity: 0; transform: translateX(-20px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes shimmer { 0% { background-position: -200% center; } 100% { background-position: 200% center; } }
-    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(108,92,231,0.15); } 50% { box-shadow: 0 0 40px rgba(108,92,231,0.3); } }
+    @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(16,185,129,0.15); } 50% { box-shadow: 0 0 40px rgba(16,185,129,0.3); } }
     @keyframes spin { to { transform: rotate(360deg); } }
     
     .login-input {
@@ -71,8 +71,8 @@ return (
         outline: none; transition: all 0.3s ease; box-sizing: border-box;
     }
     .login-input:focus {
-        border-color: #6C5CE7; background: rgba(108,92,231,0.06);
-        box-shadow: 0 0 0 3px rgba(108,92,231,0.1);
+        border-color: #10b981; background: rgba(16,185,129,0.06);
+        box-shadow: 0 0 0 3px rgba(16,185,129,0.1);
     }
     .login-input::placeholder { color: rgba(255,255,255,0.25); }
     
@@ -94,14 +94,14 @@ return (
     }
     .google-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.2); }
     
-    .toggle-link { color: #a29bfe; cursor: pointer; font-weight: 600; }
-    .toggle-link:hover { color: #6C5CE7; text-decoration: underline; }
+    .toggle-link { color: #34d399; cursor: pointer; font-weight: 600; }
+    .toggle-link:hover { color: #10b981; text-decoration: underline; }
     `}</style>
 
     {/* Animated Background Orbs */}
     <div style={{
     position: "absolute", width: 500, height: 500, borderRadius: "50%",
-    background: "radial-gradient(circle, #6C5CE7 0%, transparent 70%)",
+    background: "radial-gradient(circle, #10b981 0%, transparent 70%)",
     top: -150, left: -150, opacity: 0.08, filter: "blur(60px)",
     animation: "pulse 6s ease-in-out infinite",
     }} />
@@ -123,7 +123,7 @@ return (
     <div key={i} style={{
         position: "absolute",
         width: 4 + Math.random() * 4, height: 4 + Math.random() * 4,
-        borderRadius: "50%", background: "#6C5CE7",
+        borderRadius: "50%", background: "#10b981",
         opacity: 0.15 + Math.random() * 0.15,
         top: `${10 + Math.random() * 80}%`,
         left: `${5 + Math.random() * 90}%`,
@@ -134,7 +134,7 @@ return (
     {/* Grid Pattern */}
     <div style={{
     position: "absolute", top: 0, left: 0, right: 0, bottom: 0,
-    backgroundImage: "linear-gradient(rgba(108,92,231,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(108,92,231,0.03) 1px, transparent 1px)",
+    backgroundImage: "linear-gradient(rgba(16,185,129,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(16,185,129,0.03) 1px, transparent 1px)",
     backgroundSize: "60px 60px",
     }} />
 
@@ -147,14 +147,13 @@ return (
     <div style={{ textAlign: "center", marginBottom: 36 }}>
         <div style={{
         width: 64, height: 64, borderRadius: 18, margin: "0 auto 16px",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: "linear-gradient(135deg, #10b981, #34d399)",
         display: "flex", alignItems: "center", justifyContent: "center",
         animation: "glow 4s ease-in-out infinite",
         }}>
-        <svg width={28} height={28} viewBox="0 0 24 24" fill="none">
-            <circle cx="8" cy="8" r="3" fill="white" />
-            <circle cx="16" cy="14" r="3" fill="white" />
-            <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <svg width={30} height={30} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M5 14l7-7 7 7" />
+            <path d="M5 19h14" />
         </svg>
         </div>
         <h1 style={{ fontSize: 32, fontWeight: 900, color: "#fff", margin: "0 0 4px" }}>DayLyft</h1>
@@ -175,14 +174,14 @@ return (
         }}>
         <button onClick={() => { setIsSignUp(false); setError(""); }} style={{
             flex: 1, padding: "10px", borderRadius: 10, border: "none",
-            background: !isSignUp ? "linear-gradient(135deg, #6C5CE7, #a29bfe)" : "transparent",
+            background: !isSignUp ? "linear-gradient(135deg, #10b981, #34d399)" : "transparent",
             color: !isSignUp ? "#fff" : "#6c6c80",
             fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
             transition: "all 0.3s",
         }}>Sign In</button>
         <button onClick={() => { setIsSignUp(true); setError(""); }} style={{
             flex: 1, padding: "10px", borderRadius: 10, border: "none",
-            background: isSignUp ? "linear-gradient(135deg, #6C5CE7, #a29bfe)" : "transparent",
+            background: isSignUp ? "linear-gradient(135deg, #10b981, #34d399)" : "transparent",
             color: isSignUp ? "#fff" : "#6c6c80",
             fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
             transition: "all 0.3s",
@@ -246,7 +245,7 @@ return (
         )}
 
         <button onClick={handleAuth} disabled={loading} className="login-btn" style={{
-            background: loading ? "rgba(108,92,231,0.5)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: loading ? "rgba(16,185,129,0.5)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", marginTop: 4,
         }}>
             {loading ? (
@@ -294,7 +293,7 @@ return (
             display: "flex", alignItems: "center", gap: 6,
             fontSize: 11, color: "#6c6c80",
         }}>
-            <span style={{ color: "#6C5CE7", fontSize: 10 }}>{item.icon}</span>
+            <span style={{ color: "#10b981", fontSize: 10 }}>{item.icon}</span>
             {item.text}
         </div>
         ))}

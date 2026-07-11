@@ -52,8 +52,8 @@ const topCategory = Object.entries(categories).sort((a, b) => b[1] - a[1])[0];
 const getGrade = () => {
 if (completionRate >= 90) return { grade: "A+", color: "#00CEC9", label: "Outstanding!" };
 if (completionRate >= 80) return { grade: "A", color: "#00CEC9", label: "Excellent!" };
-if (completionRate >= 70) return { grade: "B+", color: "#6C5CE7", label: "Great work!" };
-if (completionRate >= 60) return { grade: "B", color: "#6C5CE7", label: "Good progress!" };
+if (completionRate >= 70) return { grade: "B+", color: "#10b981", label: "Great work!" };
+if (completionRate >= 60) return { grade: "B", color: "#10b981", label: "Good progress!" };
 if (completionRate >= 50) return { grade: "C+", color: "#fdcb6e", label: "Getting there!" };
 if (completionRate >= 40) return { grade: "C", color: "#fdcb6e", label: "Keep pushing!" };
 if (total === 0) return { grade: "—", color: "#6b6b80", label: "No data yet" };
@@ -110,7 +110,7 @@ return (
         </p>
         <button onClick={() => window.location.href = "/dashboard/tasks"} style={{
         padding: "12px 24px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Go to Tasks</button>
     </div>
@@ -188,7 +188,7 @@ return (
                 <div key={task.id} style={{ display: "flex", alignItems: "center", gap: 10, padding: "10px 12px", background: "var(--fm-card)", borderRadius: 8 }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#00CEC9" strokeWidth="2.5"><polyline points="20 6 9 17 4 12" /></svg>
                 <span style={{ fontSize: 13, color: "var(--fm-text)", flex: 1 }}>{task.title}</span>
-                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 10, textTransform: "capitalize", background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)" }}>{task.category}</span>
+                <span style={{ fontSize: 10, padding: "2px 8px", borderRadius: 10, textTransform: "capitalize", background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)" }}>{task.category}</span>
                 </div>
             ))}
             </div>
@@ -197,11 +197,11 @@ return (
 
         {kaiMessage ? (
         <div style={{
-            background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+            background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
             borderRadius: 14, padding: 20, marginBottom: 16,
         }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's weekly report</span>
@@ -212,7 +212,7 @@ return (
         <div style={{ textAlign: "center", marginBottom: 16 }}>
             <button onClick={generateKaiReport} disabled={generatingKai} style={{
             padding: "14px 28px", borderRadius: 14, border: "none",
-            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 14, fontWeight: 700,
             cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
             display: "inline-flex", alignItems: "center", gap: 8,

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 const emailTypes = [
-{ id: "professional", label: "Professional", emoji: "💼", color: "#6C5CE7", examples: ["Follow up after meeting", "Request a raise", "Introduce yourself to a new team"] },
+{ id: "professional", label: "Professional", emoji: "💼", color: "#10b981", examples: ["Follow up after meeting", "Request a raise", "Introduce yourself to a new team"] },
 { id: "sales", label: "Sales & Outreach", emoji: "📈", color: "#00CEC9", examples: ["Cold outreach email", "Follow up on proposal", "Partnership request"] },
 { id: "apology", label: "Apology", emoji: "🙏", color: "#fd79a8", examples: ["Apologize for missing deadline", "Apologize for a mistake", "Apologize for late response"] },
 { id: "thankyou", label: "Thank You", emoji: "❤️", color: "#ff6b6b", examples: ["Thank you after interview", "Thank a mentor", "Thank a client"] },
@@ -11,7 +11,7 @@ const emailTypes = [
 { id: "complaint", label: "Complaint", emoji: "😤", color: "#e17055", examples: ["Complaint about service", "Dispute a charge", "Report an issue"] },
 { id: "networking", label: "Networking", emoji: "🤝", color: "#00b894", examples: ["Connect on LinkedIn", "Ask for coffee chat", "Reconnect with old contact"] },
 { id: "resignation", label: "Resignation", emoji: "👋", color: "#636e72", examples: ["Two weeks notice", "Graceful resignation", "Leaving on good terms"] },
-{ id: "invitation", label: "Invitation", emoji: "🎉", color: "#a29bfe", examples: ["Invite to event", "Invite to collaborate", "Invite for interview"] },
+{ id: "invitation", label: "Invitation", emoji: "🎉", color: "#34d399", examples: ["Invite to event", "Invite to collaborate", "Invite for interview"] },
 { id: "custom", label: "Custom", emoji: "✉️", color: "#74b9ff", examples: ["Any email you need", "Describe the situation", "Kai writes it for you"] },
 ];
 
@@ -143,7 +143,7 @@ return (
     </div>
     <button onClick={() => setShowSaved(!showSaved)} style={{
         padding: "8px 14px", borderRadius: 10, border: "1px solid var(--fm-border)",
-        background: showSaved ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
+        background: showSaved ? "rgba(16,185,129,0.1)" : "var(--fm-surface)",
         color: showSaved ? "var(--fm-accent-light)" : "var(--fm-muted)",
         fontSize: 12, fontWeight: 500, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showSaved ? "Write new" : `Saved (${savedEmails.length})`}</button>
@@ -195,13 +195,13 @@ return (
         {/* Generated Email Result */}
         {generatedEmail && (
         <div style={{
-            background: "linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,206,201,0.05))",
-            border: "1px solid rgba(108,92,231,0.2)",
+            background: "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(0,206,201,0.05))",
+            border: "1px solid rgba(16,185,129,0.2)",
             borderRadius: 16, padding: 24, marginBottom: 20,
         }}>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-                <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
                 </div>
                 <span style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-accent-light)" }}>Your email is ready</span>
@@ -219,7 +219,7 @@ return (
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
             <button onClick={copyEmail} style={{
                 padding: "10px 20px", borderRadius: 10, border: "none",
-                background: copied ? "rgba(0,206,201,0.15)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+                background: copied ? "rgba(0,206,201,0.15)" : "linear-gradient(135deg, #10b981, #34d399)",
                 color: copied ? "#00CEC9" : "#fff",
                 fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
             }}>{copied ? "✓ Copied!" : "Copy email"}</button>
@@ -328,9 +328,9 @@ return (
                     {tones.map((t) => (
                     <button key={t.id} onClick={() => setTone(t.id)} style={{
                         padding: "6px 10px", borderRadius: 8, fontSize: 11, cursor: "pointer",
-                        border: tone === t.id ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-                        background: tone === t.id ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-                        color: tone === t.id ? "#6C5CE7" : "var(--fm-muted)",
+                        border: tone === t.id ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+                        background: tone === t.id ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+                        color: tone === t.id ? "#10b981" : "var(--fm-muted)",
                         fontFamily: "Outfit, sans-serif",
                     }}>{t.emoji} {t.label}</button>
                     ))}
@@ -342,9 +342,9 @@ return (
                     {lengths.map((l) => (
                     <button key={l.id} onClick={() => setLength(l.id)} style={{
                         padding: "6px 10px", borderRadius: 8, fontSize: 11, cursor: "pointer",
-                        border: length === l.id ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-                        background: length === l.id ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-                        color: length === l.id ? "#6C5CE7" : "var(--fm-muted)",
+                        border: length === l.id ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+                        background: length === l.id ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+                        color: length === l.id ? "#10b981" : "var(--fm-muted)",
                         fontFamily: "Outfit, sans-serif",
                     }}>{l.label}</button>
                     ))}
@@ -354,7 +354,7 @@ return (
 
             <button onClick={generateEmail} disabled={loading} style={{
                 width: "100%", padding: "14px", borderRadius: 14, border: "none",
-                background: loading ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+                background: loading ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
                 color: "#fff", fontSize: 15, fontWeight: 700,
                 cursor: loading ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
                 display: "flex", alignItems: "center", justifyContent: "center", gap: 10,

@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 
 const categories = [
-{ id: "business", label: "Business", emoji: "💼", color: "#6C5CE7" },
+{ id: "business", label: "Business", emoji: "💼", color: "#10b981" },
 { id: "app", label: "App / Product", emoji: "📱", color: "#00CEC9" },
 { id: "content", label: "Content", emoji: "🎬", color: "#fd79a8" },
 { id: "personal", label: "Personal", emoji: "🌟", color: "#fdcb6e" },
 { id: "project", label: "Side Project", emoji: "🔨", color: "#e17055" },
-{ id: "other", label: "Other", emoji: "💡", color: "#a29bfe" },
+{ id: "other", label: "Other", emoji: "💡", color: "#34d399" },
 ];
 
 const priorities = [
@@ -142,7 +142,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeForm(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ New Idea"}</button>
     </div>
@@ -174,9 +174,9 @@ return (
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
         <button onClick={() => setFilterCat("all")} style={{
             padding: "5px 12px", borderRadius: 8, fontSize: 11, fontWeight: 500,
-            border: filterCat === "all" ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-            background: filterCat === "all" ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
-            color: filterCat === "all" ? "#6C5CE7" : "var(--fm-muted)",
+            border: filterCat === "all" ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+            background: filterCat === "all" ? "rgba(16,185,129,0.1)" : "var(--fm-surface)",
+            color: filterCat === "all" ? "#10b981" : "var(--fm-muted)",
             cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>All</button>
         {categories.map((cat) => (
@@ -249,7 +249,7 @@ return (
 
         <button onClick={addIdea} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingId ? "Update Idea" : "Save Idea"}</button>
     </div>
@@ -258,12 +258,12 @@ return (
     {/* Kai Develop */}
     {kaiMessage && (
     <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20, marginBottom: 16,
     }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's analysis</span>
@@ -349,7 +349,7 @@ return (
         </div>
         <button onClick={() => developWithKai(idea)} disabled={generatingKai} style={{
         padding: "4px 10px", borderRadius: 8, border: "none", fontSize: 10, fontWeight: 600,
-        background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
+        background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)",
         cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
         }}>{generatingKai ? "..." : "✦ Develop with Kai"}</button>
     </div>

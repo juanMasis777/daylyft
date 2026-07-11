@@ -138,18 +138,18 @@ return (
     </div>
     <button onClick={() => setShowWrite(!showWrite)} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showWrite ? "Cancel" : "✏ Write"}</button>
     </div>
 
     {/* Kai's Daily Summary */}
     <div style={{
-    background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+    background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
     borderRadius: 14, padding: 16, marginBottom: 16,
     }}>
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-        <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
         </div>
         <span style={{ fontSize: 13, color: "var(--fm-accent-light)", fontWeight: 600 }}>Kai's daily summary</span>
@@ -169,8 +169,8 @@ return (
         {moods.map((m) => (
             <div key={m.id} onClick={() => setMood(m.id)} style={{
             padding: "8px 12px", borderRadius: 10, cursor: "pointer",
-            background: mood === m.id ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            border: mood === m.id ? "1px solid rgba(108,92,231,0.3)" : "1px solid var(--fm-border)",
+            background: mood === m.id ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            border: mood === m.id ? "1px solid rgba(16,185,129,0.3)" : "1px solid var(--fm-border)",
             textAlign: "center",
             }}>
             <div style={{ fontSize: 20 }}>{m.emoji}</div>
@@ -196,7 +196,7 @@ return (
         <span style={{ fontSize: 12, color: "var(--fm-muted)" }}>{content.length} characters</span>
         <button onClick={saveEntry} disabled={saving || !content.trim()} style={{
             padding: "10px 24px", borderRadius: 10, border: "none",
-            background: saving ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: saving ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 13, fontWeight: 600, cursor: saving ? "not-allowed" : "pointer",
             fontFamily: "Outfit, sans-serif",
         }}>{generating ? "Kai is summarizing..." : saving ? "Saving..." : "Save entry"}</button>
@@ -238,7 +238,7 @@ return (
             {entry.ai_summary && (
             <div style={{
                 padding: "8px 12px", borderRadius: 8,
-                background: "rgba(108,92,231,0.06)", border: "1px solid rgba(108,92,231,0.1)",
+                background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.1)",
             }}>
                 <span style={{ fontSize: 11, color: "var(--fm-accent-light)" }}>✦ Kai's summary: </span>
                 <span style={{ fontSize: 12, color: "var(--fm-muted)" }}>{entry.ai_summary}</span>

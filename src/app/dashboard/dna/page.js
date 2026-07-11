@@ -4,11 +4,11 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 const personalities = [
-{ id: "strategist", name: "The Strategist", emoji: "🎯", color: "#6C5CE7", desc: "You plan ahead, prioritize well, and tackle high-impact tasks first.", traits: ["Organized", "Focused", "Goal-oriented"] },
+{ id: "strategist", name: "The Strategist", emoji: "🎯", color: "#10b981", desc: "You plan ahead, prioritize well, and tackle high-impact tasks first.", traits: ["Organized", "Focused", "Goal-oriented"] },
 { id: "sprinter", name: "The Sprinter", emoji: "⚡", color: "#00CEC9", desc: "You work in fast bursts of energy, completing tasks quickly and efficiently.", traits: ["Fast", "Energetic", "Decisive"] },
 { id: "explorer", name: "The Explorer", emoji: "🧭", color: "#fdcb6e", desc: "You embrace variety, juggle multiple categories, and love new challenges.", traits: ["Versatile", "Curious", "Adaptive"] },
 { id: "guardian", name: "The Guardian", emoji: "🛡", color: "#fd79a8", desc: "You're steady and reliable, completing tasks consistently day after day.", traits: ["Consistent", "Reliable", "Thorough"] },
-{ id: "nightowl", name: "The Night Owl", emoji: "🦉", color: "#a29bfe", desc: "You do your best work in the evening and night hours.", traits: ["Creative", "Independent", "Reflective"] },
+{ id: "nightowl", name: "The Night Owl", emoji: "🦉", color: "#34d399", desc: "You do your best work in the evening and night hours.", traits: ["Creative", "Independent", "Reflective"] },
 { id: "balanced", name: "The Balanced One", emoji: "☯", color: "#00CEC9", desc: "You maintain a healthy mix of work and rest, never overloading yourself.", traits: ["Mindful", "Calm", "Sustainable"] },
 ];
 
@@ -105,7 +105,7 @@ return (
         </p>
         <button onClick={() => window.location.href = "/dashboard/tasks"} style={{
         padding: "12px 24px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Go to Tasks</button>
     </div>

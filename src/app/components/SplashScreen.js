@@ -23,7 +23,7 @@ return (
 <div style={{
     position: "fixed",
     top: 0, left: 0, right: 0, bottom: 0,
-    background: "#0a0a12",
+    background: "#080d0b",
     zIndex: 99999,
     display: "flex",
     alignItems: "center",
@@ -36,7 +36,7 @@ return (
     <div style={{
     position: "absolute",
     width: 500, height: 500, borderRadius: "50%",
-    background: "radial-gradient(circle, rgba(108,92,231,0.3) 0%, transparent 70%)",
+    background: "radial-gradient(circle, rgba(16,185,129,0.3) 0%, transparent 70%)",
     filter: "blur(60px)",
     animation: "orbPulse 2s ease-in-out infinite",
     }} />
@@ -66,26 +66,26 @@ return (
     }}>
     <div style={{
         width: 100, height: 100, borderRadius: 28,
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: "linear-gradient(135deg, #10b981, #34d399)",
         display: "flex", alignItems: "center", justifyContent: "center",
         margin: "0 auto 24px",
         animation: phase === "entering" 
         ? "splashLogoIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards"
         : "splashLogoPulse 1s ease-in-out infinite",
-        boxShadow: "0 20px 60px rgba(108,92,231,0.5)",
+        boxShadow: "0 20px 60px rgba(16,185,129,0.5)",
     }}>
-        <svg width={48} height={48} viewBox="0 0 24 24" fill="none">
-        <circle cx="8" cy="8" r="3" fill="white" style={{ animation: "splashDot1 0.6s ease forwards" }} />
-        <circle cx="16" cy="14" r="3" fill="white" style={{ animation: "splashDot2 0.8s ease forwards" }} />
-        <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="2" strokeLinecap="round"
-            style={{ animation: "splashLine 1s ease forwards", strokeDasharray: "20", strokeDashoffset: "20" }} />
+        <svg width={50} height={50} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 14l7-7 7 7"
+            style={{ animation: "splashLine 0.9s ease forwards", strokeDasharray: "24", strokeDashoffset: "24" }} />
+        <path d="M5 19h14"
+            style={{ animation: "splashLine 0.9s ease 0.25s forwards", strokeDasharray: "14", strokeDashoffset: "14" }} />
         </svg>
     </div>
 
     <h1 style={{
         fontSize: 42,
         fontWeight: 900,
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe, #00CEC9)",
+        background: "linear-gradient(135deg, #10b981, #34d399, #00CEC9)",
         WebkitBackgroundClip: "text",
         WebkitTextFillColor: "transparent",
         backgroundSize: "200% auto",
@@ -114,11 +114,11 @@ return (
         animation: phase === "entering" ? "splashTextIn 0.8s ease 0.7s both" : "none",
     }}>
         <span style={{
-        width: 8, height: 8, borderRadius: "50%", background: "#6C5CE7",
+        width: 8, height: 8, borderRadius: "50%", background: "#10b981",
         animation: "splashDot 1.4s infinite ease-in-out",
         }} />
         <span style={{
-        width: 8, height: 8, borderRadius: "50%", background: "#a29bfe",
+        width: 8, height: 8, borderRadius: "50%", background: "#34d399",
         animation: "splashDot 1.4s infinite ease-in-out 0.2s",
         }} />
         <span style={{
@@ -138,8 +138,8 @@ return (
     }
     
     @keyframes splashLogoPulse {
-        0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(108,92,231,0.5); }
-        50% { transform: scale(1.05); box-shadow: 0 20px 80px rgba(108,92,231,0.7); }
+        0%, 100% { transform: scale(1); box-shadow: 0 20px 60px rgba(16,185,129,0.5); }
+        50% { transform: scale(1.05); box-shadow: 0 20px 80px rgba(16,185,129,0.7); }
     }
     
     @keyframes splashTextIn {

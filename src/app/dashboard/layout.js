@@ -8,11 +8,10 @@ import { ProGate, isProFeature } from "@/app/components/ProGate";
 
 function Logo() {
   return (
-    <div style={{ width: 34, height: 34, borderRadius: 10, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-      <svg width={16} height={16} viewBox="0 0 24 24" fill="none">
-        <circle cx="8" cy="8" r="3" fill="white" />
-        <circle cx="16" cy="14" r="3" fill="white" />
-        <line x1="8" y1="8" x2="16" y2="14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+    <div style={{ width: 34, height: 34, borderRadius: 10, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <svg width={17} height={17} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 14l7-7 7 7" />
+        <path d="M5 19h14" />
       </svg>
     </div>
   );
@@ -22,7 +21,7 @@ const navGroups = [
   {
     label: "Core",
     items: [
-      { id: "dashboard", label: "Home", color: "#6C5CE7", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg> },
+      { id: "dashboard", label: "Home", color: "#10b981", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" /><polyline points="9 22 9 12 15 12 15 22" /></svg> },
       { id: "tasks", label: "Tasks", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M9 12l2 2 4-4" /></svg> },
       { id: "calendar", label: "Calendar", color: "#fd79a8", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="4" width="18" height="18" rx="2" /><line x1="16" y1="2" x2="16" y2="6" /><line x1="8" y1="2" x2="8" y2="6" /><line x1="3" y1="10" x2="21" y2="10" /></svg> },
       { id: "analytics", label: "Analytics", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>, pro: true },
@@ -31,13 +30,13 @@ const navGroups = [
   {
     label: "AI Copilot",
     items: [
-      { id: "chat", label: "Kai Chat", color: "#a29bfe", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg> },
+      { id: "chat", label: "Kai Chat", color: "#34d399", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg> },
       { id: "autopilot", label: "Autopilot", color: "#ff6b6b", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>, pro: true },
       { id: "dna", label: "DNA", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 15c6.667-6 13.333 0 20-6" /><path d="M2 9c6.667 6 13.333 0 20 6" /></svg>, pro: true },
       { id: "wins", label: "Wins", color: "#ffc048", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C7 4 9 7 12 7s5-3 7.5-3a2.5 2.5 0 0 1 0 5H18" /><path d="M18 9v1a6 6 0 0 1-12 0V9" /></svg>, pro: true },
       { id: "nightreport", label: "Night Report", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>, pro: true },
       { id: "wisdom", label: "Wisdom", color: "#fd79a8", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z" /></svg>, pro: true },
-      { id: "decision", label: "Decision", color: "#6C5CE7", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>, pro: true },
+      { id: "decision", label: "Decision", color: "#10b981", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M12 16v-4" /><path d="M12 8h.01" /></svg>, pro: true },
       { id: "emails", label: "Emails", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22 6 12 13 2 6" /></svg>, pro: true },
     ],
   },
@@ -54,7 +53,7 @@ const navGroups = [
     items: [
       { id: "zen", label: "Zen Mode", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10" /><path d="M8 14s1.5 2 4 2 4-2 4-2" /></svg> },
       { id: "water", label: "Water", color: "#74b9ff", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z" /></svg> },
-      { id: "sleep", label: "Sleep", color: "#a29bfe", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>, pro: true },
+      { id: "sleep", label: "Sleep", color: "#34d399", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" /></svg>, pro: true },
       { id: "stretching", label: "Stretch", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M18 8a6 6 0 0 1-6 6" /><path d="M6 16a6 6 0 0 1 6-6" /></svg>, pro: true },
       { id: "workout", label: "Workout", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6.5 6.5L17.5 17.5" /><path d="M3 10l1-1 3 3" /><path d="M21 14l-1 1-3-3" /></svg>, pro: true },
       { id: "gratitude", label: "Gratitude", color: "#00CEC9", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78L12 21.23l7.78-7.78a5.5 5.5 0 0 0 0-7.78z" /></svg> },
@@ -83,7 +82,7 @@ const navGroups = [
   {
     label: "Learn & Plan",
     items: [
-      { id: "notes", label: "Notes", color: "#a29bfe", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg> },
+      { id: "notes", label: "Notes", color: "#34d399", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg> },
       { id: "ideas", label: "Ideas", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 18h6" /><path d="M10 22h4" /><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a1 1 0 0 1-1 1H9a1 1 0 0 1-1-1v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z" /></svg>, pro: true },
       { id: "reading", label: "Reading", color: "#e17055", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg>, pro: true },
       { id: "flashcards", label: "Flashcards", color: "#fdcb6e", icon: <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="4" width="20" height="16" rx="2" /><path d="M12 4v16" /></svg>, pro: true },
@@ -210,7 +209,7 @@ export default function DashboardLayout({ children }) {
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Logo />
           <div>
-            <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</div>
+            <div style={{ fontSize: 17, fontWeight: 800, background: "linear-gradient(135deg, #10b981, #34d399)", WebkitBackgroundClip: "text", WebkitTextFillColor: "transparent" }}>DayLyft</div>
             <div style={{ fontSize: 8, color: "var(--fm-muted)", fontWeight: 600, letterSpacing: "0.12em" }}>AI COPILOT</div>
           </div>
         </div>
@@ -266,7 +265,7 @@ export default function DashboardLayout({ children }) {
                       {item.pro && (
                         <span style={{
                           fontSize: 8, padding: "1px 5px", borderRadius: 4, flexShrink: 0,
-                          background: "rgba(108,92,231,0.12)", color: "var(--fm-accent-light)",
+                          background: "rgba(16,185,129,0.12)", color: "var(--fm-accent-light)",
                           fontWeight: 700, letterSpacing: "0.05em",
                         }}>PRO</span>
                       )}
@@ -281,9 +280,9 @@ export default function DashboardLayout({ children }) {
         <div style={{ marginTop: 4, paddingTop: 8, borderTop: "1px solid var(--fm-border)" }}>
           <button onClick={() => navigate("pricing")} style={{
             display: "flex", alignItems: "center", gap: 10, padding: "7px 10px",
-            background: "rgba(108,92,231,0.06)", border: "1px solid rgba(108,92,231,0.15)",
+            background: "rgba(16,185,129,0.06)", border: "1px solid rgba(16,185,129,0.15)",
             borderRadius: 8, cursor: "pointer", fontSize: 13, fontWeight: 600,
-            color: "#6C5CE7", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left",
+            color: "#10b981", fontFamily: "Outfit, sans-serif", width: "100%", textAlign: "left",
           }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 2L14.09 8.26L21 9.27L16 14.14L17.18 21.02L12 17.77L6.82 21.02L8 14.14L3 9.27L9.91 8.26L12 2Z" /></svg>
             Upgrade to Pro

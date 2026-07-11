@@ -8,7 +8,7 @@ const [particles, setParticles] = useState([]);
 useEffect(() => {
 if (!active) return;
 
-const colors = ["#6C5CE7", "#00CEC9", "#fd79a8", "#fdcb6e", "#a29bfe", "#55efc4", "#ff6b6b"];
+const colors = ["#10b981", "#00CEC9", "#fd79a8", "#fdcb6e", "#34d399", "#55efc4", "#ff6b6b"];
 const newParticles = Array.from({ length: 60 }, (_, i) => ({
     id: i,
     x: 50,
@@ -94,7 +94,7 @@ return (
     fontSize: 24,
     fontWeight: 800,
     color: "#fff",
-    textShadow: "0 0 30px rgba(108,92,231,0.8)",
+    textShadow: "0 0 30px rgba(16,185,129,0.8)",
     }}>{message}</div>
     <style>{`
     @keyframes celebrationPop {
@@ -116,20 +116,20 @@ return (
     alignItems: "center",
     gap: 4,
     padding: "8px 14px",
-    background: "rgba(108,92,231,0.15)",
+    background: "rgba(16,185,129,0.15)",
     borderRadius: 14,
-    border: "1px solid rgba(108,92,231,0.2)",
+    border: "1px solid rgba(16,185,129,0.2)",
 }}>
     <span style={{
-    width: 6, height: 6, borderRadius: "50%", background: "#6C5CE7",
+    width: 6, height: 6, borderRadius: "50%", background: "#10b981",
     animation: "typingBounce 1.4s infinite ease-in-out",
     }} />
     <span style={{
-    width: 6, height: 6, borderRadius: "50%", background: "#6C5CE7",
+    width: 6, height: 6, borderRadius: "50%", background: "#10b981",
     animation: "typingBounce 1.4s infinite ease-in-out 0.2s",
     }} />
     <span style={{
-    width: 6, height: 6, borderRadius: "50%", background: "#6C5CE7",
+    width: 6, height: 6, borderRadius: "50%", background: "#10b981",
     animation: "typingBounce 1.4s infinite ease-in-out 0.4s",
     }} />
     <style>{`

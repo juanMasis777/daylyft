@@ -162,7 +162,7 @@ score += stats.journalEntries > 0 ? 15 : 0;
 score += stats.highCompleted > 0 ? 15 : 0;
 
 if (score >= 85) return { grade: "A", color: "#00CEC9", label: "Amazing day!" };
-if (score >= 70) return { grade: "B", color: "#6C5CE7", label: "Great day!" };
+if (score >= 70) return { grade: "B", color: "#10b981", label: "Great day!" };
 if (score >= 50) return { grade: "C", color: "#fdcb6e", label: "Decent day" };
 if (stats.totalTasks === 0) return { grade: "—", color: "#6b6b80", label: "No data" };
 return { grade: "D", color: "#ff6b6b", label: "Tomorrow is a new chance" };
@@ -184,9 +184,9 @@ return (
     {/* Night Header */}
     <div style={{
     background: isNight
-        ? "linear-gradient(135deg, rgba(108,92,231,0.15), rgba(116,185,255,0.08))"
+        ? "linear-gradient(135deg, rgba(16,185,129,0.15), rgba(116,185,255,0.08))"
         : "linear-gradient(135deg, rgba(253,203,110,0.12), rgba(225,112,85,0.08))",
-    border: `1px solid ${isNight ? "rgba(108,92,231,0.2)" : "rgba(253,203,110,0.2)"}`,
+    border: `1px solid ${isNight ? "rgba(16,185,129,0.2)" : "rgba(253,203,110,0.2)"}`,
     borderRadius: 16, padding: 24, marginBottom: 20, textAlign: "center",
     }}>
     <div style={{ fontSize: 48, marginBottom: 12 }}>{isNight ? "🌙" : "☀️"}</div>
@@ -289,11 +289,11 @@ return (
     {/* Kai's Report */}
     {report ? (
     <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20, marginBottom: 16,
     }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 12 }}>
-        <div style={{ width: 28, height: 28, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 28, height: 28, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
         </div>
         <span style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's night report</span>
@@ -304,7 +304,7 @@ return (
     <div style={{ textAlign: "center" }}>
         <button onClick={generateReport} disabled={generating} style={{
         padding: "14px 32px", borderRadius: 14, border: "none",
-        background: generating ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: generating ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
         color: "#fff", fontSize: 15, fontWeight: 700,
         cursor: generating ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
         display: "inline-flex", alignItems: "center", gap: 8,

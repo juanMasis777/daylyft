@@ -2,9 +2,9 @@
 
 export default function ContactPage() {
 return (
-<div style={{ minHeight: "100vh", background: "#0a0a12", fontFamily: "'Outfit', sans-serif", padding: "60px 24px" }}>
+<div style={{ minHeight: "100vh", background: "#080d0b", fontFamily: "'Outfit', sans-serif", padding: "60px 24px" }}>
     <div style={{ maxWidth: 500, margin: "0 auto" }}>
-    <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#6C5CE7", textDecoration: "none", fontSize: 14, marginBottom: 32 }}>← Back to DayLyft</a>
+    <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#10b981", textDecoration: "none", fontSize: 14, marginBottom: 32 }}>← Back to DayLyft</a>
 
     <div style={{ textAlign: "center", marginBottom: 40 }}>
         <h1 style={{ fontSize: 32, fontWeight: 800, color: "#fff", marginBottom: 8 }}>Contact Us</h1>
@@ -14,19 +14,19 @@ return (
     <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
         <a href="mailto:juanmasis777@gmail.com" style={{
         display: "flex", alignItems: "center", gap: 14, padding: 20,
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 16, textDecoration: "none",
         }}>
         <div style={{
             width: 44, height: 44, borderRadius: 12,
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: "linear-gradient(135deg, #10b981, #34d399)",
             display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
         }}>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22 6 12 13 2 6" /></svg>
         </div>
         <div>
             <div style={{ fontSize: 15, fontWeight: 600, color: "#fff" }}>Email</div>
-            <div style={{ fontSize: 13, color: "#a29bfe" }}>juanmasis777@gmail.com</div>
+            <div style={{ fontSize: 13, color: "#34d399" }}>juanmasis777@gmail.com</div>
         </div>
         </a>
 

@@ -232,6 +232,15 @@ function Icon({ name, size = 22 }) {
     );
   }
 
+  if (name === "lift") {
+    return (
+      <svg {...common} strokeWidth="2.4">
+        <path d="M5 14l7-7 7 7" />
+        <path d="M5 19h14" />
+      </svg>
+    );
+  }
+
   if (name === "menu") {
     return (
       <svg {...common}>
@@ -286,13 +295,13 @@ export default function LandingPage() {
           --bg: #ffffff;
           --soft: #f6f8f6;
           --mint: #eaf8ee;
-          --dark: #050807;
-          --dark-2: #08100d;
-          --green: #39d968;
-          --green-2: #22c55e;
-          --text: #080b0a;
-          --muted: #66736c;
-          --line: rgba(5, 8, 7, 0.1);
+          --dark: #06120d;
+          --dark-2: #0a1b14;
+          --green: #10b981;
+          --green-2: #059669;
+          --text: #0b1512;
+          --muted: #5f7269;
+          --line: rgba(6, 18, 13, 0.09);
         }
 
         * {
@@ -365,9 +374,9 @@ export default function LandingPage() {
           border-radius: 10px;
           display: grid;
           place-items: center;
-          background: linear-gradient(135deg, var(--green), #0b7d35);
+          background: linear-gradient(135deg, var(--green), #047857);
           color: #041008;
-          box-shadow: 0 0 30px rgba(57,217,104,0.45);
+          box-shadow: 0 0 30px rgba(16,185,129,0.45);
         }
 
         .nav-links {
@@ -397,17 +406,17 @@ export default function LandingPage() {
           padding: 12px 20px;
           border-radius: 12px;
           text-decoration: none;
-          background: linear-gradient(180deg, #53e779, #1fb954);
+          background: linear-gradient(180deg, #34d399, #059669);
           color: #041008;
           font-size: 14px;
           font-weight: 900;
-          box-shadow: 0 16px 40px rgba(57,217,104,0.28);
+          box-shadow: 0 16px 40px rgba(16,185,129,0.28);
           transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .nav-cta:hover {
           transform: translateY(-2px);
-          box-shadow: 0 22px 55px rgba(57,217,104,0.38);
+          box-shadow: 0 22px 55px rgba(16,185,129,0.38);
         }
 
         .menu-btn {
@@ -453,8 +462,8 @@ export default function LandingPage() {
           min-height: 760px;
           padding: 126px 0 62px;
           background:
-            radial-gradient(circle at 30% 55%, rgba(57,217,104,0.22), transparent 22%),
-            radial-gradient(circle at 82% 28%, rgba(57,217,104,0.12), transparent 28%),
+            radial-gradient(circle at 30% 55%, rgba(16,185,129,0.22), transparent 22%),
+            radial-gradient(circle at 82% 28%, rgba(16,185,129,0.12), transparent 28%),
             linear-gradient(135deg, #070a09 0%, #020403 45%, #07130d 100%);
           color: white;
           overflow: hidden;
@@ -479,7 +488,7 @@ export default function LandingPage() {
           width: 75%;
           height: 280px;
           background:
-            repeating-radial-gradient(ellipse at center, transparent 0 16px, rgba(57,217,104,0.13) 17px 18px);
+            repeating-radial-gradient(ellipse at center, transparent 0 16px, rgba(16,185,129,0.13) 17px 18px);
           transform: rotate(-7deg);
           opacity: 0.5;
           pointer-events: none;
@@ -561,9 +570,9 @@ export default function LandingPage() {
         }
 
         .btn-primary {
-          background: linear-gradient(180deg, #53e779, #1fb954);
+          background: linear-gradient(180deg, #34d399, #059669);
           color: #041008;
-          box-shadow: 0 20px 50px rgba(57,217,104,0.32);
+          box-shadow: 0 20px 50px rgba(16,185,129,0.32);
         }
 
         .btn-primary:hover,
@@ -600,7 +609,7 @@ export default function LandingPage() {
           display: grid;
           place-items: center;
           color: var(--green);
-          border: 1px solid rgba(57,217,104,0.42);
+          border: 1px solid rgba(16,185,129,0.42);
         }
 
         .dashboard {
@@ -610,7 +619,7 @@ export default function LandingPage() {
           border: 1px solid rgba(255,255,255,0.12);
           box-shadow:
             0 50px 130px rgba(0,0,0,0.58),
-            0 0 80px rgba(57,217,104,0.16);
+            0 0 80px rgba(16,185,129,0.16);
         }
 
         .dashboard-top {
@@ -693,7 +702,7 @@ export default function LandingPage() {
         }
 
         .sidebar-link.active {
-          background: rgba(57,217,104,0.11);
+          background: rgba(16,185,129,0.11);
           color: var(--green);
         }
 
@@ -750,9 +759,9 @@ export default function LandingPage() {
 
         .ask-kai {
           border-radius: 999px;
-          border: 1px solid rgba(57,217,104,0.28);
+          border: 1px solid rgba(16,185,129,0.28);
           color: var(--green);
-          background: rgba(57,217,104,0.08);
+          background: rgba(16,185,129,0.08);
           font-weight: 900;
           padding: 8px 13px;
         }
@@ -798,8 +807,8 @@ export default function LandingPage() {
           padding: 11px;
           border-radius: 12px;
           margin-bottom: 9px;
-          background: rgba(57,217,104,0.11);
-          border: 1px solid rgba(57,217,104,0.14);
+          background: rgba(16,185,129,0.11);
+          border: 1px solid rgba(16,185,129,0.14);
           color: rgba(255,255,255,0.78);
           font-size: 13px;
         }
@@ -848,7 +857,7 @@ export default function LandingPage() {
         .bar {
           flex: 1;
           border-radius: 6px 6px 2px 2px;
-          background: linear-gradient(180deg, var(--green), #15803d);
+          background: linear-gradient(180deg, var(--green), #047857);
         }
 
         .line-chart {
@@ -856,8 +865,8 @@ export default function LandingPage() {
           margin-top: 12px;
           border-radius: 10px;
           background:
-            linear-gradient(135deg, transparent 0 28%, rgba(57,217,104,0.4) 29% 32%, transparent 33% 48%, rgba(57,217,104,0.55) 49% 52%, transparent 53% 66%, rgba(57,217,104,0.8) 67% 70%, transparent 71%),
-            rgba(57,217,104,0.06);
+            linear-gradient(135deg, transparent 0 28%, rgba(16,185,129,0.4) 29% 32%, transparent 33% 48%, rgba(16,185,129,0.55) 49% 52%, transparent 53% 66%, rgba(16,185,129,0.8) 67% 70%, transparent 71%),
+            rgba(16,185,129,0.06);
         }
 
         .life-section {
@@ -908,7 +917,7 @@ export default function LandingPage() {
           display: grid;
           place-items: center;
           background: #e7f8ea;
-          color: #0a8d3a;
+          color: #059669;
           margin-bottom: 20px;
         }
 
@@ -926,7 +935,7 @@ export default function LandingPage() {
         }
 
         .learn-link {
-          color: #16a34a;
+          color: #059669;
           text-decoration: none;
           font-weight: 900;
           font-size: 14px;
@@ -936,7 +945,7 @@ export default function LandingPage() {
           position: relative;
           overflow: hidden;
           background:
-            radial-gradient(circle at 46% 50%, rgba(57,217,104,0.23), transparent 26%),
+            radial-gradient(circle at 46% 50%, rgba(16,185,129,0.23), transparent 26%),
             linear-gradient(135deg, #060807, #020403 55%, #07130d);
           color: white;
           padding: 80px 0;
@@ -983,9 +992,9 @@ export default function LandingPage() {
           margin: 0 auto;
           border-radius: 50%;
           background:
-            radial-gradient(circle, transparent 35%, rgba(157,247,180,0.9) 37%, rgba(57,217,104,0.72) 42%, transparent 48%),
-            radial-gradient(circle, rgba(57,217,104,0.14), transparent 70%);
-          box-shadow: 0 0 80px rgba(57,217,104,0.35);
+            radial-gradient(circle, transparent 35%, rgba(110,231,183,0.9) 37%, rgba(16,185,129,0.72) 42%, transparent 48%),
+            radial-gradient(circle, rgba(16,185,129,0.14), transparent 70%);
+          box-shadow: 0 0 80px rgba(16,185,129,0.35);
           position: relative;
         }
 
@@ -995,7 +1004,7 @@ export default function LandingPage() {
           position: absolute;
           inset: 32px;
           border-radius: 50%;
-          border: 1px solid rgba(157,247,180,0.25);
+          border: 1px solid rgba(110,231,183,0.25);
         }
 
         .kai-orb::after {
@@ -1019,8 +1028,8 @@ export default function LandingPage() {
 
         .chat-message.user {
           margin-left: 42px;
-          background: rgba(57,217,104,0.16);
-          border-color: rgba(57,217,104,0.24);
+          background: rgba(16,185,129,0.16);
+          border-color: rgba(16,185,129,0.24);
           color: white;
         }
 
@@ -1039,7 +1048,7 @@ export default function LandingPage() {
 
         .compare-section {
           background:
-            radial-gradient(circle at 50% 25%, rgba(34,197,94,0.12), transparent 30%),
+            radial-gradient(circle at 50% 25%, rgba(16,185,129,0.12), transparent 30%),
             #f7fbf8;
           padding: 90px 0;
         }
@@ -1067,7 +1076,7 @@ export default function LandingPage() {
           border-radius: 30px;
           overflow: hidden;
           background: rgba(255,255,255,0.78);
-          border: 1px solid rgba(34,197,94,0.16);
+          border: 1px solid rgba(16,185,129,0.16);
           box-shadow: 0 38px 100px rgba(5, 8, 7, 0.08);
         }
 
@@ -1091,7 +1100,7 @@ export default function LandingPage() {
         }
 
         .compare-app-row.highlight {
-          background: #042b16;
+          background: #052e1a;
           color: white;
           border-bottom: 0;
         }
@@ -1124,7 +1133,7 @@ export default function LandingPage() {
         }
 
         .compare-yes {
-          color: #17b45c;
+          color: #059669;
           font-size: 21px;
           font-weight: 900;
           line-height: 1;
@@ -1138,7 +1147,7 @@ export default function LandingPage() {
         }
 
         .compare-app-row.highlight .compare-yes {
-          color: #4ade80;
+          color: #34d399;
         }
 
         .testimonials-section {
@@ -1199,7 +1208,7 @@ export default function LandingPage() {
           font-size: 12px;
           font-weight: 900;
           color: white;
-          background: linear-gradient(135deg, #134e2b, #22c55e);
+          background: linear-gradient(135deg, #064e3b, #10b981);
         }
 
         .person strong {
@@ -1250,10 +1259,10 @@ export default function LandingPage() {
         }
 
         .price-card.highlighted {
-          border-color: rgba(34,197,94,0.7);
+          border-color: rgba(16,185,129,0.7);
           box-shadow:
-            0 22px 70px rgba(34,197,94,0.12),
-            inset 0 0 0 1px rgba(34,197,94,0.24);
+            0 22px 70px rgba(16,185,129,0.12),
+            inset 0 0 0 1px rgba(16,185,129,0.24);
         }
 
         .popular {
@@ -1284,7 +1293,7 @@ export default function LandingPage() {
           display: grid;
           place-items: center;
           background: #eaf8ee;
-          color: #16a34a;
+          color: #059669;
         }
 
         .price {
@@ -1325,7 +1334,7 @@ export default function LandingPage() {
         }
 
         .price-card.highlighted .price-button {
-          background: linear-gradient(180deg, #53e779, #1fb954);
+          background: linear-gradient(180deg, #34d399, #059669);
           color: #041008;
           border: 0;
         }
@@ -1351,7 +1360,7 @@ export default function LandingPage() {
           display: grid;
           place-items: center;
           flex: 0 0 auto;
-          color: #16a34a;
+          color: #059669;
         }
 
         .price-note {
@@ -1365,7 +1374,7 @@ export default function LandingPage() {
           position: relative;
           overflow: hidden;
           background:
-            radial-gradient(circle at 70% 10%, rgba(57,217,104,0.28), transparent 28%),
+            radial-gradient(circle at 70% 10%, rgba(16,185,129,0.28), transparent 28%),
             linear-gradient(135deg, #07100a, #020403);
           color: white;
           padding: 52px 0;
@@ -1379,7 +1388,7 @@ export default function LandingPage() {
           bottom: -170px;
           height: 270px;
           border-radius: 50%;
-          background: radial-gradient(ellipse, rgba(57,217,104,0.55), transparent 62%);
+          background: radial-gradient(ellipse, rgba(16,185,129,0.55), transparent 62%);
           filter: blur(20px);
         }
 
@@ -1623,7 +1632,7 @@ export default function LandingPage() {
         <div className="container nav-inner">
           <a href="/" className="brand">
             <span className="brand-mark">
-              <Icon name="spark" size={18} />
+              <Icon name="lift" size={18} />
             </span>
             DayLyft
           </a>
@@ -1705,7 +1714,7 @@ export default function LandingPage() {
             <div className="dashboard-top">
               <div className="dashboard-brand">
                 <span className="dashboard-brand-mark">
-                  <Icon name="spark" size={14} />
+                  <Icon name="lift" size={15} />
                 </span>
                 DayLyft
               </div>
@@ -1993,7 +2002,7 @@ export default function LandingPage() {
             <div>
               <a href="/" className="brand">
                 <span className="brand-mark">
-                  <Icon name="spark" size={18} />
+                  <Icon name="lift" size={18} />
                 </span>
                 DayLyft
               </a>

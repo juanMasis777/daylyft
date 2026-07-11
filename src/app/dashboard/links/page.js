@@ -3,13 +3,13 @@
 import { useState, useEffect } from "react";
 
 const linkCategories = [
-{ id: "work", label: "Work", emoji: "💼", color: "#6C5CE7" },
+{ id: "work", label: "Work", emoji: "💼", color: "#10b981" },
 { id: "learn", label: "Learning", emoji: "📚", color: "#00CEC9" },
 { id: "tools", label: "Tools", emoji: "🔧", color: "#fdcb6e" },
 { id: "news", label: "News", emoji: "📰", color: "#e17055" },
 { id: "social", label: "Social", emoji: "📱", color: "#fd79a8" },
 { id: "video", label: "Videos", emoji: "▶️", color: "#ff6b6b" },
-{ id: "design", label: "Design", emoji: "🎨", color: "#a29bfe" },
+{ id: "design", label: "Design", emoji: "🎨", color: "#34d399" },
 { id: "shopping", label: "Shopping", emoji: "🛍", color: "#00b894" },
 { id: "recipes", label: "Recipes", emoji: "🍳", color: "#74b9ff" },
 { id: "other", label: "Other", emoji: "🔗", color: "#636e72" },
@@ -146,7 +146,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeForm(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ Save Link"}</button>
     </div>
@@ -178,9 +178,9 @@ return (
         <div style={{ display: "flex", gap: 4, flexWrap: "wrap" }}>
         <button onClick={() => setFilterCat("all")} style={{
             padding: "5px 12px", borderRadius: 8, fontSize: 11, fontWeight: 500,
-            border: filterCat === "all" ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-            background: filterCat === "all" ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
-            color: filterCat === "all" ? "#6C5CE7" : "var(--fm-muted)",
+            border: filterCat === "all" ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+            background: filterCat === "all" ? "rgba(16,185,129,0.1)" : "var(--fm-surface)",
+            color: filterCat === "all" ? "#10b981" : "var(--fm-muted)",
             cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>All ({links.length})</button>
         {linkCategories.filter((cat) => catCounts[cat.id]).map((cat) => (
@@ -238,7 +238,7 @@ return (
 
         <button onClick={addLink} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingId ? "Update Link" : "Save Link"}</button>
     </div>

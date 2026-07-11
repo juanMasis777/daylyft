@@ -18,7 +18,7 @@ const habitIcons = [
 { icon: "😊", label: "Gratitude" },
 ];
 
-const habitColors = ["#6C5CE7", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#a29bfe", "#ff6b6b", "#55efc4"];
+const habitColors = ["#10b981", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#34d399", "#ff6b6b", "#55efc4"];
 
 export default function HabitsPage() {
 const [habits, setHabits] = useState([]);
@@ -27,7 +27,7 @@ const [loading, setLoading] = useState(true);
 const [showAdd, setShowAdd] = useState(false);
 const [newTitle, setNewTitle] = useState("");
 const [newIcon, setNewIcon] = useState("💪");
-const [newColor, setNewColor] = useState("#6C5CE7");
+const [newColor, setNewColor] = useState("#10b981");
 
 const today = new Date().toISOString().split("T")[0];
 const last7Days = Array.from({ length: 7 }, (_, i) => {
@@ -83,7 +83,7 @@ if (!error && data) {
     setHabits([...habits, data[0]]);
     setNewTitle("");
     setNewIcon("💪");
-    setNewColor("#6C5CE7");
+    setNewColor("#10b981");
     setShowAdd(false);
 }
 };
@@ -157,15 +157,15 @@ return (
     </div>
     <button onClick={() => setShowAdd(!showAdd)} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ New Habit"}</button>
     </div>
 
     {/* Today's Progress */}
     <div style={{
-    background: "linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,206,201,0.08))",
-    border: "1px solid rgba(108,92,231,0.2)",
+    background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(0,206,201,0.08))",
+    border: "1px solid rgba(16,185,129,0.2)",
     borderRadius: 16, padding: 20, marginBottom: 16, display: "flex", alignItems: "center", justifyContent: "space-between",
     }}>
     <div>
@@ -173,7 +173,7 @@ return (
         <div style={{ fontSize: 13, color: "var(--fm-muted)" }}>{todayDone} of {todayTotal} habits completed</div>
     </div>
     <div style={{ textAlign: "center" }}>
-        <div style={{ fontSize: 32, fontWeight: 800, color: todayRate === 100 ? "#00CEC9" : todayRate >= 50 ? "#6C5CE7" : "var(--fm-muted)" }}>{todayRate}%</div>
+        <div style={{ fontSize: 32, fontWeight: 800, color: todayRate === 100 ? "#00CEC9" : todayRate >= 50 ? "#10b981" : "var(--fm-muted)" }}>{todayRate}%</div>
         {todayRate === 100 && todayTotal > 0 && <div style={{ fontSize: 11, color: "#00CEC9", fontWeight: 600 }}>Perfect day!</div>}
     </div>
     </div>
@@ -184,7 +184,7 @@ return (
         <div style={{
         height: "100%", borderRadius: 8,
         width: `${todayRate}%`,
-        background: todayRate === 100 ? "linear-gradient(135deg, #00CEC9, #55efc4)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: todayRate === 100 ? "linear-gradient(135deg, #00CEC9, #55efc4)" : "linear-gradient(135deg, #10b981, #34d399)",
         transition: "width 0.5s ease",
         }} />
     </div>
@@ -210,8 +210,8 @@ return (
             <div key={h.icon} onClick={() => setNewIcon(h.icon)} style={{
             width: 40, height: 40, borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 20, cursor: "pointer",
-            background: newIcon === h.icon ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            border: newIcon === h.icon ? "1px solid rgba(108,92,231,0.3)" : "1px solid var(--fm-border)",
+            background: newIcon === h.icon ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            border: newIcon === h.icon ? "1px solid rgba(16,185,129,0.3)" : "1px solid var(--fm-border)",
             }}>{h.icon}</div>
         ))}
         </div>
@@ -231,7 +231,7 @@ return (
 
         <button onClick={addHabit} disabled={!newTitle.trim()} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: newTitle.trim() ? "linear-gradient(135deg, #6C5CE7, #a29bfe)" : "var(--fm-muted)",
+        background: newTitle.trim() ? "linear-gradient(135deg, #10b981, #34d399)" : "var(--fm-muted)",
         color: "#fff", fontSize: 14, fontWeight: 600,
         cursor: newTitle.trim() ? "pointer" : "not-allowed", fontFamily: "Outfit, sans-serif",
         }}>Create Habit</button>

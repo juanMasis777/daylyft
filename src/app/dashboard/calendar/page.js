@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 const colorOptions = [
-{ id: "purple", bg: "rgba(108,92,231,0.15)", border: "rgba(108,92,231,0.3)", text: "#a29bfe" },
+{ id: "purple", bg: "rgba(16,185,129,0.15)", border: "rgba(16,185,129,0.3)", text: "#34d399" },
 { id: "teal", bg: "rgba(0,206,201,0.15)", border: "rgba(0,206,201,0.3)", text: "#00CEC9" },
 { id: "pink", bg: "rgba(253,121,168,0.15)", border: "rgba(253,121,168,0.3)", text: "#fd79a8" },
 { id: "amber", bg: "rgba(253,203,110,0.15)", border: "rgba(253,203,110,0.3)", text: "#fdcb6e" },
@@ -137,7 +137,7 @@ return (
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><polyline points="9 18 15 12 9 6" /></svg>
         </button>
         <button onClick={() => setShowAdd(!showAdd)}
-        style={{ padding: "8px 16px", borderRadius: 10, border: "none", background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>
+        style={{ padding: "8px 16px", borderRadius: 10, border: "none", background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>
         + Add event
         </button>
     </div>
@@ -184,7 +184,7 @@ return (
 
         <div style={{ display: "flex", gap: 8 }}>
             <button onClick={addEvent} disabled={saving}
-            style={{ padding: "10px 24px", borderRadius: 10, border: "none", background: saving ? "#555" : "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: saving ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif" }}>
+            style={{ padding: "10px 24px", borderRadius: 10, border: "none", background: saving ? "#555" : "linear-gradient(135deg, #10b981, #34d399)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: saving ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif" }}>
             {saving ? "Saving..." : "Save event"}
             </button>
             <button onClick={() => setShowAdd(false)}
@@ -204,7 +204,7 @@ return (
         const isToday = dateStr === today;
         const dayEvents = events.filter((e) => e.event_date === dateStr);
         return (
-        <div key={i} style={{ background: "var(--fm-surface)", border: isToday ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)", borderRadius: 12, padding: 10, minHeight: 160 }}>
+        <div key={i} style={{ background: "var(--fm-surface)", border: isToday ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)", borderRadius: 12, padding: 10, minHeight: 160 }}>
             <div style={{ textAlign: "center", marginBottom: 8, paddingBottom: 8, borderBottom: "1px solid var(--fm-border)" }}>
             <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 2 }}>{dayNames[i]}</div>
             <div style={{ fontSize: 18, fontWeight: 600, color: isToday ? "var(--fm-accent-light)" : "var(--fm-text)" }}>{day.getDate()}</div>

@@ -75,7 +75,7 @@ return (
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 20, marginBottom: 16 }}>
     <div style={{ fontSize: 15, fontWeight: 600, color: "var(--fm-text)", marginBottom: 12 }}>Overall progress</div>
     <div style={{ background: "var(--fm-card)", borderRadius: 8, height: 24, overflow: "hidden", marginBottom: 8 }}>
-        <div style={{ width: `${completionRate}%`, height: "100%", background: "linear-gradient(135deg, #6C5CE7, #00CEC9)", borderRadius: 8, transition: "width 0.5s ease", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: `${completionRate}%`, height: "100%", background: "linear-gradient(135deg, #10b981, #00CEC9)", borderRadius: 8, transition: "width 0.5s ease", display: "flex", alignItems: "center", justifyContent: "center" }}>
         {completionRate > 10 && <span style={{ fontSize: 11, color: "#fff", fontWeight: 600 }}>{completionRate}%</span>}
         </div>
     </div>
@@ -141,9 +141,9 @@ return (
     </div>
 
     {/* Kai Insight */}
-    <div style={{ background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)", borderRadius: 14, padding: 18, marginTop: 16 }}>
+    <div style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)", borderRadius: 14, padding: 18, marginTop: 16 }}>
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
-        <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
         </div>
         <span style={{ fontSize: 13, color: "var(--fm-accent-light)", fontWeight: 600 }}>Kai's insight</span>

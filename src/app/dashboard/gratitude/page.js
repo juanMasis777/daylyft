@@ -138,7 +138,7 @@ return (
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Streak</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#6C5CE7" : "var(--fm-muted)" }}>{streak}d</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#10b981" : "var(--fm-muted)" }}>{streak}d</div>
         {streak >= 7 && <div style={{ fontSize: 10, color: "#00CEC9" }}>Amazing!</div>}
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
@@ -152,8 +152,8 @@ return (
     <div style={{
     background: todaySaved
         ? "linear-gradient(135deg, rgba(0,206,201,0.08), rgba(85,239,196,0.05))"
-        : "linear-gradient(135deg, rgba(108,92,231,0.08), rgba(162,155,254,0.05))",
-    border: `1px solid ${todaySaved ? "rgba(0,206,201,0.2)" : "rgba(108,92,231,0.2)"}`,
+        : "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(52,211,153,0.05))",
+    border: `1px solid ${todaySaved ? "rgba(0,206,201,0.2)" : "rgba(16,185,129,0.2)"}`,
     borderRadius: 16, padding: 24, marginBottom: 20,
     }}>
     <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
@@ -213,7 +213,7 @@ return (
 
     <button onClick={saveEntry} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: todaySaved ? "rgba(0,206,201,0.15)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: todaySaved ? "rgba(0,206,201,0.15)" : "linear-gradient(135deg, #10b981, #34d399)",
         color: todaySaved ? "#00CEC9" : "#fff",
         border: todaySaved ? "1px solid rgba(0,206,201,0.3)" : "none",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
@@ -224,11 +224,11 @@ return (
     {entries.length >= 3 && (
     kaiMessage ? (
         <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20, marginBottom: 16,
         }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's gratitude reflection</span>
@@ -239,7 +239,7 @@ return (
         <div style={{ textAlign: "center", marginBottom: 16 }}>
         <button onClick={generateKaiReflection} disabled={generatingKai} style={{
             padding: "14px 28px", borderRadius: 14, border: "none",
-            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 14, fontWeight: 700,
             cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
             display: "inline-flex", alignItems: "center", gap: 8,
@@ -264,7 +264,7 @@ return (
     {entries.length < 3 && entries.length > 0 && (
     <div style={{
         textAlign: "center", padding: 16, marginBottom: 16,
-        background: "rgba(108,92,231,0.05)", border: "1px solid rgba(108,92,231,0.1)",
+        background: "rgba(16,185,129,0.05)", border: "1px solid rgba(16,185,129,0.1)",
         borderRadius: 14, fontSize: 13, color: "var(--fm-muted)",
     }}>
         Log {3 - entries.length} more day{3 - entries.length > 1 ? "s" : ""} to unlock Kai's gratitude reflection

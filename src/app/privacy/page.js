@@ -3,13 +3,13 @@
 export default function PrivacyPage() {
 return (
 <div style={{
-    minHeight: "100vh", background: "#0a0a12",
+    minHeight: "100vh", background: "#080d0b",
     fontFamily: "'Outfit', sans-serif", padding: "60px 24px",
 }}>
     <div style={{ maxWidth: 700, margin: "0 auto" }}>
     <a href="/" style={{
         display: "inline-flex", alignItems: "center", gap: 8,
-        color: "#6C5CE7", textDecoration: "none", fontSize: 14, marginBottom: 32,
+        color: "#10b981", textDecoration: "none", fontSize: 14, marginBottom: 32,
     }}>← Back to DayLyft</a>
 
     <h1 style={{ fontSize: 32, fontWeight: 800, color: "#fff", marginBottom: 8 }}>Privacy Policy</h1>
@@ -63,7 +63,7 @@ return (
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#fff", marginTop: 32, marginBottom: 12 }}>10. Contact us</h2>
         <p>If you have any questions about this Privacy Policy, please contact us at:</p>
         <p style={{ marginTop: 8 }}>
-        <a href="mailto:juanmasis777@gmail.com" style={{ color: "#6C5CE7", textDecoration: "none" }}>juanmasis777@gmail.com</a>
+        <a href="mailto:juanmasis777@gmail.com" style={{ color: "#10b981", textDecoration: "none" }}>juanmasis777@gmail.com</a>
         </p>
     </div>
 

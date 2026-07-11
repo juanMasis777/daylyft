@@ -17,7 +17,7 @@ const eventIcons = [
 { id: "other", emoji: "⭐", label: "Other" },
 ];
 
-const eventColors = ["#6C5CE7", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#a29bfe", "#ff6b6b", "#55efc4"];
+const eventColors = ["#10b981", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#34d399", "#ff6b6b", "#55efc4"];
 
 export default function CountdownPage() {
 const [events, setEvents] = useState([]);
@@ -25,7 +25,7 @@ const [showAdd, setShowAdd] = useState(false);
 const [title, setTitle] = useState("");
 const [date, setDate] = useState("");
 const [icon, setIcon] = useState("vacation");
-const [color, setColor] = useState("#6C5CE7");
+const [color, setColor] = useState("#10b981");
 const [editingId, setEditingId] = useState(null);
 const [now, setNow] = useState(new Date());
 
@@ -71,7 +71,7 @@ setEditingId(null);
 setTitle("");
 setDate("");
 setIcon("vacation");
-setColor("#6C5CE7");
+setColor("#10b981");
 };
 
 const editEvent = (event) => {
@@ -122,7 +122,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeForm(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ Add Event"}</button>
     </div>
@@ -202,9 +202,9 @@ return (
         {eventIcons.map((ei) => (
             <button key={ei.id} onClick={() => setIcon(ei.id)} style={{
             padding: "6px 10px", borderRadius: 8, fontSize: 11, cursor: "pointer",
-            border: icon === ei.id ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-            background: icon === ei.id ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            color: icon === ei.id ? "#6C5CE7" : "var(--fm-muted)",
+            border: icon === ei.id ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+            background: icon === ei.id ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            color: icon === ei.id ? "#10b981" : "var(--fm-muted)",
             fontFamily: "Outfit, sans-serif",
             }}>{ei.emoji} {ei.label}</button>
         ))}
@@ -225,7 +225,7 @@ return (
 
         <button onClick={addEvent} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingId ? "Update Event" : "Start Countdown"}</button>
     </div>

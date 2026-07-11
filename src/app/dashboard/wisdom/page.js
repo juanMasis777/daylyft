@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 
 const categories = [
-{ id: "productivity", name: "Productivity", emoji: "⚡", color: "#6C5CE7" },
+{ id: "productivity", name: "Productivity", emoji: "⚡", color: "#10b981" },
 { id: "mindfulness", name: "Mindfulness", emoji: "🧘", color: "#00CEC9" },
 { id: "growth", name: "Growth", emoji: "🌱", color: "#00b894" },
 { id: "motivation", name: "Motivation", emoji: "🔥", color: "#e17055" },
 { id: "leadership", name: "Leadership", emoji: "👑", color: "#fdcb6e" },
-{ id: "balance", name: "Balance", emoji: "☯", color: "#a29bfe" },
+{ id: "balance", name: "Balance", emoji: "☯", color: "#34d399" },
 { id: "creativity", name: "Creativity", emoji: "🎨", color: "#fd79a8" },
 { id: "resilience", name: "Resilience", emoji: "💪", color: "#74b9ff" },
 ];
@@ -103,7 +103,7 @@ return (
     </div>
     <button onClick={() => setShowSaved(!showSaved)} style={{
         padding: "8px 16px", borderRadius: 10, border: "1px solid var(--fm-border)",
-        background: showSaved ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
+        background: showSaved ? "rgba(16,185,129,0.1)" : "var(--fm-surface)",
         color: showSaved ? "var(--fm-accent-light)" : "var(--fm-muted)",
         fontSize: 12, fontWeight: 500, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showSaved ? "Back to wisdom" : `Saved (${savedQuotes.length})`}</button>
@@ -185,7 +185,7 @@ return (
         <div style={{ textAlign: "center" }}>
         <button onClick={() => generateQuote("all")} disabled={loading} style={{
             padding: "14px 28px", borderRadius: 14, border: "none",
-            background: loading ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: loading ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 14, fontWeight: 700, cursor: loading ? "not-allowed" : "pointer",
             fontFamily: "Outfit, sans-serif", display: "inline-flex", alignItems: "center", gap: 8,
         }}>

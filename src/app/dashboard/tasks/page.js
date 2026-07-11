@@ -104,7 +104,7 @@ return (
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Completed</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: "#6C5CE7" }}>{completedCount}</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: "#10b981" }}>{completedCount}</div>
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Total</div>
@@ -145,9 +145,9 @@ return (
         {["personal", "work", "health"].map((c) => (
             <button key={c} onClick={() => setCategory(c)} style={{
             padding: "5px 12px", borderRadius: 8, fontSize: 11, fontWeight: 500,
-            border: category === c ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-            background: category === c ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            color: category === c ? "#6C5CE7" : "var(--fm-muted)",
+            border: category === c ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+            background: category === c ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            color: category === c ? "#10b981" : "var(--fm-muted)",
             cursor: "pointer", fontFamily: "Outfit, sans-serif",
             }}>{c}</button>
         ))}
@@ -156,7 +156,7 @@ return (
 
     <button onClick={addTask} style={{
         width: "100%", padding: "10px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>Add Task</button>
     </div>
@@ -165,9 +165,9 @@ return (
     {["all", "active", "completed"].map((f) => (
         <button key={f} onClick={() => setFilter(f)} style={{
         padding: "6px 14px", borderRadius: 8, fontSize: 12, fontWeight: 500,
-        border: filter === f ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-        background: filter === f ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
-        color: filter === f ? "#6C5CE7" : "var(--fm-muted)",
+        border: filter === f ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+        background: filter === f ? "rgba(16,185,129,0.1)" : "var(--fm-surface)",
+        color: filter === f ? "#10b981" : "var(--fm-muted)",
         cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{f}</button>
     ))}
@@ -225,7 +225,7 @@ return (
                 {task.category && (
                 <span style={{
                     fontSize: 10, padding: "2px 8px", borderRadius: 6,
-                    background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
+                    background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)",
                 }}>{task.category}</span>
                 )}
             </div>

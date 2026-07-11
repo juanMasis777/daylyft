@@ -3,23 +3,23 @@
 import { useState, useEffect } from "react";
 
 const challenges = [
-{ id: 1, title: "Talk to a stranger", desc: "Start a friendly conversation with someone you don't know — at a coffee shop, store, or park.", category: "Social", emoji: "👋", color: "#6C5CE7", difficulty: "Medium" },
+{ id: 1, title: "Talk to a stranger", desc: "Start a friendly conversation with someone you don't know — at a coffee shop, store, or park.", category: "Social", emoji: "👋", color: "#10b981", difficulty: "Medium" },
 { id: 2, title: "No social media today", desc: "Delete social media apps from your home screen and don't check them for 24 hours.", category: "Digital Wellness", emoji: "📵", color: "#ff6b6b", difficulty: "Hard" },
 { id: 3, title: "Walk 10,000 steps", desc: "Track your steps today and hit 10,000. Take the stairs, walk during calls, explore a new route.", category: "Health", emoji: "🚶", color: "#00CEC9", difficulty: "Medium" },
 { id: 4, title: "Write a thank you message", desc: "Send a genuine thank you message to someone who has positively impacted your life.", category: "Social", emoji: "💌", color: "#fd79a8", difficulty: "Easy" },
-{ id: 5, title: "Learn something new in 30 min", desc: "Watch a tutorial, read an article, or take a mini-course about something you've been curious about.", category: "Growth", emoji: "📚", color: "#a29bfe", difficulty: "Easy" },
+{ id: 5, title: "Learn something new in 30 min", desc: "Watch a tutorial, read an article, or take a mini-course about something you've been curious about.", category: "Growth", emoji: "📚", color: "#34d399", difficulty: "Easy" },
 { id: 6, title: "Cook a meal from scratch", desc: "No takeout, no microwave meals. Cook a full meal using fresh ingredients.", category: "Health", emoji: "🍳", color: "#e17055", difficulty: "Medium" },
 { id: 7, title: "Meditate for 15 minutes", desc: "Find a quiet spot, close your eyes, and focus on your breathing for 15 uninterrupted minutes.", category: "Mindfulness", emoji: "🧘", color: "#00b894", difficulty: "Easy" },
 { id: 8, title: "Compliment 5 people", desc: "Give genuine, specific compliments to 5 different people today. Make their day.", category: "Social", emoji: "😊", color: "#fdcb6e", difficulty: "Easy" },
 { id: 9, title: "Cold shower", desc: "End your shower with 30 seconds of cold water. Builds mental toughness and boosts energy.", category: "Health", emoji: "🥶", color: "#74b9ff", difficulty: "Hard" },
 { id: 10, title: "Organize one space", desc: "Pick one area — desk, closet, drawer, phone — and organize it completely.", category: "Productivity", emoji: "🧹", color: "#55efc4", difficulty: "Easy" },
-{ id: 11, title: "Read for 30 minutes", desc: "Put your phone away and read a physical book or e-reader for 30 minutes straight.", category: "Growth", emoji: "📖", color: "#a29bfe", difficulty: "Easy" },
+{ id: 11, title: "Read for 30 minutes", desc: "Put your phone away and read a physical book or e-reader for 30 minutes straight.", category: "Growth", emoji: "📖", color: "#34d399", difficulty: "Easy" },
 { id: 12, title: "Do 50 push-ups", desc: "Spread them throughout the day if needed. 10 in the morning, 10 at lunch, etc.", category: "Health", emoji: "💪", color: "#e17055", difficulty: "Medium" },
-{ id: 13, title: "Write your goals for this month", desc: "Sit down and write 3-5 specific, measurable goals for this month. Put them where you'll see them.", category: "Productivity", emoji: "🎯", color: "#6C5CE7", difficulty: "Easy" },
+{ id: 13, title: "Write your goals for this month", desc: "Sit down and write 3-5 specific, measurable goals for this month. Put them where you'll see them.", category: "Productivity", emoji: "🎯", color: "#10b981", difficulty: "Easy" },
 { id: 14, title: "No complaining for 24 hours", desc: "Every time you catch yourself about to complain, replace it with something positive or a solution.", category: "Mindfulness", emoji: "🤐", color: "#fdcb6e", difficulty: "Hard" },
 { id: 15, title: "Call someone you haven't talked to in months", desc: "Reconnect with an old friend or family member. A real phone call, not a text.", category: "Social", emoji: "📞", color: "#fd79a8", difficulty: "Medium" },
 { id: 16, title: "Try a new food", desc: "Order something you've never tried before at a restaurant or cook a recipe from a different culture.", category: "Growth", emoji: "🍜", color: "#00CEC9", difficulty: "Easy" },
-{ id: 17, title: "Write a letter to your future self", desc: "Write a letter to yourself 1 year from now. What do you want to have accomplished?", category: "Growth", emoji: "✉️", color: "#a29bfe", difficulty: "Easy" },
+{ id: 17, title: "Write a letter to your future self", desc: "Write a letter to yourself 1 year from now. What do you want to have accomplished?", category: "Growth", emoji: "✉️", color: "#34d399", difficulty: "Easy" },
 { id: 18, title: "No caffeine today", desc: "Skip the coffee, energy drinks, and tea. Drink water instead and notice how you feel.", category: "Health", emoji: "☕", color: "#e17055", difficulty: "Hard" },
 { id: 19, title: "Take a photo walk", desc: "Go for a 20-minute walk with your phone camera and take 10 interesting photos of things you normally overlook.", category: "Mindfulness", emoji: "📸", color: "#74b9ff", difficulty: "Easy" },
 { id: 20, title: "Do one thing that scares you", desc: "Identify something small that makes you uncomfortable and do it. Growth lives outside your comfort zone.", category: "Growth", emoji: "🦁", color: "#ff6b6b", difficulty: "Hard" },
@@ -28,8 +28,8 @@ const challenges = [
 { id: 23, title: "Spend 1 hour in nature", desc: "Go to a park, beach, trail, or garden and spend 1 hour without your phone.", category: "Mindfulness", emoji: "🌿", color: "#55efc4", difficulty: "Easy" },
 { id: 24, title: "Create something", desc: "Draw, write a poem, build something, compose music — create anything from scratch.", category: "Growth", emoji: "🎨", color: "#fd79a8", difficulty: "Medium" },
 { id: 25, title: "Drink 3 liters of water", desc: "Track every glass and hit 3 liters by the end of the day. Your body will thank you.", category: "Health", emoji: "💧", color: "#74b9ff", difficulty: "Medium" },
-{ id: 26, title: "Teach someone something", desc: "Share a skill or knowledge with a friend, coworker, or family member.", category: "Social", emoji: "🎓", color: "#6C5CE7", difficulty: "Easy" },
-{ id: 27, title: "No screens after 9 PM", desc: "Turn off all screens at 9 PM. Read, stretch, talk, or just rest.", category: "Digital Wellness", emoji: "🌙", color: "#a29bfe", difficulty: "Medium" },
+{ id: 26, title: "Teach someone something", desc: "Share a skill or knowledge with a friend, coworker, or family member.", category: "Social", emoji: "🎓", color: "#10b981", difficulty: "Easy" },
+{ id: 27, title: "No screens after 9 PM", desc: "Turn off all screens at 9 PM. Read, stretch, talk, or just rest.", category: "Digital Wellness", emoji: "🌙", color: "#34d399", difficulty: "Medium" },
 { id: 28, title: "Do a random act of kindness", desc: "Pay for someone's coffee, hold the door, leave a generous tip, or help someone carry their bags.", category: "Social", emoji: "❤️", color: "#ff6b6b", difficulty: "Easy" },
 ];
 
@@ -165,7 +165,7 @@ return (
     </div>
     <button onClick={() => setShowHistory(!showHistory)} style={{
         padding: "8px 14px", borderRadius: 10, border: "1px solid var(--fm-border)",
-        background: showHistory ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
+        background: showHistory ? "rgba(16,185,129,0.1)" : "var(--fm-surface)",
         color: showHistory ? "var(--fm-accent-light)" : "var(--fm-muted)",
         fontSize: 12, fontWeight: 500, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showHistory ? "Today" : `History (${totalCompleted})`}</button>
@@ -180,7 +180,7 @@ return (
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Streak</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#6C5CE7" : "var(--fm-muted)" }}>{streak}d</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#10b981" : "var(--fm-muted)" }}>{streak}d</div>
         {streak >= 7 && <div style={{ fontSize: 10, color: "#00CEC9" }}>On fire!</div>}
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
@@ -283,11 +283,11 @@ return (
         {/* Kai Motivation */}
         {kaiMessage ? (
         <div style={{
-            background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+            background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
             borderRadius: 14, padding: 20, marginBottom: 16,
         }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's motivation</span>
@@ -298,7 +298,7 @@ return (
         <div style={{ textAlign: "center", marginBottom: 16 }}>
             <button onClick={getKaiMotivation} disabled={generatingKai} style={{
             padding: "12px 24px", borderRadius: 12, border: "none",
-            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 13, fontWeight: 600,
             cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
             display: "inline-flex", alignItems: "center", gap: 8,

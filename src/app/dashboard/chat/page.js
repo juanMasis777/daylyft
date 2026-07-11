@@ -77,7 +77,7 @@ return (
     {messages.map((msg, i) => (
         <div key={i} style={{ display: "flex", gap: 8, alignItems: msg.role === "user" ? "flex-end" : "flex-start", flexDirection: msg.role === "user" ? "row-reverse" : "row" }}>
         {msg.role === "kai" && (
-            <div style={{ width: 28, height: 28, borderRadius: 7, flexShrink: 0, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 28, height: 28, borderRadius: 7, flexShrink: 0, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
         )}
@@ -95,7 +95,7 @@ return (
     ))}
     {typing && (
         <div style={{ display: "flex", gap: 8, alignItems: "flex-start" }}>
-        <div style={{ width: 28, height: 28, borderRadius: 7, flexShrink: 0, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 28, height: 28, borderRadius: 7, flexShrink: 0, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
         </div>
         <div style={{ padding: "10px 16px", borderRadius: "14px 14px 14px 4px", background: "var(--fm-surface)", border: "1px solid var(--fm-border)", color: "var(--fm-accent-light)", fontSize: 13 }}>
@@ -139,7 +139,7 @@ return (
         disabled={typing}
         style={{
             width: 44, height: 44, borderRadius: 12, border: "none",
-            background: typing ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: typing ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", display: "flex", alignItems: "center", justifyContent: "center",
             cursor: typing ? "not-allowed" : "pointer", flexShrink: 0,
             WebkitTapHighlightColor: "transparent",

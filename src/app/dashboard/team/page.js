@@ -9,7 +9,7 @@ return (
     <div style={{ textAlign: "center", padding: "60px 20px" }}>
     <div style={{
         width: 80, height: 80, borderRadius: "50%", margin: "0 auto 20px",
-        background: "rgba(108,92,231,0.1)", border: "1px solid rgba(108,92,231,0.2)",
+        background: "rgba(16,185,129,0.1)", border: "1px solid rgba(16,185,129,0.2)",
         display: "flex", alignItems: "center", justifyContent: "center",
     }}>
         <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--fm-accent-light)" strokeWidth="1.5">
@@ -55,7 +55,7 @@ return (
         onClick={() => window.location.href = "/pricing"}
         style={{
         padding: "14px 32px", borderRadius: 14, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}
     >

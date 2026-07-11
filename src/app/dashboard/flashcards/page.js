@@ -2,13 +2,13 @@
 
 import { useState, useEffect } from "react";
 
-const deckColors = ["#6C5CE7", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#a29bfe", "#ff6b6b", "#55efc4"];
+const deckColors = ["#10b981", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#34d399", "#ff6b6b", "#55efc4"];
 
 export default function FlashcardsPage() {
 const [decks, setDecks] = useState([]);
 const [showAddDeck, setShowAddDeck] = useState(false);
 const [deckName, setDeckName] = useState("");
-const [deckColor, setDeckColor] = useState("#6C5CE7");
+const [deckColor, setDeckColor] = useState("#10b981");
 const [editingDeckId, setEditingDeckId] = useState(null);
 const [activeDeck, setActiveDeck] = useState(null);
 const [showAddCard, setShowAddCard] = useState(false);
@@ -51,7 +51,7 @@ const closeDeckForm = () => {
 setShowAddDeck(false);
 setEditingDeckId(null);
 setDeckName("");
-setDeckColor("#6C5CE7");
+setDeckColor("#10b981");
 };
 
 const editDeck = (deck) => {
@@ -255,7 +255,7 @@ if (studyComplete) {
         <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
         <button onClick={startStudy} style={{
             padding: "12px 28px", borderRadius: 12, border: "none",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
             fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Study again</button>
         <button onClick={() => setStudyMode(false)} style={{
@@ -350,7 +350,7 @@ return (
         <div style={{ display: "flex", gap: 8 }}>
         <button onClick={() => { if (showAddCard) closeCardForm(); else setShowAddCard(true); }} style={{
             padding: "8px 16px", borderRadius: 10, border: "none",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
             fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{showAddCard ? "Cancel" : "+ Add Card"}</button>
         </div>
@@ -368,8 +368,8 @@ return (
         )}
         <button onClick={generateCards} disabled={generatingKai} style={{
         flex: 1, padding: "12px", borderRadius: 12,
-        background: generatingKai ? "var(--fm-card)" : "rgba(108,92,231,0.1)",
-        border: "1px solid rgba(108,92,231,0.2)",
+        background: generatingKai ? "var(--fm-card)" : "rgba(16,185,129,0.1)",
+        border: "1px solid rgba(16,185,129,0.2)",
         color: generatingKai ? "var(--fm-muted)" : "var(--fm-accent-light)",
         fontSize: 13, fontWeight: 600,
         cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
@@ -404,7 +404,7 @@ return (
         }} />
         <button onClick={addCard} style={{
             width: "100%", padding: "12px", borderRadius: 12, border: "none",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
             fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingCardId ? "Update Card" : "Add Card"}</button>
         </div>
@@ -472,7 +472,7 @@ return (
     </div>
     <button onClick={() => { if (showAddDeck) closeDeckForm(); else setShowAddDeck(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAddDeck ? "Cancel" : "+ New Deck"}</button>
     </div>
@@ -515,7 +515,7 @@ return (
         </div>
         <button onClick={addDeck} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingDeckId ? "Update Deck" : "Create Deck"}</button>
     </div>
