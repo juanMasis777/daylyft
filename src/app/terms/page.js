@@ -2,9 +2,9 @@
 
 export default function TermsPage() {
 return (
-<div style={{ minHeight: "100vh", background: "#0a0a12", fontFamily: "'Outfit', sans-serif", padding: "60px 24px" }}>
+<div style={{ minHeight: "100vh", background: "#080d0b", fontFamily: "'Outfit', sans-serif", padding: "60px 24px" }}>
     <div style={{ maxWidth: 700, margin: "0 auto" }}>
-    <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#6C5CE7", textDecoration: "none", fontSize: 14, marginBottom: 32 }}>← Back to DayLyft</a>
+    <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#10b981", textDecoration: "none", fontSize: 14, marginBottom: 32 }}>← Back to DayLyft</a>
     <h1 style={{ fontSize: 32, fontWeight: 800, color: "#fff", marginBottom: 8 }}>Terms of Service</h1>
     <p style={{ fontSize: 13, color: "#6c6c80", marginBottom: 32 }}>Last updated: April 19, 2026</p>
     <div style={{ fontSize: 15, color: "#b0b0c0", lineHeight: 1.8 }}>
@@ -29,7 +29,7 @@ return (
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#fff", marginTop: 32, marginBottom: 12 }}>10. Changes to terms</h2>
         <p>We reserve the right to modify these terms at any time. We will notify users of significant changes via email or in-app notification. Continued use of the service after changes constitutes acceptance of the new terms.</p>
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "#fff", marginTop: 32, marginBottom: 12 }}>11. Contact</h2>
-        <p>For questions about these Terms of Service, contact us at <a href="mailto:juanmasis777@gmail.com" style={{ color: "#6C5CE7", textDecoration: "none" }}>juanmasis777@gmail.com</a></p>
+        <p>For questions about these Terms of Service, contact us at <a href="mailto:juanmasis777@gmail.com" style={{ color: "#10b981", textDecoration: "none" }}>juanmasis777@gmail.com</a></p>
     </div>
     <div style={{ marginTop: 48, paddingTop: 24, borderTop: "1px solid rgba(255,255,255,0.06)", textAlign: "center" }}>
         <p style={{ fontSize: 13, color: "#636e72" }}>© 2026 DayLyft. All rights reserved. Made with ❤️ in Miami</p>

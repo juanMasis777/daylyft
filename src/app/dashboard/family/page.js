@@ -107,10 +107,10 @@ return (
         <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Plan weekly meals, assign household chores, and manage your family budget with AI</p>
     </div>
     <div style={{ display: "flex", gap: 8 }}>
-        <button onClick={generateWithKai} disabled={generating} style={{ padding: "8px 14px", borderRadius: 10, border: "1px solid rgba(108,92,231,0.2)", background: "rgba(108,92,231,0.08)", color: "var(--fm-accent-light)", fontSize: 12, fontWeight: 600, cursor: generating ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif", display: "flex", alignItems: "center", gap: 4 }}>
+        <button onClick={generateWithKai} disabled={generating} style={{ padding: "8px 14px", borderRadius: 10, border: "1px solid rgba(16,185,129,0.2)", background: "rgba(16,185,129,0.08)", color: "var(--fm-accent-light)", fontSize: 12, fontWeight: 600, cursor: generating ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif", display: "flex", alignItems: "center", gap: 4 }}>
         {generating ? "Kai generating..." : "✦ Kai suggest"}
         </button>
-        <button onClick={() => setShowAdd(!showAdd)} style={{ padding: "8px 16px", borderRadius: 10, border: "none", background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>+ Add</button>
+        <button onClick={() => setShowAdd(!showAdd)} style={{ padding: "8px 16px", borderRadius: 10, border: "none", background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff", fontSize: 12, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>+ Add</button>
     </div>
     </div>
 
@@ -118,8 +118,8 @@ return (
     {tabs.map((tab) => (
         <button key={tab.id} onClick={() => { setActiveTab(tab.id); setShowAdd(false); }} style={{
         flex: 1, padding: "10px 8px", borderRadius: 10, fontSize: 13, fontWeight: 600,
-        border: activeTab === tab.id ? "1px solid rgba(108,92,231,0.3)" : "1px solid var(--fm-border)",
-        background: activeTab === tab.id ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
+        border: activeTab === tab.id ? "1px solid rgba(16,185,129,0.3)" : "1px solid var(--fm-border)",
+        background: activeTab === tab.id ? "rgba(16,185,129,0.1)" : "var(--fm-surface)",
         color: activeTab === tab.id ? "var(--fm-accent-light)" : "var(--fm-muted)",
         cursor: "pointer", fontFamily: "Outfit, sans-serif", display: "flex", alignItems: "center", justifyContent: "center", gap: 6,
         }}><span style={{ fontSize: 16 }}>{tab.emoji}</span>{tab.label}</button>
@@ -163,7 +163,7 @@ return (
             )}
         </div>
         <div style={{ display: "flex", gap: 8 }}>
-            <button onClick={addItem} style={{ padding: "10px 24px", borderRadius: 10, border: "none", background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>Save</button>
+            <button onClick={addItem} style={{ padding: "10px 24px", borderRadius: 10, border: "none", background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>Save</button>
             <button onClick={() => setShowAdd(false)} style={{ padding: "10px 24px", borderRadius: 10, border: "1px solid var(--fm-border)", background: "transparent", color: "var(--fm-muted)", fontSize: 13, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>Cancel</button>
         </div>
         </div>
@@ -205,7 +205,7 @@ return (
             <div onClick={() => toggleStatus(item.id, item.status)} style={{
                 width: 20, height: 20, borderRadius: 5, cursor: "pointer", flexShrink: 0,
                 border: item.status === "done" ? "none" : "2px solid var(--fm-muted)",
-                background: item.status === "done" ? "linear-gradient(135deg, #6C5CE7, #00CEC9)" : "transparent",
+                background: item.status === "done" ? "linear-gradient(135deg, #10b981, #00CEC9)" : "transparent",
                 display: "flex", alignItems: "center", justifyContent: "center",
             }}>
                 {item.status === "done" && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>}

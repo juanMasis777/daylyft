@@ -162,17 +162,17 @@ if (shieldActive) {
 return (
     <div style={{ animation: "fadeIn 0.5s ease", textAlign: "center", paddingTop: 20 }}>
     <div style={{
-        background: "linear-gradient(135deg, rgba(108,92,231,0.1), rgba(0,206,201,0.05))",
-        border: "1px solid rgba(108,92,231,0.2)",
+        background: "linear-gradient(135deg, rgba(16,185,129,0.1), rgba(0,206,201,0.05))",
+        border: "1px solid rgba(16,185,129,0.2)",
         borderRadius: 20, padding: 32, marginBottom: 20,
     }}>
-        <div style={{ fontSize: 14, color: "#6C5CE7", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 16 }}>🛡 FOCUS SHIELD ACTIVE</div>
+        <div style={{ fontSize: 14, color: "#10b981", fontWeight: 600, letterSpacing: "0.08em", marginBottom: 16 }}>🛡 FOCUS SHIELD ACTIVE</div>
 
         <div style={{ position: "relative", width: 260, height: 260, margin: "0 auto 20px" }}>
         <svg width="260" height="260" viewBox="0 0 260 260" style={{ transform: "rotate(-90deg)" }}>
             <circle cx="130" cy="130" r="120" fill="none" stroke="var(--fm-border)" strokeWidth="6" />
             <circle cx="130" cy="130" r="120" fill="none"
-            stroke="#6C5CE7" strokeWidth="6" strokeLinecap="round"
+            stroke="#10b981" strokeWidth="6" strokeLinecap="round"
             strokeDasharray={circumference} strokeDashoffset={strokeDashoffset}
             style={{ transition: "stroke-dashoffset 1s linear" }}
             />
@@ -191,7 +191,7 @@ return (
 
         <div style={{
         padding: 14, borderRadius: 12,
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         marginBottom: 20, fontSize: 13, color: "var(--fm-muted)", lineHeight: 1.6,
         }}>
         <div style={{ fontWeight: 600, color: "var(--fm-accent-light)", marginBottom: 4 }}>Auto-response ready:</div>
@@ -259,7 +259,7 @@ return (
     <div style={{ display: "flex", gap: 10, justifyContent: "center", marginBottom: 32 }}>
         <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16, textAlign: "center", minWidth: 120 }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Sessions today</div>
-        <div style={{ fontSize: 28, fontWeight: 700, color: "#6C5CE7" }}>{sessionsToday}</div>
+        <div style={{ fontSize: 28, fontWeight: 700, color: "#10b981" }}>{sessionsToday}</div>
         </div>
         <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16, textAlign: "center", minWidth: 120 }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Total focus</div>
@@ -270,7 +270,7 @@ return (
     <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
         <button onClick={() => setSessionComplete(false)} style={{
         padding: "12px 28px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Start another session</button>
         <button onClick={() => window.location.href = "/dashboard/zen"} style={{
@@ -296,7 +296,7 @@ return (
     <div style={{ display: "flex", gap: 10, marginBottom: 16 }}>
     <div style={{ flex: 1, background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Sessions today</div>
-        <div style={{ fontSize: 28, fontWeight: 700, color: "#6C5CE7" }}>{sessionsToday}</div>
+        <div style={{ fontSize: 28, fontWeight: 700, color: "#10b981" }}>{sessionsToday}</div>
     </div>
     <div style={{ flex: 1, background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 16, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Total focus</div>
@@ -319,9 +319,9 @@ return (
         {focusDurations.map((d) => (
         <button key={d.minutes} onClick={() => setSelectedDuration(d.minutes)} style={{
             padding: "12px 8px", borderRadius: 10, fontSize: 14, fontWeight: 600,
-            border: selectedDuration === d.minutes ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-            background: selectedDuration === d.minutes ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            color: selectedDuration === d.minutes ? "#6C5CE7" : "var(--fm-text)",
+            border: selectedDuration === d.minutes ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+            background: selectedDuration === d.minutes ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            color: selectedDuration === d.minutes ? "#10b981" : "var(--fm-text)",
             cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{d.label}</button>
         ))}
@@ -339,8 +339,8 @@ return (
         {tasks.slice(0, 5).map((task) => (
             <div key={task.id} onClick={() => setSelectedTask(selectedTask === task.title ? "" : task.title)} style={{
             display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
-            background: selectedTask === task.title ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            border: selectedTask === task.title ? "1px solid rgba(108,92,231,0.3)" : "1px solid var(--fm-border)",
+            background: selectedTask === task.title ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            border: selectedTask === task.title ? "1px solid rgba(16,185,129,0.3)" : "1px solid var(--fm-border)",
             borderRadius: 10, cursor: "pointer",
             }}>
             <span style={{
@@ -350,7 +350,7 @@ return (
             }}>{task.priority}</span>
             <span style={{ fontSize: 13, color: selectedTask === task.title ? "var(--fm-accent-light)" : "var(--fm-text)" }}>{task.title}</span>
             {selectedTask === task.title && (
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6C5CE7" strokeWidth="2.5" style={{ marginLeft: "auto" }}><polyline points="20 6 9 17 4 12" /></svg>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2.5" style={{ marginLeft: "auto" }}><polyline points="20 6 9 17 4 12" /></svg>
             )}
             </div>
         ))}
@@ -393,8 +393,8 @@ return (
         {autoResponses.map((msg, i) => (
         <div key={i} onClick={() => setAutoResponse(msg)} style={{
             padding: "10px 14px", borderRadius: 10, cursor: "pointer",
-            background: autoResponse === msg ? "rgba(108,92,231,0.08)" : "var(--fm-card)",
-            border: autoResponse === msg ? "1px solid rgba(108,92,231,0.25)" : "1px solid var(--fm-border)",
+            background: autoResponse === msg ? "rgba(16,185,129,0.08)" : "var(--fm-card)",
+            border: autoResponse === msg ? "1px solid rgba(16,185,129,0.25)" : "1px solid var(--fm-border)",
             fontSize: 12, color: autoResponse === msg ? "var(--fm-accent-light)" : "var(--fm-muted)", lineHeight: 1.5,
         }}>
             "{msg}"
@@ -407,7 +407,7 @@ return (
     <div style={{ textAlign: "center" }}>
     <button onClick={startShield} style={{
         padding: "16px 48px", borderRadius: 16, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: "linear-gradient(135deg, #10b981, #34d399)",
         color: "#fff", fontSize: 18, fontWeight: 700,
         cursor: "pointer", fontFamily: "Outfit, sans-serif",
         display: "inline-flex", alignItems: "center", gap: 10,

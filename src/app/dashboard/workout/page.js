@@ -3,14 +3,14 @@
 import { useState, useEffect } from "react";
 
 const exerciseTypes = [
-{ id: "strength", label: "Strength", emoji: "🏋️", color: "#6C5CE7" },
+{ id: "strength", label: "Strength", emoji: "🏋️", color: "#10b981" },
 { id: "cardio", label: "Cardio", emoji: "🏃", color: "#ff6b6b" },
 { id: "flexibility", label: "Flexibility", emoji: "🧘", color: "#00CEC9" },
 { id: "sports", label: "Sports", emoji: "⚽", color: "#fdcb6e" },
 { id: "hiit", label: "HIIT", emoji: "🔥", color: "#e17055" },
 { id: "swimming", label: "Swimming", emoji: "🏊", color: "#74b9ff" },
 { id: "cycling", label: "Cycling", emoji: "🚴", color: "#00b894" },
-{ id: "walking", label: "Walking", emoji: "🚶", color: "#a29bfe" },
+{ id: "walking", label: "Walking", emoji: "🚶", color: "#34d399" },
 ];
 
 const quickWorkouts = [
@@ -179,7 +179,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeForm(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ Log Workout"}</button>
     </div>
@@ -193,12 +193,12 @@ return (
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>This week</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: "#6C5CE7" }}>{weekWorkouts.length}</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: "#10b981" }}>{weekWorkouts.length}</div>
         <div style={{ fontSize: 10, color: "var(--fm-muted)" }}>workouts</div>
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Streak</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#6C5CE7" : "var(--fm-muted)" }}>{streak}d</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#10b981" : "var(--fm-muted)" }}>{streak}d</div>
         {streak >= 7 && <div style={{ fontSize: 10, color: "#00CEC9" }}>Beast mode!</div>}
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
@@ -222,11 +222,11 @@ return (
         const isToday = day === today;
         return (
             <div key={i} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 4 }}>
-            {count > 0 && <div style={{ fontSize: 9, fontWeight: 600, color: "#6C5CE7" }}>{totalMin}m</div>}
+            {count > 0 && <div style={{ fontSize: 9, fontWeight: 600, color: "#10b981" }}>{totalMin}m</div>}
             <div style={{
                 width: "100%", borderRadius: 4,
                 height: `${barHeight}%`,
-                background: count > 0 ? "linear-gradient(to top, #6C5CE7, #a29bfe)" : "var(--fm-border)",
+                background: count > 0 ? "linear-gradient(to top, #10b981, #34d399)" : "var(--fm-border)",
                 opacity: count > 0 ? 1 : 0.3,
             }} />
             </div>
@@ -237,7 +237,7 @@ return (
         {dayLabels.map((d, i) => (
         <div key={i} style={{
             flex: 1, fontSize: 10, textAlign: "center",
-            color: last7Days[i] === today ? "#6C5CE7" : "var(--fm-muted)",
+            color: last7Days[i] === today ? "#10b981" : "var(--fm-muted)",
             fontWeight: last7Days[i] === today ? 700 : 400,
         }}>{d}</div>
         ))}
@@ -352,7 +352,7 @@ return (
         }} />
         <button onClick={addExercise} style={{
             padding: "8px 12px", borderRadius: 8, border: "none",
-            background: "rgba(108,92,231,0.15)", color: "#6C5CE7", fontSize: 12,
+            background: "rgba(16,185,129,0.15)", color: "#10b981", fontSize: 12,
             fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>+</button>
         </div>
@@ -366,7 +366,7 @@ return (
 
         <button onClick={saveWorkout} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Save Workout</button>
     </div>
@@ -375,12 +375,12 @@ return (
     {/* Kai Suggestion */}
     {kaiMessage ? (
     <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20, marginBottom: 16,
     }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's workout suggestion</span>
@@ -393,7 +393,7 @@ return (
     <div style={{ textAlign: "center", marginBottom: 16 }}>
         <button onClick={getKaiSuggestion} disabled={generatingKai} style={{
         padding: "12px 24px", borderRadius: 12, border: "none",
-        background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
         color: "#fff", fontSize: 13, fontWeight: 600,
         cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
         display: "inline-flex", alignItems: "center", gap: 8,

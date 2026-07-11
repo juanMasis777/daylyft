@@ -7,8 +7,8 @@ const occasions = [
 { id: "christmas", label: "Christmas", emoji: "🎄", color: "#00b894" },
 { id: "anniversary", label: "Anniversary", emoji: "💕", color: "#ff6b6b" },
 { id: "valentines", label: "Valentine's", emoji: "❤️", color: "#e84393" },
-{ id: "mothers", label: "Mother's Day", emoji: "🌷", color: "#a29bfe" },
-{ id: "fathers", label: "Father's Day", emoji: "👔", color: "#6C5CE7" },
+{ id: "mothers", label: "Mother's Day", emoji: "🌷", color: "#34d399" },
+{ id: "fathers", label: "Father's Day", emoji: "👔", color: "#10b981" },
 { id: "graduation", label: "Graduation", emoji: "🎓", color: "#fdcb6e" },
 { id: "wedding", label: "Wedding", emoji: "💍", color: "#00CEC9" },
 { id: "babyshower", label: "Baby Shower", emoji: "👶", color: "#74b9ff" },
@@ -143,7 +143,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeForm(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ Add Gift"}</button>
     </div>
@@ -218,17 +218,17 @@ return (
         }} />
         <button onClick={addPerson} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingId ? "Update" : "Save Gift Plan"}</button>
     </div>
     )}
 
     {kaiMessage && (
-    <div style={{ background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)", borderRadius: 14, padding: 20, marginBottom: 16 }}>
+    <div style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)", borderRadius: 14, padding: 20, marginBottom: 16 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's gift ideas</span>
@@ -283,7 +283,7 @@ return (
                         {daysUntil !== null && daysUntil >= 0 && (
                         <span style={{
                             fontSize: 10, padding: "3px 10px", borderRadius: 8,
-                            background: isUrgent ? "rgba(255,107,107,0.1)" : "rgba(108,92,231,0.1)",
+                            background: isUrgent ? "rgba(255,107,107,0.1)" : "rgba(16,185,129,0.1)",
                             color: isUrgent ? "#ff6b6b" : "var(--fm-accent-light)", fontWeight: 600,
                         }}>{daysUntil === 0 ? "Today!" : `${daysUntil} days`}</span>
                         )}
@@ -314,7 +314,7 @@ return (
                         }}>Mark purchased</button>
                         <button onClick={() => getKaiSuggestion(person)} disabled={generatingKai} style={{
                         padding: "5px 12px", borderRadius: 8, border: "none", fontSize: 11, fontWeight: 600,
-                        background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
+                        background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)",
                         cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
                         }}>{generatingKai && activeKaiPerson === person.id ? "..." : "✦ Kai ideas"}</button>
                     </div>

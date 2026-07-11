@@ -3,12 +3,12 @@
 import { useState, useEffect } from "react";
 
 const areas = [
-{ id: "work", name: "Work", emoji: "💼", color: "#6C5CE7" },
+{ id: "work", name: "Work", emoji: "💼", color: "#10b981" },
 { id: "health", name: "Health", emoji: "💪", color: "#00CEC9" },
 { id: "family", name: "Family", emoji: "👨‍👩‍👧‍👦", color: "#fd79a8" },
 { id: "social", name: "Social", emoji: "🤝", color: "#fdcb6e" },
 { id: "finances", name: "Finances", emoji: "💰", color: "#00b894" },
-{ id: "growth", name: "Growth", emoji: "📚", color: "#a29bfe" },
+{ id: "growth", name: "Growth", emoji: "📚", color: "#34d399" },
 { id: "fun", name: "Fun", emoji: "🎉", color: "#e17055" },
 { id: "spirit", name: "Inner Peace", emoji: "🧘", color: "#74b9ff" },
 ];
@@ -54,7 +54,7 @@ const min = Math.min(...values);
 const max = Math.max(...values);
 const spread = max - min;
 if (avg >= 8 && spread <= 2) return { label: "Excellent balance", color: "#00CEC9", emoji: "🌟" };
-if (avg >= 7) return { label: "Good balance", color: "#6C5CE7", emoji: "✨" };
+if (avg >= 7) return { label: "Good balance", color: "#10b981", emoji: "✨" };
 if (avg >= 5) return { label: "Room to grow", color: "#fdcb6e", emoji: "🌱" };
 return { label: "Needs attention", color: "#ff6b6b", emoji: "⚠️" };
 };
@@ -135,7 +135,7 @@ return (
         const p = getPoint(i, 10);
         return <line key={i} x1={center} y1={center} x2={p.x} y2={p.y} stroke="var(--fm-border)" strokeWidth="0.5" />;
         })}
-        <polygon points={polygonPoints} fill="rgba(108,92,231,0.15)" stroke="#6C5CE7" strokeWidth="2" />
+        <polygon points={polygonPoints} fill="rgba(16,185,129,0.15)" stroke="#10b981" strokeWidth="2" />
         {areas.map((area, i) => {
         const p = getPoint(i, scores[area.id] || 5);
         return <circle key={area.id} cx={p.x} cy={p.y} r="5" fill={area.color} stroke="var(--fm-bg)" strokeWidth="2" />;
@@ -170,7 +170,7 @@ return (
     <div style={{ display: "flex", gap: 10, marginTop: 16 }}>
         <button onClick={saveScores} style={{
         flex: 1, padding: "12px", borderRadius: 12, border: saved ? "1px solid rgba(0,206,201,0.2)" : "none",
-        background: saved ? "rgba(0,206,201,0.1)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: saved ? "rgba(0,206,201,0.1)" : "linear-gradient(135deg, #10b981, #34d399)",
         color: saved ? "#00CEC9" : "#fff", fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{saved ? "✓ Saved" : "Save scores"}</button>
         <button onClick={resetScores} style={{
@@ -194,9 +194,9 @@ return (
     </div>
 
     {kaiMessage ? (
-    <div style={{ background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)", borderRadius: 14, padding: 20 }}>
+    <div style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)", borderRadius: 14, padding: 20 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-        <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
         </div>
         <span style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's balance insight</span>
@@ -207,7 +207,7 @@ return (
     <div style={{ textAlign: "center" }}>
         <button onClick={generateKaiInsight} disabled={generatingKai} style={{
         padding: "14px 28px", borderRadius: 14, border: "none",
-        background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
         color: "#fff", fontSize: 14, fontWeight: 700, cursor: generatingKai ? "not-allowed" : "pointer",
         fontFamily: "Outfit, sans-serif", display: "inline-flex", alignItems: "center", gap: 8,
         }}>

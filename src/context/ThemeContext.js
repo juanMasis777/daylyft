@@ -4,12 +4,12 @@ import { createContext, useContext, useState, useEffect } from "react";
 
 const themeVars = {
 midnight: {
-"--fm-bg": "#08080d", "--fm-surface": "#111118", "--fm-card": "#15151e",
-"--fm-border": "#1c1c2a", "--fm-text": "#eaeaef", "--fm-muted": "#6b6b80",
-"--fm-accent": "#6C5CE7", "--fm-accent-light": "#a29bfe",
-"--fm-accent-glow": "rgba(108,92,231,0.25)", "--fm-teal": "#00CEC9",
-"--fm-success": "#00CEC9", "--fm-warning": "#fdcb6e",
-"--fm-danger": "#ff6b6b", "--fm-pink": "#fd79a8",
+"--fm-bg": "#080d0b", "--fm-surface": "#0f1613", "--fm-card": "#141d18",
+"--fm-border": "#1e2a24", "--fm-text": "#eef2ef", "--fm-muted": "#7c8b83",
+"--fm-accent": "#10b981", "--fm-accent-light": "#34d399",
+"--fm-accent-glow": "rgba(16,185,129,0.22)", "--fm-teal": "#2dd4bf",
+"--fm-success": "#22c55e", "--fm-warning": "#f5b544",
+"--fm-danger": "#f87171", "--fm-pink": "#f472b6",
 },
 ocean: {
 "--fm-bg": "#0a1628", "--fm-surface": "#111f35", "--fm-card": "#152640",
@@ -36,12 +36,12 @@ rose: {
 "--fm-danger": "#ff6b6b", "--fm-pink": "#fd79a8",
 },
 snow: {
-"--fm-bg": "#f5f5f7", "--fm-surface": "#ffffff", "--fm-card": "#f0f0f3",
-"--fm-border": "#e0e0e6", "--fm-text": "#1a1a2e", "--fm-muted": "#8888a0",
-"--fm-accent": "#6C5CE7", "--fm-accent-light": "#6C5CE7",
-"--fm-accent-glow": "rgba(108,92,231,0.15)", "--fm-teal": "#00b3ad",
-"--fm-success": "#00b894", "--fm-warning": "#e5a800",
-"--fm-danger": "#e24b4a", "--fm-pink": "#d4537e",
+"--fm-bg": "#f5f8f6", "--fm-surface": "#ffffff", "--fm-card": "#eef3f0",
+"--fm-border": "#e0e8e3", "--fm-text": "#0b1512", "--fm-muted": "#5f7269",
+"--fm-accent": "#059669", "--fm-accent-light": "#10b981",
+"--fm-accent-glow": "rgba(5,150,105,0.14)", "--fm-teal": "#0d9488",
+"--fm-success": "#059669", "--fm-warning": "#d99411",
+"--fm-danger": "#e24b4a", "--fm-pink": "#db2777",
 },
 amber: {
 "--fm-bg": "#1a150d", "--fm-surface": "#251e12", "--fm-card": "#2e2518",
@@ -62,11 +62,11 @@ sunset: {
 };
 
 const themes = [
-{ id: "midnight", name: "Midnight", color: "#6C5CE7", bg: "#08080d", free: true },
+{ id: "midnight", name: "Midnight", color: "#10b981", bg: "#080d0b", free: true },
 { id: "ocean",    name: "Ocean",    color: "#378ADD", bg: "#0a1628", free: false },
 { id: "forest",   name: "Forest",   color: "#1D9E75", bg: "#0d1f17", free: false },
 { id: "rose",     name: "Rose",     color: "#D4537E", bg: "#1e0d1a", free: false },
-{ id: "snow",     name: "Snow",     color: "#6C5CE7", bg: "#f5f5f7", free: true },
+{ id: "snow",     name: "Snow",     color: "#10b981", bg: "#f5f5f7", free: true },
 { id: "amber",    name: "Amber",    color: "#BA7517", bg: "#1a150d", free: false },
 { id: "sunset",   name: "Sunset",   color: "#D85A30", bg: "#1a100d", free: false },
 ];

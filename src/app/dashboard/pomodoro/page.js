@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 
 const MODES = {
-focus: { label: "Focus Time", duration: 25 * 60, color: "#6C5CE7", icon: "🎯" },
+focus: { label: "Focus Time", duration: 25 * 60, color: "#10b981", icon: "🎯" },
 shortBreak: { label: "Short Break", duration: 5 * 60, color: "#00CEC9", icon: "☕" },
 longBreak: { label: "Long Break", duration: 15 * 60, color: "#fd79a8", icon: "🌴" },
 };
@@ -181,7 +181,7 @@ return (
         </div>
         <button onClick={applySettings} style={{
         padding: "10px 24px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Apply settings</button>
     </div>
@@ -306,7 +306,7 @@ return (
         borderRadius: 12, padding: 16, textAlign: "center",
     }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Pomodoros today</div>
-        <div style={{ fontSize: 28, fontWeight: 700, color: "#6C5CE7" }}>{totalToday}</div>
+        <div style={{ fontSize: 28, fontWeight: 700, color: "#10b981" }}>{totalToday}</div>
         <div style={{ fontSize: 10, color: "var(--fm-muted)" }}>sessions</div>
     </div>
     <div style={{

@@ -4,7 +4,7 @@ export default function DeleteAccountPage() {
 return (
 <div style={{
     minHeight: "100vh", display: "flex", alignItems: "center", justifyContent: "center",
-    background: "#0a0a12", fontFamily: "'Outfit', sans-serif", padding: 24,
+    background: "#080d0b", fontFamily: "'Outfit', sans-serif", padding: 24,
 }}>
     <div style={{ maxWidth: 500, textAlign: "center" }}>
     <h1 style={{ fontSize: 28, fontWeight: 800, color: "#fff", marginBottom: 16 }}>Delete Your Account</h1>
@@ -12,12 +12,12 @@ return (
         We're sorry to see you go. To request the deletion of your DayLyft account and all associated data, please send an email to the address below with the subject line "Delete My Account".
     </p>
     <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.2)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.2)",
         borderRadius: 14, padding: 20, marginBottom: 24,
     }}>
         <p style={{ fontSize: 13, color: "#8a8a9a", marginBottom: 8 }}>Send your request to:</p>
         <a href="mailto:juanmasis777@gmail.com?subject=Delete My Account" style={{
-        fontSize: 18, fontWeight: 700, color: "#6C5CE7", textDecoration: "none",
+        fontSize: 18, fontWeight: 700, color: "#10b981", textDecoration: "none",
         }}>juanmasis777@gmail.com</a>
     </div>
     <p style={{ fontSize: 13, color: "#636e72", lineHeight: 1.6 }}>
@@ -25,7 +25,7 @@ return (
     </p>
     <a href="/" style={{
         display: "inline-block", marginTop: 24, padding: "12px 28px", borderRadius: 12,
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, textDecoration: "none",
     }}>Back to DayLyft</a>
     </div>

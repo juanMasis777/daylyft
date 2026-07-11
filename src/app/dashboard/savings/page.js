@@ -15,7 +15,7 @@ const goalIcons = [
 { id: "other", emoji: "🐷", label: "Other" },
 ];
 
-const goalColors = ["#6C5CE7", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#a29bfe", "#ff6b6b", "#55efc4"];
+const goalColors = ["#10b981", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#34d399", "#ff6b6b", "#55efc4"];
 
 export default function SavingsPage() {
 const [goals, setGoals] = useState([]);
@@ -25,7 +25,7 @@ const [target, setTarget] = useState("");
 const [saved, setSaved] = useState("");
 const [deadline, setDeadline] = useState("");
 const [icon, setIcon] = useState("vacation");
-const [color, setColor] = useState("#6C5CE7");
+const [color, setColor] = useState("#10b981");
 const [editingId, setEditingId] = useState(null);
 const [showDeposit, setShowDeposit] = useState(null);
 const [depositAmount, setDepositAmount] = useState("");
@@ -77,7 +77,7 @@ setTarget("");
 setSaved("");
 setDeadline("");
 setIcon("vacation");
-setColor("#6C5CE7");
+setColor("#10b981");
 };
 
 const editGoal = (goal) => {
@@ -184,7 +184,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeForm(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ New Goal"}</button>
     </div>
@@ -197,7 +197,7 @@ return (
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Total target</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: "#6C5CE7" }}>${totalTarget.toLocaleString()}</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: "#10b981" }}>${totalTarget.toLocaleString()}</div>
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Completed</div>
@@ -255,9 +255,9 @@ return (
         {goalIcons.map((gi) => (
             <button key={gi.id} onClick={() => setIcon(gi.id)} style={{
             padding: "6px 10px", borderRadius: 8, fontSize: 11, cursor: "pointer",
-            border: icon === gi.id ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-            background: icon === gi.id ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            color: icon === gi.id ? "#6C5CE7" : "var(--fm-muted)",
+            border: icon === gi.id ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+            background: icon === gi.id ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            color: icon === gi.id ? "#10b981" : "var(--fm-muted)",
             fontFamily: "Outfit, sans-serif",
             }}>{gi.emoji} {gi.label}</button>
         ))}
@@ -278,7 +278,7 @@ return (
 
         <button onClick={addGoal} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingId ? "Update Goal" : "Create Goal"}</button>
     </div>
@@ -438,12 +438,12 @@ return (
     {goals.length > 0 && (
     kaiMessage ? (
         <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20, marginTop: 16,
         }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's savings advice</span>
@@ -456,7 +456,7 @@ return (
         <div style={{ textAlign: "center", marginTop: 16 }}>
         <button onClick={getKaiAdvice} disabled={generatingKai} style={{
             padding: "12px 24px", borderRadius: 12, border: "none",
-            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 13, fontWeight: 600,
             cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
             display: "inline-flex", alignItems: "center", gap: 8,

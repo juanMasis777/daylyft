@@ -116,7 +116,7 @@ return (
     </div>
     <button onClick={() => setShowHistory(!showHistory)} style={{
         padding: "8px 14px", borderRadius: 10, border: "1px solid var(--fm-border)",
-        background: showHistory ? "rgba(108,92,231,0.1)" : "var(--fm-surface)",
+        background: showHistory ? "rgba(16,185,129,0.1)" : "var(--fm-surface)",
         color: showHistory ? "var(--fm-accent-light)" : "var(--fm-muted)",
         fontSize: 12, fontWeight: 500, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showHistory ? "New decision" : `History (${history.length})`}</button>
@@ -135,7 +135,7 @@ return (
     </div>
     <div style={{ flex: 1, background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Powered by</div>
-        <div style={{ fontSize: 16, fontWeight: 700, color: "#6C5CE7" }}>Kai AI</div>
+        <div style={{ fontSize: 16, fontWeight: 700, color: "#10b981" }}>Kai AI</div>
     </div>
     </div>
 
@@ -175,12 +175,12 @@ return (
     <div>
         {/* Result Card */}
         <div style={{
-        background: "linear-gradient(135deg, rgba(108,92,231,0.08), rgba(0,206,201,0.05))",
-        border: "1px solid rgba(108,92,231,0.2)",
+        background: "linear-gradient(135deg, rgba(16,185,129,0.08), rgba(0,206,201,0.05))",
+        border: "1px solid rgba(16,185,129,0.2)",
         borderRadius: 16, padding: 24, marginBottom: 16,
         }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 16 }}>
-            <div style={{ width: 30, height: 30, borderRadius: 8, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 30, height: 30, borderRadius: 8, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="14" height="14" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <div>
@@ -193,8 +193,8 @@ return (
             {result.options.map((opt, i) => (
             <span key={i} style={{
                 padding: "4px 12px", borderRadius: 10, fontSize: 12, fontWeight: 500,
-                background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
-                border: "1px solid rgba(108,92,231,0.2)",
+                background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)",
+                border: "1px solid rgba(16,185,129,0.2)",
             }}>{opt}</span>
             ))}
         </div>
@@ -211,7 +211,7 @@ return (
         <div style={{ display: "flex", gap: 10, justifyContent: "center" }}>
         <button onClick={resetForm} style={{
             padding: "12px 28px", borderRadius: 12, border: "none",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
             fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>New decision</button>
         </div>
@@ -237,10 +237,10 @@ return (
             <div key={i} style={{ display: "flex", alignItems: "center", gap: 8 }}>
                 <div style={{
                 width: 28, height: 28, borderRadius: 8, flexShrink: 0,
-                background: opt.trim() ? "rgba(108,92,231,0.15)" : "var(--fm-card)",
-                border: opt.trim() ? "1px solid rgba(108,92,231,0.3)" : "1px solid var(--fm-border)",
+                background: opt.trim() ? "rgba(16,185,129,0.15)" : "var(--fm-card)",
+                border: opt.trim() ? "1px solid rgba(16,185,129,0.3)" : "1px solid var(--fm-border)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 12, fontWeight: 700, color: opt.trim() ? "#6C5CE7" : "var(--fm-muted)",
+                fontSize: 12, fontWeight: 700, color: opt.trim() ? "#10b981" : "var(--fm-muted)",
                 }}>{String.fromCharCode(65 + i)}</div>
                 <input value={opt} onChange={(e) => updateOption(i, e.target.value)} placeholder={`Option ${String.fromCharCode(65 + i)}...`} style={{
                 flex: 1, padding: "10px 14px", borderRadius: 10, border: "1px solid var(--fm-border)",
@@ -276,7 +276,7 @@ return (
 
         <button onClick={analyzeDecision} disabled={loading} style={{
             width: "100%", padding: "14px", borderRadius: 14, border: "none",
-            background: loading ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: loading ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 15, fontWeight: 700,
             cursor: loading ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
             display: "flex", alignItems: "center", justifyContent: "center", gap: 10,

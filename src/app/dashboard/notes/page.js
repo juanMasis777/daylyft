@@ -4,14 +4,14 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 const noteColors = [
-{ id: "#6C5CE7", label: "Purple" },
+{ id: "#10b981", label: "Purple" },
 { id: "#00CEC9", label: "Teal" },
 { id: "#fd79a8", label: "Pink" },
 { id: "#fdcb6e", label: "Yellow" },
 { id: "#00b894", label: "Green" },
 { id: "#e17055", label: "Orange" },
 { id: "#74b9ff", label: "Blue" },
-{ id: "#a29bfe", label: "Lavender" },
+{ id: "#34d399", label: "Lavender" },
 { id: "#ff6b6b", label: "Red" },
 { id: "#636e72", label: "Gray" },
 ];
@@ -23,7 +23,7 @@ const [showAdd, setShowAdd] = useState(false);
 const [editingNote, setEditingNote] = useState(null);
 const [title, setTitle] = useState("");
 const [content, setContent] = useState("");
-const [color, setColor] = useState("#6C5CE7");
+const [color, setColor] = useState("#10b981");
 const [searchQuery, setSearchQuery] = useState("");
 const [kaiMessage, setKaiMessage] = useState("");
 const [generatingKai, setGeneratingKai] = useState(false);
@@ -82,14 +82,14 @@ setShowAdd(false);
 setEditingNote(null);
 setTitle("");
 setContent("");
-setColor("#6C5CE7");
+setColor("#10b981");
 };
 
 const openEditor = (note) => {
 setEditingNote(note);
 setTitle(note.title);
 setContent(note.content || "");
-setColor(note.color || "#6C5CE7");
+setColor(note.color || "#10b981");
 setShowAdd(true);
 };
 
@@ -159,7 +159,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeEditor(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ New Note"}</button>
     </div>
@@ -235,7 +235,7 @@ return (
         <div style={{ display: "flex", gap: 8 }}>
         <button onClick={saveNote} style={{
             flex: 1, padding: "12px", borderRadius: 12, border: "none",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
             fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingNote ? "Update Note" : "Save Note"}</button>
         <button onClick={closeEditor} style={{
@@ -250,12 +250,12 @@ return (
     {/* Kai Expand */}
     {kaiMessage && (
     <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20, marginBottom: 16,
     }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's ideas</span>
@@ -317,7 +317,7 @@ return (
                     <span style={{ fontSize: 10, color: "var(--fm-muted)" }}>{formatDate(note.updated_at)}</span>
                     <button onClick={() => expandWithKai(note.id)} disabled={generatingKai} style={{
                     padding: "4px 10px", borderRadius: 8, border: "none", fontSize: 10, fontWeight: 600,
-                    background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
+                    background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)",
                     cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
                     }}>{generatingKai ? "..." : "✦ Expand with Kai"}</button>
                 </div>
@@ -361,7 +361,7 @@ return (
                     <span style={{ fontSize: 10, color: "var(--fm-muted)" }}>{formatDate(note.updated_at)}</span>
                     <button onClick={() => expandWithKai(note.id)} disabled={generatingKai} style={{
                     padding: "4px 10px", borderRadius: 8, border: "none", fontSize: 10, fontWeight: 600,
-                    background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
+                    background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)",
                     cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
                     }}>{generatingKai ? "..." : "✦ Expand with Kai"}</button>
                 </div>

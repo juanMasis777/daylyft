@@ -97,7 +97,7 @@ return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(110px, 1fr))", gap: 10, marginBottom: 16 }}>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Streak</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#6C5CE7" : "var(--fm-muted)" }}>{streak}d</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#10b981" : "var(--fm-muted)" }}>{streak}d</div>
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Week avg</div>
@@ -126,7 +126,7 @@ return (
         width: `${percentage}%`,
         background: glasses >= goal
             ? "linear-gradient(135deg, #00CEC9, #55efc4)"
-            : "linear-gradient(135deg, #74b9ff, #a29bfe)",
+            : "linear-gradient(135deg, #74b9ff, #34d399)",
         transition: "width 0.5s ease",
         }} />
     </div>
@@ -142,7 +142,7 @@ return (
         }}>− Remove</button>
         <button onClick={addGlass} style={{
         padding: "14px 32px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #74b9ff, #6C5CE7)", color: "#fff",
+        background: "linear-gradient(135deg, #74b9ff, #10b981)", color: "#fff",
         fontSize: 15, fontWeight: 700, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         display: "inline-flex", alignItems: "center", gap: 8,
         }}>
@@ -168,7 +168,7 @@ return (
                 background: day.glasses >= 8
                 ? "linear-gradient(to top, #00CEC9, #55efc4)"
                 : day.glasses > 0
-                    ? "linear-gradient(to top, #74b9ff, #a29bfe)"
+                    ? "linear-gradient(to top, #74b9ff, #34d399)"
                     : "var(--fm-border)",
                 opacity: day.glasses > 0 ? 1 : 0.3,
                 transition: "height 0.5s ease",

@@ -25,7 +25,7 @@ stretches: [
 id: "desk",
 name: "Desk Break",
 emoji: "💻",
-color: "#6C5CE7",
+color: "#10b981",
 duration: "5 min",
 description: "Quick stretches you can do at your desk without standing up",
 stretches: [
@@ -62,7 +62,7 @@ stretches: [
 id: "evening",
 name: "Evening Wind-Down",
 emoji: "🌙",
-color: "#a29bfe",
+color: "#34d399",
 duration: "5 min",
 description: "Relaxing stretches to release tension before bed",
 stretches: [
@@ -224,7 +224,7 @@ return (
         <div style={{ fontSize: 11, color: "var(--fm-muted)" }}>Total sessions</div>
         </div>
         <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 14, padding: 20, minWidth: 100, textAlign: "center" }}>
-        <div style={{ fontSize: 28, fontWeight: 800, color: streak >= 7 ? "#00CEC9" : "#6C5CE7" }}>{streak}d</div>
+        <div style={{ fontSize: 28, fontWeight: 800, color: streak >= 7 ? "#00CEC9" : "#10b981" }}>{streak}d</div>
         <div style={{ fontSize: 11, color: "var(--fm-muted)" }}>Streak</div>
         </div>
     </div>
@@ -334,7 +334,7 @@ return (
     </div>
     <div style={{ flex: 1, background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Streak</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#6C5CE7" : "var(--fm-muted)" }}>{streak}d</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#10b981" : "var(--fm-muted)" }}>{streak}d</div>
     </div>
     <div style={{ flex: 1, background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Minutes</div>

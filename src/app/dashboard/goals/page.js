@@ -4,12 +4,12 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/lib/supabase";
 
 const timeframes = [
-{ id: "weekly", label: "This Week", emoji: "📅", color: "#6C5CE7" },
+{ id: "weekly", label: "This Week", emoji: "📅", color: "#10b981" },
 { id: "monthly", label: "This Month", emoji: "🗓", color: "#00CEC9" },
 { id: "yearly", label: "This Year", emoji: "🎯", color: "#fd79a8" },
 ];
 
-const goalColors = ["#6C5CE7", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#a29bfe", "#ff6b6b", "#55efc4"];
+const goalColors = ["#10b981", "#00CEC9", "#fd79a8", "#fdcb6e", "#00b894", "#e17055", "#74b9ff", "#34d399", "#ff6b6b", "#55efc4"];
 
 export default function GoalsPage() {
 const [goals, setGoals] = useState([]);
@@ -20,7 +20,7 @@ const [newTitle, setNewTitle] = useState("");
 const [newDescription, setNewDescription] = useState("");
 const [newTimeframe, setNewTimeframe] = useState("weekly");
 const [newTarget, setNewTarget] = useState(100);
-const [newColor, setNewColor] = useState("#6C5CE7");
+const [newColor, setNewColor] = useState("#10b981");
 const [kaiMessage, setKaiMessage] = useState("");
 const [generatingKai, setGeneratingKai] = useState(false);
 
@@ -41,7 +41,7 @@ if (!session) return;
 const { data, error } = await supabase.from("goals").insert([{ title: newTitle.trim(), description: newDescription.trim(), timeframe: newTimeframe, target: newTarget, progress: 0, status: "active", color: newColor, user_id: session.user.id }]).select();
 if (!error && data) {
     setGoals([data[0], ...goals]);
-    setNewTitle(""); setNewDescription(""); setNewTimeframe("weekly"); setNewTarget(100); setNewColor("#6C5CE7"); setShowAdd(false);
+    setNewTitle(""); setNewDescription(""); setNewTimeframe("weekly"); setNewTarget(100); setNewColor("#10b981"); setShowAdd(false);
 }
 };
 
@@ -93,7 +93,7 @@ return (
         <h2 style={{ fontSize: 20, fontWeight: 700, color: "var(--fm-text)", margin: 0 }}>Goal Setting</h2>
         <p style={{ fontSize: 13, color: "var(--fm-muted)", margin: "4px 0 0" }}>Define your weekly, monthly, and yearly goals — track progress and crush them</p>
     </div>
-    <button onClick={() => setShowAdd(!showAdd)} style={{ padding: "8px 18px", borderRadius: 10, border: "none", background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>{showAdd ? "Cancel" : "+ New Goal"}</button>
+    <button onClick={() => setShowAdd(!showAdd)} style={{ padding: "8px 18px", borderRadius: 10, border: "none", background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff", fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif" }}>{showAdd ? "Cancel" : "+ New Goal"}</button>
     </div>
 
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(130px, 1fr))", gap: 10, marginBottom: 16 }}>
@@ -149,7 +149,7 @@ return (
             </div>
         ))}
         </div>
-        <button onClick={addGoal} disabled={!newTitle.trim()} style={{ width: "100%", padding: "12px", borderRadius: 12, border: "none", background: newTitle.trim() ? "linear-gradient(135deg, #6C5CE7, #a29bfe)" : "var(--fm-muted)", color: "#fff", fontSize: 14, fontWeight: 600, cursor: newTitle.trim() ? "pointer" : "not-allowed", fontFamily: "Outfit, sans-serif" }}>Create Goal</button>
+        <button onClick={addGoal} disabled={!newTitle.trim()} style={{ width: "100%", padding: "12px", borderRadius: 12, border: "none", background: newTitle.trim() ? "linear-gradient(135deg, #10b981, #34d399)" : "var(--fm-muted)", color: "#fff", fontSize: 14, fontWeight: 600, cursor: newTitle.trim() ? "pointer" : "not-allowed", fontFamily: "Outfit, sans-serif" }}>Create Goal</button>
     </div>
     )}
 
@@ -227,9 +227,9 @@ return (
 
     {goals.length > 0 && (
     kaiMessage ? (
-        <div style={{ background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)", borderRadius: 14, padding: 20, marginTop: 16 }}>
+        <div style={{ background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)", borderRadius: 14, padding: 20, marginTop: 16 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's goal advice</span>
@@ -238,7 +238,7 @@ return (
         </div>
     ) : (
         <div style={{ textAlign: "center", marginTop: 16 }}>
-        <button onClick={generateKaiAdvice} disabled={generatingKai} style={{ padding: "14px 28px", borderRadius: 14, border: "none", background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff", fontSize: 14, fontWeight: 700, cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif", display: "inline-flex", alignItems: "center", gap: 8 }}>
+        <button onClick={generateKaiAdvice} disabled={generatingKai} style={{ padding: "14px 28px", borderRadius: 14, border: "none", background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)", color: "#fff", fontSize: 14, fontWeight: 700, cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif", display: "inline-flex", alignItems: "center", gap: 8 }}>
             {generatingKai ? (
             <>
                 <span style={{ display: "inline-block", width: 16, height: 16, border: "2px solid rgba(255,255,255,0.3)", borderTopColor: "#fff", borderRadius: "50%", animation: "spin 1s linear infinite" }} />

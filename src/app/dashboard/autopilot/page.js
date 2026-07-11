@@ -83,8 +83,8 @@ return (
     </div>
 
     <div style={{
-    background: "linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,206,201,0.08))",
-    border: "1px solid rgba(108,92,231,0.2)",
+    background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(0,206,201,0.08))",
+    border: "1px solid rgba(16,185,129,0.2)",
     borderRadius: 16, padding: 24, marginBottom: 20, textAlign: "center",
     }}>
     <div style={{ fontSize: 40, marginBottom: 12 }}>
@@ -125,7 +125,7 @@ return (
             <span style={{ fontSize: 13, color: "var(--fm-text)", flex: 1 }}>{task.title}</span>
             <span style={{
                 fontSize: 10, padding: "2px 8px", borderRadius: 10,
-                background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
+                background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)",
                 textTransform: "capitalize",
             }}>{task.category}</span>
             </div>
@@ -138,7 +138,7 @@ return (
     <div style={{ textAlign: "center", marginBottom: 20 }}>
         <button onClick={generatePlan} disabled={generating} style={{
         padding: "14px 32px", borderRadius: 14, border: "none",
-        background: generating ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: generating ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
         color: "#fff", fontSize: 15, fontWeight: 700,
         cursor: generating ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
         display: "inline-flex", alignItems: "center", gap: 8,
@@ -163,7 +163,7 @@ return (
     <div style={{ textAlign: "center", padding: 30 }}>
         <button onClick={() => window.location.href = "/dashboard/tasks"} style={{
         padding: "12px 24px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Add tasks first</button>
     </div>
@@ -178,7 +178,7 @@ return (
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 14 }}>
             <div style={{
             width: 28, height: 28, borderRadius: 7,
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: "linear-gradient(135deg, #10b981, #34d399)",
             display: "flex", alignItems: "center", justifyContent: "center",
             }}>
             <svg width="12" height="12" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
@@ -206,7 +206,7 @@ return (
         </button>
         <button onClick={() => window.location.href = "/dashboard/tasks"} style={{
             padding: "10px 20px", borderRadius: 10, border: "none",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
             fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Start working on tasks</button>
         </div>

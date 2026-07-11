@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 
 const statuses = [
-{ id: "toread", label: "To Read", emoji: "📚", color: "#6C5CE7" },
+{ id: "toread", label: "To Read", emoji: "📚", color: "#10b981" },
 { id: "reading", label: "Reading", emoji: "📖", color: "#fdcb6e" },
 { id: "finished", label: "Finished", emoji: "✅", color: "#00CEC9" },
 ];
@@ -145,7 +145,7 @@ return (
     </div>
     <button onClick={() => { if (showAdd) closeForm(); else setShowAdd(true); }} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ Add Book"}</button>
     </div>
@@ -154,7 +154,7 @@ return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: 10, marginBottom: 16 }}>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>To read</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: "#6C5CE7" }}>{toReadCount}</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: "#10b981" }}>{toReadCount}</div>
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Reading</div>
@@ -216,9 +216,9 @@ return (
             {genres.map((g) => (
                 <button key={g.id} onClick={() => setGenre(g.id)} style={{
                 padding: "5px 10px", borderRadius: 8, fontSize: 11, cursor: "pointer",
-                border: genre === g.id ? "1px solid rgba(108,92,231,0.4)" : "1px solid var(--fm-border)",
-                background: genre === g.id ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-                color: genre === g.id ? "#6C5CE7" : "var(--fm-muted)",
+                border: genre === g.id ? "1px solid rgba(16,185,129,0.4)" : "1px solid var(--fm-border)",
+                background: genre === g.id ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+                color: genre === g.id ? "#10b981" : "var(--fm-muted)",
                 fontFamily: "Outfit, sans-serif",
                 }}>{g.emoji} {g.label}</button>
             ))}
@@ -249,7 +249,7 @@ return (
 
         <button onClick={addBook} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{editingId ? "Update Book" : "Add Book"}</button>
     </div>
@@ -299,7 +299,7 @@ return (
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 8 }}>
                 <div style={{ display: "flex", gap: 6, alignItems: "center" }}>
-                <span style={{ fontSize: 10, padding: "3px 8px", borderRadius: 6, background: "rgba(108,92,231,0.1)", color: "#6C5CE7" }}>{genreInfo.emoji} {genreInfo.label}</span>
+                <span style={{ fontSize: 10, padding: "3px 8px", borderRadius: 6, background: "rgba(16,185,129,0.1)", color: "#10b981" }}>{genreInfo.emoji} {genreInfo.label}</span>
 
                 {/* Rating */}
                 <div style={{ display: "flex", gap: 2 }}>
@@ -324,7 +324,7 @@ return (
                     <>
                     <button onClick={() => moveBook(book.id, "toread")} style={{
                         padding: "4px 10px", borderRadius: 8, border: "none", fontSize: 10, fontWeight: 600,
-                        background: "rgba(108,92,231,0.1)", color: "#6C5CE7",
+                        background: "rgba(16,185,129,0.1)", color: "#10b981",
                         cursor: "pointer", fontFamily: "Outfit, sans-serif",
                     }}>Pause</button>
                     <button onClick={() => moveBook(book.id, "finished")} style={{
@@ -337,7 +337,7 @@ return (
                 {activeTab === "finished" && (
                     <button onClick={() => moveBook(book.id, "toread")} style={{
                     padding: "4px 12px", borderRadius: 8, border: "none", fontSize: 10, fontWeight: 600,
-                    background: "rgba(108,92,231,0.1)", color: "#6C5CE7",
+                    background: "rgba(16,185,129,0.1)", color: "#10b981",
                     cursor: "pointer", fontFamily: "Outfit, sans-serif",
                     }}>Re-read</button>
                 )}
@@ -352,12 +352,12 @@ return (
     {/* Kai Recommendations */}
     {kaiMessage ? (
     <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20, marginTop: 16,
     }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 10 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 24, height: 24, borderRadius: 6, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="10" height="10" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 13, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's book recommendations</span>
@@ -370,7 +370,7 @@ return (
     <div style={{ textAlign: "center", marginTop: 16 }}>
         <button onClick={getRecommendation} disabled={generatingKai} style={{
         padding: "12px 24px", borderRadius: 12, border: "none",
-        background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
         color: "#fff", fontSize: 13, fontWeight: 600,
         cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
         display: "inline-flex", alignItems: "center", gap: 8,

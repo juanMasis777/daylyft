@@ -99,7 +99,7 @@ return "#fdcb6e";
 
 const quickActions = [
 { label: "Add Task", emoji: "✅", color: "#00CEC9", path: "/dashboard/tasks" },
-{ label: "Kai Chat", emoji: "🤖", color: "#6C5CE7", path: "/dashboard/chat" },
+{ label: "Kai Chat", emoji: "🤖", color: "#10b981", path: "/dashboard/chat" },
 { label: "Pomodoro", emoji: "🍅", color: "#ff6348", path: "/dashboard/pomodoro" },
 { label: "Zen Mode", emoji: "🧘", color: "#74b9ff", path: "/dashboard/zen" },
 { label: "Journal", emoji: "📓", color: "#00b894", path: "/dashboard/journal" },
@@ -164,21 +164,21 @@ return (
     ) : (
     <>
         <div style={{
-        background: "linear-gradient(135deg, rgba(108,92,231,0.12), rgba(0,206,201,0.06))",
-        border: "1px solid rgba(108,92,231,0.2)",
+        background: "linear-gradient(135deg, rgba(16,185,129,0.12), rgba(0,206,201,0.06))",
+        border: "1px solid rgba(16,185,129,0.2)",
         borderRadius: 20, padding: 24, marginBottom: 20, position: "relative", overflow: "hidden",
         }}>
         <div style={{
             position: "absolute", top: -40, right: -40, width: 150, height: 150, borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(108,92,231,0.15) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(16,185,129,0.15) 0%, transparent 70%)",
         }} />
         <div style={{ position: "relative", zIndex: 1 }}>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 14 }}>
             <div style={{
                 width: 38, height: 38, borderRadius: 12,
-                background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+                background: "linear-gradient(135deg, #10b981, #34d399)",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                boxShadow: "0 4px 15px rgba(108,92,231,0.3)",
+                boxShadow: "0 4px 15px rgba(16,185,129,0.3)",
             }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
@@ -193,7 +193,7 @@ return (
             ) : (
             <button onClick={generateBriefing} disabled={loadingKai} style={{
                 padding: "12px 24px", borderRadius: 12, border: "none",
-                background: loadingKai ? "rgba(108,92,231,0.3)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+                background: loadingKai ? "rgba(16,185,129,0.3)" : "linear-gradient(135deg, #10b981, #34d399)",
                 color: "#fff", fontSize: 14, fontWeight: 600,
                 cursor: loadingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
                 display: "flex", alignItems: "center", gap: 8,
@@ -347,10 +347,10 @@ return (
                 <div key={event.id} style={{
                     display: "flex", alignItems: "center", gap: 10, padding: "10px 12px",
                     background: "var(--fm-card)", borderRadius: 10,
-                    borderLeft: `3px solid ${event.color || "#6C5CE7"}`,
+                    borderLeft: `3px solid ${event.color || "#10b981"}`,
                 }}>
                     <div style={{
-                    fontSize: 13, fontWeight: 700, color: event.color || "#6C5CE7",
+                    fontSize: 13, fontWeight: 700, color: event.color || "#10b981",
                     minWidth: 50,
                     }}>{event.start_time?.slice(0, 5)}</div>
                     <div>

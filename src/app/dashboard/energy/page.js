@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 
 const energyLevels = [
 { value: 5, label: "Peak", emoji: "🔥", color: "#00CEC9" },
-{ value: 4, label: "High", emoji: "⚡", color: "#6C5CE7" },
+{ value: 4, label: "High", emoji: "⚡", color: "#10b981" },
 { value: 3, label: "Medium", emoji: "🙂", color: "#fdcb6e" },
 { value: 2, label: "Low", emoji: "😴", color: "#e17055" },
 { value: 1, label: "Drained", emoji: "💤", color: "#ff6b6b" },
@@ -85,7 +85,7 @@ return energyLevels.find((e) => e.value === value) || energyLevels[2];
 const getBarColor = (value) => {
 if (!value) return "var(--fm-border)";
 if (value >= 5) return "#00CEC9";
-if (value >= 4) return "#6C5CE7";
+if (value >= 4) return "#10b981";
 if (value >= 3) return "#fdcb6e";
 if (value >= 2) return "#e17055";
 return "#ff6b6b";
@@ -217,8 +217,8 @@ return (
         return (
             <div key={h} style={{
             display: "flex", alignItems: "center", gap: 10, padding: "8px 12px",
-            background: isCurrentHour(h) ? "rgba(108,92,231,0.08)" : "var(--fm-card)",
-            border: isCurrentHour(h) ? "1px solid rgba(108,92,231,0.2)" : "1px solid var(--fm-border)",
+            background: isCurrentHour(h) ? "rgba(16,185,129,0.08)" : "var(--fm-card)",
+            border: isCurrentHour(h) ? "1px solid rgba(16,185,129,0.2)" : "1px solid var(--fm-border)",
             borderRadius: 10,
             }}>
             <div style={{
@@ -309,11 +309,11 @@ return (
     {loggedCount >= 3 && (
     kaiMessage ? (
         <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20,
         }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's energy insight</span>
@@ -324,7 +324,7 @@ return (
         <div style={{ textAlign: "center" }}>
         <button onClick={generateKaiInsight} disabled={generatingKai} style={{
             padding: "14px 28px", borderRadius: 14, border: "none",
-            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 14, fontWeight: 700,
             cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
             display: "inline-flex", alignItems: "center", gap: 8,
@@ -349,7 +349,7 @@ return (
     {loggedCount < 3 && (
     <div style={{
         textAlign: "center", padding: 20,
-        background: "rgba(108,92,231,0.05)", border: "1px solid rgba(108,92,231,0.1)",
+        background: "rgba(16,185,129,0.05)", border: "1px solid rgba(16,185,129,0.1)",
         borderRadius: 14, fontSize: 13, color: "var(--fm-muted)",
     }}>
         Log at least 3 hours of energy to unlock Kai's personalized insight

@@ -144,8 +144,8 @@ return (
         {[5, 10, 15, 20, 30].map((m) => (
         <button key={m} onClick={() => startTimer(m)} style={{
             padding: "8px 16px", borderRadius: 10, fontSize: 13, fontWeight: 500,
-            border: timerPreset === m && timerRunning ? "1px solid rgba(108,92,231,0.3)" : "1px solid var(--fm-border)",
-            background: timerPreset === m && timerRunning ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
+            border: timerPreset === m && timerRunning ? "1px solid rgba(16,185,129,0.3)" : "1px solid var(--fm-border)",
+            background: timerPreset === m && timerRunning ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
             color: timerPreset === m && timerRunning ? "var(--fm-accent-light)" : "var(--fm-text)",
             cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>{m} min</button>
@@ -169,8 +169,8 @@ return (
     <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(160px, 1fr))", gap: 10 }}>
         {sounds.map((s) => (
         <div key={s.id} style={{
-            background: playing[s.id] ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            border: playing[s.id] ? "1px solid rgba(108,92,231,0.3)" : "1px solid var(--fm-border)",
+            background: playing[s.id] ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            border: playing[s.id] ? "1px solid rgba(16,185,129,0.3)" : "1px solid var(--fm-border)",
             borderRadius: 12, padding: 14, cursor: "pointer", transition: "all 0.2s ease",
         }}>
             <div onClick={() => toggleSound(s.id, s.file)} style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 10, cursor: "pointer" }}>
@@ -187,7 +187,7 @@ return (
             min="0" max="1" step="0.05"
             value={volumes[s.id] || 0.5}
             onChange={(e) => changeVolume(s.id, parseFloat(e.target.value))}
-            style={{ width: "100%", accentColor: "#6C5CE7" }}
+            style={{ width: "100%", accentColor: "#10b981" }}
             />
         </div>
         ))}
@@ -201,8 +201,8 @@ return (
         <div style={{ textAlign: "center", padding: 20 }}>
         <div style={{
             width: 120, height: 120, borderRadius: "50%", margin: "0 auto 16px",
-            background: breathPhase === "Breathe in..." ? "rgba(108,92,231,0.2)" : breathPhase === "Hold..." ? "rgba(0,206,201,0.2)" : "rgba(253,121,168,0.2)",
-            border: `2px solid ${breathPhase === "Breathe in..." ? "#6C5CE7" : breathPhase === "Hold..." ? "#00CEC9" : "#fd79a8"}`,
+            background: breathPhase === "Breathe in..." ? "rgba(16,185,129,0.2)" : breathPhase === "Hold..." ? "rgba(0,206,201,0.2)" : "rgba(253,121,168,0.2)",
+            border: `2px solid ${breathPhase === "Breathe in..." ? "#10b981" : breathPhase === "Hold..." ? "#00CEC9" : "#fd79a8"}`,
             display: "flex", alignItems: "center", justifyContent: "center",
             transition: "all 0.5s ease",
             transform: breathPhase === "Breathe in..." ? "scale(1.2)" : breathPhase === "Hold..." ? "scale(1.2)" : "scale(0.8)",
@@ -223,7 +223,7 @@ return (
         </p>
         <button onClick={() => setBreathing(true)} style={{
             padding: "12px 24px", borderRadius: 12, border: "none",
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
             fontSize: 14, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Start breathing exercise</button>
         </div>

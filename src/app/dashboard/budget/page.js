@@ -5,11 +5,11 @@ import { supabase } from "@/lib/supabase";
 
 const expenseCategories = [
 { id: "food", label: "Food & Drinks", emoji: "🍔", color: "#e17055" },
-{ id: "transport", label: "Transport", emoji: "🚗", color: "#6C5CE7" },
+{ id: "transport", label: "Transport", emoji: "🚗", color: "#10b981" },
 { id: "shopping", label: "Shopping", emoji: "🛍", color: "#fd79a8" },
 { id: "bills", label: "Bills & Utilities", emoji: "💡", color: "#fdcb6e" },
 { id: "health", label: "Health", emoji: "💊", color: "#00CEC9" },
-{ id: "entertainment", label: "Entertainment", emoji: "🎬", color: "#a29bfe" },
+{ id: "entertainment", label: "Entertainment", emoji: "🎬", color: "#34d399" },
 { id: "education", label: "Education", emoji: "📚", color: "#74b9ff" },
 { id: "subscriptions", label: "Subscriptions", emoji: "📱", color: "#ff6b6b" },
 { id: "savings", label: "Savings", emoji: "🏦", color: "#00b894" },
@@ -18,7 +18,7 @@ const expenseCategories = [
 
 const incomeCategories = [
 { id: "salary", label: "Salary", emoji: "💼", color: "#00CEC9" },
-{ id: "freelance", label: "Freelance", emoji: "💻", color: "#6C5CE7" },
+{ id: "freelance", label: "Freelance", emoji: "💻", color: "#10b981" },
 { id: "business", label: "Business", emoji: "🏪", color: "#00b894" },
 { id: "investment", label: "Investment", emoji: "📈", color: "#fdcb6e" },
 { id: "gift", label: "Gift", emoji: "🎁", color: "#fd79a8" },
@@ -174,7 +174,7 @@ return (
     </div>
     <button onClick={() => setShowAdd(!showAdd)} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ Add"}</button>
     </div>
@@ -300,7 +300,7 @@ return (
 
         <button onClick={addEntry} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: "linear-gradient(135deg, #10b981, #34d399)",
         color: "#fff", fontSize: 14, fontWeight: 600,
         cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}>Add {type === "expense" ? "Expense" : "Income"}</button>
@@ -402,11 +402,11 @@ return (
     {entries.length >= 3 && (
     kaiMessage ? (
         <div style={{
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         borderRadius: 14, padding: 20,
         }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 10 }}>
-            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 26, height: 26, borderRadius: 7, background: "linear-gradient(135deg, #10b981, #34d399)", display: "flex", alignItems: "center", justifyContent: "center" }}>
             <svg width="11" height="11" viewBox="0 0 24 24" fill="white"><path d="M12 0L14.59 8.41L23 12L14.59 15.59L12 24L9.41 15.59L1 12L9.41 8.41Z" /></svg>
             </div>
             <span style={{ fontSize: 14, fontWeight: 600, color: "var(--fm-accent-light)" }}>Kai's budget insight</span>
@@ -417,7 +417,7 @@ return (
         <div style={{ textAlign: "center" }}>
         <button onClick={generateKaiInsight} disabled={generatingKai} style={{
             padding: "14px 28px", borderRadius: 14, border: "none",
-            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: generatingKai ? "var(--fm-muted)" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 14, fontWeight: 700,
             cursor: generatingKai ? "not-allowed" : "pointer", fontFamily: "Outfit, sans-serif",
             display: "inline-flex", alignItems: "center", gap: 8,
@@ -442,7 +442,7 @@ return (
     {entries.length < 3 && entries.length > 0 && (
     <div style={{
         textAlign: "center", padding: 16,
-        background: "rgba(108,92,231,0.05)", border: "1px solid rgba(108,92,231,0.1)",
+        background: "rgba(16,185,129,0.05)", border: "1px solid rgba(16,185,129,0.1)",
         borderRadius: 14, fontSize: 13, color: "var(--fm-muted)",
     }}>
         Add at least 3 transactions to unlock Kai's budget analysis

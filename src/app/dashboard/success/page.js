@@ -6,7 +6,7 @@ return (
     <div style={{ textAlign: "center", maxWidth: 500, padding: 20 }}>
     <div style={{
         width: 80, height: 80, borderRadius: "50%", margin: "0 auto 24px",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: "linear-gradient(135deg, #10b981, #34d399)",
         display: "flex", alignItems: "center", justifyContent: "center",
     }}>
         <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5">
@@ -55,7 +55,7 @@ return (
         onClick={() => window.location.href = "/dashboard"}
         style={{
         padding: "14px 40px", borderRadius: 14, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 16, fontWeight: 700, cursor: "pointer", fontFamily: "Outfit, sans-serif",
         }}
     >

@@ -2,14 +2,14 @@
 
 export default function AboutPage() {
 return (
-<div style={{ minHeight: "100vh", background: "#0a0a12", fontFamily: "'Outfit', sans-serif", padding: "60px 24px" }}>
+<div style={{ minHeight: "100vh", background: "#080d0b", fontFamily: "'Outfit', sans-serif", padding: "60px 24px" }}>
     <div style={{ maxWidth: 700, margin: "0 auto" }}>
-    <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#6C5CE7", textDecoration: "none", fontSize: 14, marginBottom: 32 }}>← Back to DayLyft</a>
+    <a href="/" style={{ display: "inline-flex", alignItems: "center", gap: 8, color: "#10b981", textDecoration: "none", fontSize: 14, marginBottom: 32 }}>← Back to DayLyft</a>
 
     <div style={{ textAlign: "center", marginBottom: 48 }}>
         <div style={{
         width: 80, height: 80, borderRadius: 22, margin: "0 auto 20px",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: "linear-gradient(135deg, #10b981, #34d399)",
         display: "flex", alignItems: "center", justifyContent: "center",
         }}>
         <svg width={36} height={36} viewBox="0 0 24 24" fill="none">
@@ -38,14 +38,14 @@ return (
 
         <div style={{
         marginTop: 40, padding: 24, borderRadius: 16,
-        background: "rgba(108,92,231,0.08)", border: "1px solid rgba(108,92,231,0.15)",
+        background: "rgba(16,185,129,0.08)", border: "1px solid rgba(16,185,129,0.15)",
         textAlign: "center",
         }}>
         <div style={{ fontSize: 24, marginBottom: 12 }}>🚀</div>
         <div style={{ fontSize: 18, fontWeight: 700, color: "#fff", marginBottom: 8 }}>40+ features. One app. Free to start.</div>
         <a href="/login" style={{
             display: "inline-block", marginTop: 12, padding: "12px 28px", borderRadius: 12,
-            background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+            background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
             fontSize: 14, fontWeight: 600, textDecoration: "none",
         }}>Get Started Free</a>
         </div>

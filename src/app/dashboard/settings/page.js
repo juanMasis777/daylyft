@@ -6,8 +6,8 @@ import { useTheme } from "@/context/ThemeContext";
 import { supabase } from "@/lib/supabase";
 
 const themes = [
-{ id: "midnight", label: "Midnight", color: "#0a0a12", accent: "#6C5CE7", free: true },
-{ id: "snow", label: "Snow", color: "#f5f6fa", accent: "#6C5CE7", free: true },
+{ id: "midnight", label: "Midnight", color: "#080d0b", accent: "#10b981", free: true },
+{ id: "snow", label: "Snow", color: "#f5f6fa", accent: "#10b981", free: true },
 { id: "ocean", label: "Ocean", color: "#0a1628", accent: "#00CEC9", free: true },
 { id: "forest", label: "Forest", color: "#0a1410", accent: "#00b894", free: false },
 { id: "rose", label: "Rose", color: "#1a0a14", accent: "#fd79a8", free: false },
@@ -146,7 +146,7 @@ return (
         <div style={{ fontSize: 13, color: "var(--fm-muted)" }}>{userEmail}</div>
         <div style={{
             marginTop: 4, fontSize: 11, padding: "2px 10px", borderRadius: 6,
-            background: "rgba(108,92,231,0.1)", color: "var(--fm-accent-light)",
+            background: "rgba(16,185,129,0.1)", color: "var(--fm-accent-light)",
             display: "inline-block",
         }}>Free plan</div>
         </div>
@@ -155,8 +155,8 @@ return (
 
     {/* ✅ NEW — Upgrade to Pro Card */}
     <div style={{
-    background: "linear-gradient(135deg, rgba(108,92,231,0.15), rgba(162,155,254,0.08))",
-    border: "1px solid rgba(108,92,231,0.4)",
+    background: "linear-gradient(135deg, rgba(16,185,129,0.15), rgba(52,211,153,0.08))",
+    border: "1px solid rgba(16,185,129,0.4)",
     borderRadius: 16, padding: 20, marginBottom: 16,
     position: "relative", overflow: "hidden",
     }}>
@@ -164,14 +164,14 @@ return (
     <div style={{
         position: "absolute", top: -40, right: -40,
         width: 140, height: 140, borderRadius: "50%",
-        background: "radial-gradient(circle, rgba(108,92,231,0.3), transparent)",
+        background: "radial-gradient(circle, rgba(16,185,129,0.3), transparent)",
         pointerEvents: "none",
     }} />
 
     <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
         <div style={{
         padding: "3px 10px", borderRadius: 6,
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: "linear-gradient(135deg, #10b981, #34d399)",
         fontSize: 10, fontWeight: 800, color: "#fff", letterSpacing: 0.5,
         }}>PRO</div>
         <div style={{ fontSize: 15, fontWeight: 700, color: "var(--fm-text)" }}>
@@ -188,12 +188,12 @@ return (
         disabled={upgrading}
         style={{
             padding: "11px 20px", borderRadius: 10, border: "none",
-            background: upgrading ? "#555" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+            background: upgrading ? "#555" : "linear-gradient(135deg, #10b981, #34d399)",
             color: "#fff", fontSize: 13, fontWeight: 700,
             cursor: upgrading ? "not-allowed" : "pointer",
             fontFamily: "Outfit, sans-serif",
             display: "flex", alignItems: "center", gap: 8,
-            boxShadow: upgrading ? "none" : "0 4px 14px rgba(108,92,231,0.35)",
+            boxShadow: upgrading ? "none" : "0 4px 14px rgba(16,185,129,0.35)",
             transition: "all 0.2s",
         }}
         >
@@ -250,7 +250,7 @@ return (
             <div style={{
                 position: "absolute", top: 8, right: 8,
                 fontSize: 9, padding: "2px 6px", borderRadius: 4,
-                background: "rgba(108,92,231,0.15)", color: "var(--fm-accent-light)",
+                background: "rgba(16,185,129,0.15)", color: "var(--fm-accent-light)",
             }}>PRO</div>
             )}
             {theme === t.id && (

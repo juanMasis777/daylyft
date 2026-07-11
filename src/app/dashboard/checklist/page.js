@@ -160,7 +160,7 @@ return (
     </div>
     <button onClick={() => setShowAdd(!showAdd)} style={{
         padding: "8px 18px", borderRadius: 10, border: "none",
-        background: "linear-gradient(135deg, #6C5CE7, #a29bfe)", color: "#fff",
+        background: "linear-gradient(135deg, #10b981, #34d399)", color: "#fff",
         fontSize: 13, fontWeight: 600, cursor: "pointer", fontFamily: "Outfit, sans-serif",
     }}>{showAdd ? "Cancel" : "+ Add"}</button>
     </div>
@@ -182,7 +182,7 @@ return (
     </div>
     <div style={{ background: "var(--fm-surface)", border: "1px solid var(--fm-border)", borderRadius: 12, padding: 14, textAlign: "center" }}>
         <div style={{ fontSize: 11, color: "var(--fm-muted)", marginBottom: 4 }}>Streak</div>
-        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#6C5CE7" : "var(--fm-muted)" }}>{streak}d</div>
+        <div style={{ fontSize: 24, fontWeight: 700, color: streak >= 7 ? "#00CEC9" : streak >= 3 ? "#10b981" : "var(--fm-muted)" }}>{streak}d</div>
         {streak >= 7 && <div style={{ fontSize: 10, color: "#00CEC9" }}>On fire!</div>}
     </div>
     </div>
@@ -191,7 +191,7 @@ return (
     <div style={{ background: "var(--fm-card)", borderRadius: 8, height: 8, marginBottom: 16, overflow: "hidden" }}>
     <div style={{
         height: "100%", borderRadius: 8, width: `${totalPct}%`,
-        background: totalPct === 100 ? "linear-gradient(135deg, #00CEC9, #55efc4)" : "linear-gradient(135deg, #6C5CE7, #a29bfe)",
+        background: totalPct === 100 ? "linear-gradient(135deg, #00CEC9, #55efc4)" : "linear-gradient(135deg, #10b981, #34d399)",
         transition: "width 0.5s ease",
     }} />
     </div>
@@ -240,14 +240,14 @@ return (
             <div key={e} onClick={() => setNewEmoji(e)} style={{
             width: 36, height: 36, borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center",
             fontSize: 18, cursor: "pointer",
-            background: newEmoji === e ? "rgba(108,92,231,0.1)" : "var(--fm-card)",
-            border: newEmoji === e ? "1px solid rgba(108,92,231,0.3)" : "1px solid var(--fm-border)",
+            background: newEmoji === e ? "rgba(16,185,129,0.1)" : "var(--fm-card)",
+            border: newEmoji === e ? "1px solid rgba(16,185,129,0.3)" : "1px solid var(--fm-border)",
             }}>{e}</div>
         ))}
         </div>
         <button onClick={addItem} disabled={!newTitle.trim()} style={{
         width: "100%", padding: "12px", borderRadius: 12, border: "none",
-        background: newTitle.trim() ? "linear-gradient(135deg, #6C5CE7, #a29bfe)" : "var(--fm-muted)",
+        background: newTitle.trim() ? "linear-gradient(135deg, #10b981, #34d399)" : "var(--fm-muted)",
         color: "#fff", fontSize: 14, fontWeight: 600,
         cursor: newTitle.trim() ? "pointer" : "not-allowed", fontFamily: "Outfit, sans-serif",
         }}>Add to {activeTab} routine</button>
@@ -268,7 +268,7 @@ return (
             <div onClick={() => toggleFn(item.id)} style={{
             width: 24, height: 24, borderRadius: 7, cursor: "pointer", flexShrink: 0,
             border: checked ? "none" : "2px solid var(--fm-muted)",
-            background: checked ? (activeTab === "morning" ? "linear-gradient(135deg, #fdcb6e, #ffeaa7)" : "linear-gradient(135deg, #74b9ff, #a29bfe)") : "transparent",
+            background: checked ? (activeTab === "morning" ? "linear-gradient(135deg, #fdcb6e, #ffeaa7)" : "linear-gradient(135deg, #74b9ff, #34d399)") : "transparent",
             display: "flex", alignItems: "center", justifyContent: "center",
             transition: "all 0.2s ease",
             }}>
